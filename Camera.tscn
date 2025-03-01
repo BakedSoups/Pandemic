@@ -1,0 +1,51 @@
+[gd_scene load_steps=8 format=3 uid="uid://ch35nc60niedd"]
+
+[ext_resource type="Script" path="res://planet.gd" id="1_b3wkx"]
+[ext_resource type="Script" path="res://camera_collison.gd" id="2_d5k5w"]
+[ext_resource type="PackedScene" uid="uid://c1ml4yvlgnbbv" path="res://addons/naejimer_3d_planet_generator/scenes/planet_gaseous.tscn" id="2_qtl3p"]
+[ext_resource type="PackedScene" uid="uid://uqeq21uwlr4n" path="res://city.tscn" id="3_5o1rc"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_k6n8u"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_3yuvx"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_xstv6"]
+
+[node name="Camera" type="Node3D"]
+script = ExtResource("1_b3wkx")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
+shadow_enabled = true
+
+[node name="example planet" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, 0)
+mesh = SubResource("BoxMesh_k6n8u")
+
+[node name="cameraOrigin" type="Node3D" parent="."]
+
+[node name="SpringArm3D" type="SpringArm3D" parent="cameraOrigin"]
+shape = SubResource("SphereShape3D_3yuvx")
+spring_length = 80.0
+
+[node name="Camera3D" type="Camera3D" parent="cameraOrigin/SpringArm3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 65)
+
+[node name="PlanetGaseous" parent="." instance=ExtResource("2_qtl3p")]
+transform = Transform3D(49.8388, 0, 4.01128, 0, 50, 0, -4.01128, 0, 49.8388, 0, 0, 0)
+
+[node name="Node3D" parent="." instance=ExtResource("3_5o1rc")]
+transform = Transform3D(25, 0, 0, 0, 25, 0, 0, 0, 25, -1, 2.33708, 24)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 65)
+axis_lock_linear_x = true
+axis_lock_linear_y = true
+axis_lock_linear_z = true
+axis_lock_angular_x = true
+axis_lock_angular_y = true
+axis_lock_angular_z = true
+script = ExtResource("2_d5k5w")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+shape = SubResource("BoxShape3D_xstv6")
