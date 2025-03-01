@@ -1,0 +1,5 @@
+MeshInstance3D
+RigidBody3D
+GridMap
+Camera3D
+CollisionShape3D

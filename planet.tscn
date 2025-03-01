@@ -1,0 +1,53 @@
+[gd_scene load_steps=9 format=3 uid="uid://couhej0vwhjik"]
+
+[ext_resource type="PackedScene" uid="uid://ctkf0fulvi8dx" path="res://assets/planet/planet_earth.glb" id="1_tckca"]
+[ext_resource type="MeshLibrary" uid="uid://bfchqcqqoh2oj" path="res://tiles/urban_building_tiles.tres" id="2_dh102"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_gb1n6"]
+sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+
+[sub_resource type="Sky" id="Sky_0dt0r"]
+sky_material = SubResource("ProceduralSkyMaterial_gb1n6")
+
+[sub_resource type="Environment" id="Environment_dkp2a"]
+background_mode = 2
+sky = SubResource("Sky_0dt0r")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_xeahy"]
+radius = 0.493302
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_5bwtn"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_n46nd"]
+
+[node name="Planet" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_dkp2a")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 0, 0)
+shadow_enabled = true
+
+[node name="planet_body" type="RigidBody3D" parent="."]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="planet_body"]
+shape = SubResource("SphereShape3D_xeahy")
+
+[node name="Sketchfab_Scene" parent="planet_body" instance=ExtResource("1_tckca")]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, -0.646378, 0)
+
+[node name="Camera3D" type="Camera3D" parent="planet_body"]
+transform = Transform3D(0.1, 0, 0, 0, 0.0846927, 0.0531709, 0, -0.0531709, 0.0846927, -0.00782347, 0.766376, 1.27875)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="planet_body"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.000100899, 0.00209737, 0.000662041)
+material_override = SubResource("ShaderMaterial_5bwtn")
+mesh = SubResource("SphereMesh_n46nd")
+
+[node name="GridMap" type="GridMap" parent="."]
+mesh_library = ExtResource("2_dh102")

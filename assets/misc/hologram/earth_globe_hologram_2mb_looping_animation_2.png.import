@@ -1,0 +1,38 @@
+[remap]
+
+importer="texture"
+type="CompressedTexture2D"
+uid="uid://dppirhvwb6vcu"
+path.s3tc="res://.godot/imported/earth_globe_hologram_2mb_looping_animation_2.png-2ac4695590dbc5b5eb6a578ccc6a409c.s3tc.ctex"
+metadata={
+"imported_formats": ["s3tc_bptc"],
+"vram_texture": true
+}
+generator_parameters={
+"md5": "e6721d3854e5aba3f3557fd976e89f24"
+}
+
+[deps]
+
+source_file="res://assets/misc/hologram/earth_globe_hologram_2mb_looping_animation_2.png"
+dest_files=["res://.godot/imported/earth_globe_hologram_2mb_looping_animation_2.png-2ac4695590dbc5b5eb6a578ccc6a409c.s3tc.ctex"]
+
+[params]
+
+compress/mode=2
+compress/high_quality=false
+compress/lossy_quality=0.7
+compress/hdr_compression=1
+compress/normal_map=0
+compress/channel_pack=0
+mipmaps/generate=true
+mipmaps/limit=-1
+roughness/mode=0
+roughness/src_normal=""
+process/fix_alpha_border=true
+process/premult_alpha=false
+process/normal_map_invert_y=false
+process/hdr_as_srgb=false
+process/hdr_clamp_exposure=false
+process/size_limit=0
+detect_3d/compress_to=0

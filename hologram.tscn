@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://bausq30ll0efa"]
+
+[ext_resource type="PackedScene" uid="uid://cw5donsl0jpte" path="res://assets/misc/earth_globe_hologram_2mb_looping_animation.glb" id="1_pmk6t"]
+
+[node name="Hologram" type="Node3D"]
+
+[node name="Sketchfab_Scene" parent="." instance=ExtResource("1_pmk6t")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00466979, 2.01518, -0.00852442)
