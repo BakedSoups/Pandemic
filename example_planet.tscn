@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://b407p268tol3k"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_k6n8u"]
+
+[node name="example planet" type="MeshInstance3D"]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, 0)
+mesh = SubResource("BoxMesh_k6n8u")

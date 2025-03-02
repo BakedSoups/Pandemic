@@ -1,14 +1,13 @@
 [gd_scene load_steps=16 format=3 uid="uid://ch35nc60niedd"]
 
 [ext_resource type="Script" path="res://planet.gd" id="1_b3wkx"]
+[ext_resource type="PackedScene" uid="uid://b407p268tol3k" path="res://example_planet.tscn" id="2_3l8rp"]
 [ext_resource type="PackedScene" uid="uid://c1ml4yvlgnbbv" path="res://addons/naejimer_3d_planet_generator/scenes/planet_gaseous.tscn" id="2_qtl3p"]
 [ext_resource type="PackedScene" uid="uid://uqeq21uwlr4n" path="res://city.tscn" id="3_5o1rc"]
 [ext_resource type="Shader" path="res://Space_shader.gdshader" id="4_bshir"]
 [ext_resource type="PackedScene" uid="uid://bntmcluis2mxc" path="res://Planet.tscn" id="5_ebvm7"]
 [ext_resource type="Shader" path="res://pixelated.gdshader" id="6_h7tmu"]
 [ext_resource type="Shader" path="res://dream.gdshader" id="7_mfnuq"]
-
-[sub_resource type="BoxMesh" id="BoxMesh_k6n8u"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_3yuvx"]
 
@@ -53,9 +52,7 @@ script = ExtResource("1_b3wkx")
 transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
 shadow_enabled = true
 
-[node name="example planet" type="MeshInstance3D" parent="."]
-transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, 0)
-mesh = SubResource("BoxMesh_k6n8u")
+[node name="example planet" parent="." instance=ExtResource("2_3l8rp")]
 
 [node name="cameraOrigin" type="Node3D" parent="."]
 
@@ -79,7 +76,7 @@ visible = false
 transform = Transform3D(25, 0, 0, 0, 25, 0, 0, 0, 25, -1, 2.33708, 24)
 
 [node name="ny" parent="." instance=ExtResource("3_5o1rc")]
-transform = Transform3D(25, 0, 0, 0, 25, 0, 0, 0, 25, -12.2525, 10.4966, -15.2995)
+transform = Transform3D(25, 0, 0, 0, 25, 0, 0, 0, 25, -4.55323, 4.19333, -16.072)
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_6p80e")

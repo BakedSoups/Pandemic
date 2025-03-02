@@ -1,0 +1,22 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://coh1g1bcyrdvs"
+path="res://.godot/imported/SC_Bld_CapitolBuilding.obj-5f2a425fe9643bdf11fe1ff8611cd8ca.mesh"
+
+[deps]
+
+files=["res://.godot/imported/SC_Bld_CapitolBuilding.obj-5f2a425fe9643bdf11fe1ff8611cd8ca.mesh"]
+
+source_file="res://assets/SC_Bld_CapitolBuilding.obj"
+dest_files=["res://.godot/imported/SC_Bld_CapitolBuilding.obj-5f2a425fe9643bdf11fe1ff8611cd8ca.mesh", "res://.godot/imported/SC_Bld_CapitolBuilding.obj-5f2a425fe9643bdf11fe1ff8611cd8ca.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
+force_disable_mesh_compression=false

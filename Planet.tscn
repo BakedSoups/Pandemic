@@ -1,13 +1,23 @@
-[gd_scene load_steps=14 format=3 uid="uid://bntmcluis2mxc"]
+[gd_scene load_steps=29 format=3 uid="uid://bntmcluis2mxc"]
 
 [ext_resource type="Shader" path="res://ocean.gdshader" id="1_vnr4k"]
+[ext_resource type="ArrayMesh" uid="uid://dx2hi4du67js0" path="res://addons/uploads_files_2883006_Lowpoly+Earth.obj" id="2_ifpkx"]
+[ext_resource type="PackedScene" uid="uid://bhjwk4cvx4bvi" path="res://sf.tscn" id="3_rnh00"]
+[ext_resource type="PackedScene" uid="uid://dthy3ojs6ii2o" path="res://paris.tscn" id="4_j8wxe"]
+[ext_resource type="PackedScene" uid="uid://cv4w6gm5c78vk" path="res://chicago.tscn" id="4_jtic1"]
+[ext_resource type="PackedScene" uid="uid://bk2f2qhnfndul" path="res://london.tscn" id="5_7sfcj"]
+[ext_resource type="PackedScene" uid="uid://byylr7a18fnj" path="res://miami.tscn" id="6_lyypr"]
+[ext_resource type="PackedScene" uid="uid://c5bswetikprta" path="res://washington.tscn" id="7_f1y4w"]
+[ext_resource type="PackedScene" uid="uid://dal2rn4ri4l0v" path="res://nyc.tscn" id="9_i2yju"]
 
 [sub_resource type="Gradient" id="Gradient_51fra"]
-offsets = PackedFloat32Array(0.128788, 0.563131, 0.661616, 0.742424, 1)
+interpolation_mode = 2
+offsets = PackedFloat32Array(0.236934, 0.538328, 0.661616, 0.719512, 1)
 colors = PackedColorArray(0, 0, 0, 1, 0.593038, 0.593038, 0.593038, 1, 0.550505, 0.550505, 0.550505, 1, 0.59596, 0.59596, 0.59596, 1, 1, 1, 1, 1)
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_w1fp2"]
-frequency = 0.0132
+frequency = 0.0099
+offset = Vector3(20.41, 0, 0)
 fractal_octaves = 8
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_rado1"]
@@ -16,12 +26,12 @@ in_3d_space = true
 seamless = true
 seamless_blend_skirt = 1.0
 as_normal_map = true
-bump_strength = 2.1
-normalize = false
+bump_strength = 1.8
 color_ramp = SubResource("Gradient_51fra")
 noise = SubResource("FastNoiseLite_w1fp2")
 
 [sub_resource type="Gradient" id="Gradient_cencu"]
+offsets = PackedFloat32Array(0.132404, 1)
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_4lnyg"]
 seed = 2
@@ -34,7 +44,7 @@ noise = SubResource("FastNoiseLite_4lnyg")
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_mn4gk"]
 render_priority = -128
 shader = ExtResource("1_vnr4k")
-shader_parameter/uAlbedo = Color(0.205349, 0.374561, 0.971529, 1)
+shader_parameter/uAlbedo = Color(0.172912, 0.332356, 0.961214, 1)
 shader_parameter/uNormalMix = 0.2
 shader_parameter/uWaveDirection = Vector2(1, 0)
 shader_parameter/uWaveDirection2 = Vector2(0, 1)
@@ -45,25 +55,41 @@ shader_parameter/uTexureNormal2 = SubResource("NoiseTexture2D_6w0xr")
 
 [sub_resource type="SphereMesh" id="SphereMesh_vymnm"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_k24pk"]
+[sub_resource type="ORMMaterial3D" id="ORMMaterial3D_u7gbt"]
+vertex_color_use_as_albedo = true
+albedo_color = Color(0.992297, 0.858891, 0.637573, 1)
 
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_42iek"]
+[sub_resource type="ORMMaterial3D" id="ORMMaterial3D_0wvsp"]
+vertex_color_use_as_albedo = true
+albedo_color = Color(0.209877, 0.601677, 0.255003, 1)
 
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_ydcrb"]
-noise = SubResource("FastNoiseLite_42iek")
+[sub_resource type="ORMMaterial3D" id="ORMMaterial3D_3klnw"]
+albedo_color = Color(0.454024, 0.729119, 0.27334, 1)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_fspau"]
-render_priority = 0
-shader = ExtResource("1_vnr4k")
-shader_parameter/uAlbedo = Color(0, 0, 0.8, 1)
-shader_parameter/uNormalMix = 0.2
-shader_parameter/uWaveDirection = Vector2(1, 0)
-shader_parameter/uWaveDirection2 = Vector2(0, 1)
-shader_parameter/uTimeScale = 0.0015
-shader_parameter/uWaveScale = 1.6
-shader_parameter/uTexureNormal = SubResource("NoiseTexture2D_ydcrb")
+[sub_resource type="ORMMaterial3D" id="ORMMaterial3D_l83pa"]
+albedo_color = Color(0.286275, 0.756863, 1, 1)
+
+[sub_resource type="ORMMaterial3D" id="ORMMaterial3D_jpl6t"]
+albedo_color = Color(0.168627, 0.647059, 1, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0p21m"]
+vertex_color_use_as_albedo = true
+
+[sub_resource type="ORMMaterial3D" id="ORMMaterial3D_d56kw"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rt7bu"]
+albedo_color = Color(0.105359, 0.321719, 0, 1)
+
+[sub_resource type="ORMMaterial3D" id="ORMMaterial3D_6davj"]
+albedo_color = Color(0, 0.583555, 0.287459, 1)
+
+[sub_resource type="ORMMaterial3D" id="ORMMaterial3D_a7dou"]
+albedo_color = Color(0.233068, 0.495554, 0.158237, 1)
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_l1f1n"]
 
 [node name="Node3D" type="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.067421, 0.343822, 0.331932)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(12.3468, 0, -46.0789, 0, 47.7044, 0, 46.0789, 0, 12.3468, 0, 0, 0)
@@ -71,19 +97,49 @@ material_override = SubResource("ShaderMaterial_mn4gk")
 gi_lightmap_scale = 1
 mesh = SubResource("SphereMesh_vymnm")
 
-[node name="Camera3D" type="Camera3D" parent="MeshInstance3D"]
-transform = Transform3D(0.0222222, 0, 0, 0, 0.0222222, 0, 0, 0, 0.0222222, -3.16892, 0, 0)
+[node name="UploadsFiles2883006Lowpoly+earth" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.47, 0, 0, 0, 0.47, 0, 0, 0, 0.47, 0, 0, 0)
+mesh = ExtResource("2_ifpkx")
+surface_material_override/0 = SubResource("ORMMaterial3D_u7gbt")
+surface_material_override/1 = SubResource("ORMMaterial3D_0wvsp")
+surface_material_override/2 = SubResource("ORMMaterial3D_3klnw")
+surface_material_override/3 = SubResource("ORMMaterial3D_l83pa")
+surface_material_override/4 = SubResource("ORMMaterial3D_jpl6t")
+surface_material_override/6 = SubResource("StandardMaterial3D_0p21m")
+surface_material_override/7 = SubResource("ORMMaterial3D_d56kw")
+surface_material_override/8 = SubResource("StandardMaterial3D_rt7bu")
+surface_material_override/9 = SubResource("ORMMaterial3D_6davj")
+surface_material_override/10 = SubResource("ORMMaterial3D_a7dou")
 
-[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
-transform = Transform3D(11.8942, 0, -44.3899, 0, 45.9558, 0, 44.3899, 0, 11.8942, -90, 0, 0)
-material_override = SubResource("StandardMaterial3D_k24pk")
-transparency = 0.16
-gi_lightmap_scale = 1
-mesh = SubResource("SphereMesh_vymnm")
+[node name="RigidBody3D" type="RigidBody3D" parent="."]
 
-[node name="SubViewport" type="SubViewport" parent="MeshInstance3D2"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D"]
+transform = Transform3D(12.4233, 0, -46.3644, 0, 48, 0, 46.3644, 0, 12.4233, 0, 0, 0)
+shape = SubResource("SphereShape3D_l1f1n")
 
-[node name="ColorRect" type="ColorRect" parent="MeshInstance3D2/SubViewport"]
-material = SubResource("ShaderMaterial_fspau")
-offset_right = 40.0
-offset_bottom = 40.0
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(0.996894, -0.0149975, -0.0773137, 0, 0.9817, -0.190432, 0.0787549, 0.189841, 0.978651, -10.7989, 15.1812, 27.8888)
+fov = 90.0
+
+[node name="Cities" type="Node3D" parent="."]
+
+[node name="SF" parent="Cities" instance=ExtResource("3_rnh00")]
+transform = Transform3D(0.187258, -0.0546918, 0.0440802, 0.0696612, 0.12845, -0.136557, 0.00903221, 0.143211, 0.139317, -8.19097, 14.2438, 17.2368)
+
+[node name="Chicago" parent="Cities" instance=ExtResource("4_jtic1")]
+transform = Transform3D(0.05, 0, 0, 0, 0.031929, -0.0384778, 0, 0.0384778, 0.031929, -0.15725, 16.5282, 17.3431)
+
+[node name="London" parent="Cities" instance=ExtResource("5_7sfcj")]
+transform = Transform3D(0.356437, 0.305987, 0.171243, -0.284848, 0.395074, -0.113041, -0.204485, -0.0169722, 0.455958, 13.7119, 19.3579, 0.207494)
+
+[node name="Miami" parent="Cities" instance=ExtResource("6_lyypr")]
+transform = Transform3D(0.0499558, -0.00186977, -0.000957675, 0, 0.0227936, -0.0445023, 0.00210076, 0.044463, 0.0227734, 3.55099, 11.0085, 21.0514)
+
+[node name="Washington" parent="Cities" instance=ExtResource("7_f1y4w")]
+transform = Transform3D(-0.132279, -0.0461355, -0.0536068, -0.0674967, 0.11631, 0.066454, 0.0211275, 0.0827251, -0.12333, -6.97434, 18.6489, 13.2683)
+
+[node name="Paris" parent="Cities" instance=ExtResource("4_j8wxe")]
+transform = Transform3D(0.0403062, 0.0295776, 0.000757778, -0.0289373, 0.0391408, 0.0114293, 0.00616785, -0.00965203, 0.0486703, 14.961, 18.212, -4.20067)
+
+[node name="NYC" parent="Cities" instance=ExtResource("9_i2yju")]
+transform = Transform3D(0.0498767, 0.00213189, -0.00278678, -0.00350872, 0.030305, -0.0396144, 0, 0.0397123, 0.0303799, 3.67357, 14.0686, 18.8651)

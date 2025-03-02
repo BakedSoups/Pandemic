@@ -1,0 +1,22 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://bqgge0pirwahn"
+path="res://.godot/imported/SC_Bld_FerrisWheel_Static.obj-8fc00dec932b8dbb9659d7576cb04bc5.mesh"
+
+[deps]
+
+files=["res://.godot/imported/SC_Bld_FerrisWheel_Static.obj-8fc00dec932b8dbb9659d7576cb04bc5.mesh"]
+
+source_file="res://assets/SC_Bld_FerrisWheel_Static.obj"
+dest_files=["res://.godot/imported/SC_Bld_FerrisWheel_Static.obj-8fc00dec932b8dbb9659d7576cb04bc5.mesh", "res://.godot/imported/SC_Bld_FerrisWheel_Static.obj-8fc00dec932b8dbb9659d7576cb04bc5.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
+force_disable_mesh_compression=false

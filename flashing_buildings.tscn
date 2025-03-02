@@ -1,0 +1,28 @@
+[gd_scene load_steps=7 format=3 uid="uid://b7ale2cdn4kvc"]
+
+[ext_resource type="PackedScene" uid="uid://dal2rn4ri4l0v" path="res://nyc.tscn" id="1_drnj2"]
+[ext_resource type="PackedScene" uid="uid://byylr7a18fnj" path="res://miami.tscn" id="3_pnggu"]
+[ext_resource type="PackedScene" uid="uid://1pr5t3d0yp8s" path="res://la.tscn" id="4_fx3ur"]
+[ext_resource type="PackedScene" uid="uid://bhjwk4cvx4bvi" path="res://sf.tscn" id="5_yuisg"]
+[ext_resource type="PackedScene" uid="uid://dthy3ojs6ii2o" path="res://paris.tscn" id="6_o5omy"]
+[ext_resource type="PackedScene" uid="uid://cv4w6gm5c78vk" path="res://chicago.tscn" id="6_qaoyp"]
+
+[node name="FlashingBuildings" type="Node3D"]
+
+[node name="SF" parent="." instance=ExtResource("5_yuisg")]
+transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 0, 0, 116.392)
+
+[node name="Chicago" parent="." instance=ExtResource("6_qaoyp")]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, 96.6284)
+
+[node name="Miami" parent="." instance=ExtResource("3_pnggu")]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, 82.2331)
+
+[node name="LA" parent="." instance=ExtResource("4_fx3ur")]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, 41.4611)
+
+[node name="NYC" parent="." instance=ExtResource("1_drnj2")]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, 54.7529)
+
+[node name="Paris" parent="." instance=ExtResource("6_o5omy")]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, 25.0991)

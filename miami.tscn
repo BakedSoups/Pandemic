@@ -1,0 +1,39 @@
+[gd_scene load_steps=7 format=3 uid="uid://byylr7a18fnj"]
+
+[ext_resource type="Script" path="res://miami.gd" id="1_05dc2"]
+[ext_resource type="ArrayMesh" uid="uid://du1256ur2e2nx" path="res://assets/SC_Bld_01_Bright.obj" id="2_yax36"]
+[ext_resource type="Shader" path="res://building_flash.gdshader" id="3_sw1qd"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_mffbc"]
+render_priority = 0
+shader = ExtResource("3_sw1qd")
+shader_parameter/red = Vector3(1, 0, 0)
+shader_parameter/green = Vector3(0, 1, 0)
+shader_parameter/blue = Vector3(0, 0, 1)
+shader_parameter/flash_color = Vector3(0, 0, 0)
+shader_parameter/flash_speed = 0.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_r7j04"]
+render_priority = 0
+next_pass = SubResource("ShaderMaterial_mffbc")
+shader = ExtResource("3_sw1qd")
+shader_parameter/red = Vector3(1, 0, 0)
+shader_parameter/green = Vector3(0, 1, 0)
+shader_parameter/blue = Vector3(0, 0, 1)
+shader_parameter/flash_color = Vector3(0, 0, 0)
+shader_parameter/flash_speed = 0.0
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_os42p"]
+
+[node name="Miami" type="Node3D"]
+script = ExtResource("1_05dc2")
+
+[node name="Area3D" type="Area3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Area3D"]
+mesh = ExtResource("2_yax36")
+skeleton = NodePath("")
+surface_material_override/0 = SubResource("ShaderMaterial_r7j04")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+shape = SubResource("BoxShape3D_os42p")

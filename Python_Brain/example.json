@@ -1,0 +1,48 @@
+{
+
+"day_1": {
+    "sf": {
+
+    "sick_count" : 5 ,
+    "total_population": 100,
+    "S": 5,
+    "I": 2,
+    "R": 20,
+    "leave_city": 10,
+    "enter_city":20,
+    },
+    "ny": {
+    "sick_count" : 5 ,
+    "total_population": 100,
+    "S": 5,
+    "I": 2,
+    "R": 20,
+    "leave_city": 10,
+    "enter_city":20,
+    }
+
+},
+
+"day_2": {
+    "sf": {
+
+    "sick_count" : 5 ,
+    "total_population": 100,
+    "S": 5,
+    "I": 2,
+    "R": 20,
+    "leave_city": 10,
+    "enter_city":20,
+    },
+    "ny": {
+    "sick_count" : 5 ,
+    "total_population": 100,
+    "S": 5,
+    "I": 2,
+    "R": 20,
+    "leave_city": 10,
+    "enter_city":20,
+    }
+
+},
+}
