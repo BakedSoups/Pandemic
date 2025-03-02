@@ -39,6 +39,24 @@ with open("state.json", "w") as g:
     state_dictionary["matrix"] = markov_matrix.tolist()
     json.dump(state_dictionary, g)
 
+
+city_dictionary = {}
+
+print(len(city_array))
+for i in range(N):
+    print(city_array[i]["name"])
+    city_dictionary[city_array[i]["name"]] = {
+        "sir_history" : [[float(sir_matrix[i][0])],[float(sir_matrix[i][1])], [float(sir_matrix[i][2])]],
+        "latitude" : city_array[i]["latitude"],
+        "longitude" : city_array[i]["longitude"]
+    }
+
+with open("cities.json", "w") as h:
+    json.dump(city_dictionary, h)
+
+
+
+
 # for i in range(N):
 #     population = city_array[i]["population"]
 #     arr = []

@@ -33,6 +33,22 @@ with open("state.json", "w") as g:
     json.dump(state_dictionary, g)
 
 
+with open("init_cities.json", "r") as g:
+    city_array = json.load(g)
+
+with open("cities.json", "r") as g:
+    city_dictionary = json.load(g)
+
+N = len(city_array)
+
+for i in range(N):
+    city_dictionary[city_array[i]["name"]]["sir_history"][0].append(float(sir_matrix[i][0]))
+    city_dictionary[city_array[i]["name"]]["sir_history"][1].append(float(sir_matrix[i][1]))
+    city_dictionary[city_array[i]["name"]]["sir_history"][2].append(float(sir_matrix[i][2]))
+
+with open("cities.json", "w") as g:
+    json.dump(city_dictionary, g)
+
 # for i in range(100):
 #     print(sir_matrix)
 #     print(np.sum(sir_matrix.flatten()))
