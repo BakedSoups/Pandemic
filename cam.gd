@@ -3,6 +3,7 @@ extends Camera2D
 var scroll_speed : float = 500  
 var zoom_factor : float = 1.5 
 
+## Camera movement based on user input to allow users to explore wider ranges of data
 func _process(delta):
 
 	if Input.is_action_pressed("ui_right"):

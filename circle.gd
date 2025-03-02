@@ -1,11 +1,14 @@
 extends Node2D
 
+# Circle class for tooltips 
+
 var x_pos : float
 var y_pos : float
 var value : float
 var radius : float = 4
 var tooltip_label : Label
 var is_hovered : bool = false
+
 
 func _ready():
 	tooltip_label = Label.new()
@@ -15,11 +18,13 @@ func _ready():
 
 	set_process_input(true)
 
+# Mouse interaction logic
 func is_mouse_over() -> bool:
 	var mouse_pos = get_local_mouse_position()
 	var distance = mouse_pos.distance_to(Vector2(x_pos, y_pos))
 	return distance <= radius
 
+# Hover logic
 func _input(event):
 	if event is InputEventMouseMotion:
 		if is_mouse_over():
@@ -34,7 +39,7 @@ func _input(event):
 func _draw():
 	draw_circle(Vector2(x_pos, y_pos), radius, Color(0,0,0, 0.2))
 
-	
+# Populate circle data
 func init(x : int, y : int, val : int):
 	x_pos = x
 	y_pos = y
