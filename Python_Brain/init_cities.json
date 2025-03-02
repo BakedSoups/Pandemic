@@ -12,30 +12,12 @@
         "longitude" : -74.006
     },
     {
-<<<<<<< HEAD
-        "name" : "LA",
-        "population" : 3280000,
-        "latitude" : 34.0549,
-        "longitude" : -118.2426
-    },
-    {
-        "name" : "Miami",
-=======
         "name" : "WA",
->>>>>>> city
         "population" : 455924,
         "latitude" : 25.7617,
         "longitude" : -80.1918
     },
     {
-<<<<<<< HEAD
-        "name" : "Chicago",
-        "population" : 2664000,
-        "latitude" : 41.8781,
-        "longitude" : -87.6298
-    }
-]
-=======
         "name" : "CHI",
         "population" : 2664000,
         "latitude" : 41.8781,
@@ -60,4 +42,3 @@
         "longitude" : -87.6298
     }
 ]
->>>>>>> city

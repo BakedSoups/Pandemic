@@ -1,9 +1,3 @@
-<<<<<<< HEAD
-[gd_scene load_steps=21 format=3 uid="uid://bntmcluis2mxc"]
-
-[ext_resource type="Shader" path="res://ocean.gdshader" id="1_vnr4k"]
-[ext_resource type="ArrayMesh" uid="uid://dx2hi4du67js0" path="res://addons/uploads_files_2883006_Lowpoly+Earth.obj" id="2_ifpkx"]
-=======
 [gd_scene load_steps=29 format=3 uid="uid://bntmcluis2mxc"]
 
 [ext_resource type="Shader" path="res://ocean.gdshader" id="1_vnr4k"]
@@ -15,7 +9,6 @@
 [ext_resource type="PackedScene" uid="uid://byylr7a18fnj" path="res://miami.tscn" id="6_lyypr"]
 [ext_resource type="PackedScene" uid="uid://c5bswetikprta" path="res://washington.tscn" id="7_f1y4w"]
 [ext_resource type="PackedScene" uid="uid://dal2rn4ri4l0v" path="res://nyc.tscn" id="9_i2yju"]
->>>>>>> city
 
 [sub_resource type="Gradient" id="Gradient_51fra"]
 interpolation_mode = 2
@@ -93,14 +86,10 @@ albedo_color = Color(0, 0.583555, 0.287459, 1)
 [sub_resource type="ORMMaterial3D" id="ORMMaterial3D_a7dou"]
 albedo_color = Color(0.233068, 0.495554, 0.158237, 1)
 
-<<<<<<< HEAD
-[node name="Node3D" type="Node3D"]
-=======
 [sub_resource type="SphereShape3D" id="SphereShape3D_l1f1n"]
 
 [node name="Node3D" type="Node3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.067421, 0.343822, 0.331932)
->>>>>>> city
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(12.3468, 0, -46.0789, 0, 47.7044, 0, 46.0789, 0, 12.3468, 0, 0, 0)
@@ -108,12 +97,6 @@ material_override = SubResource("ShaderMaterial_mn4gk")
 gi_lightmap_scale = 1
 mesh = SubResource("SphereMesh_vymnm")
 
-<<<<<<< HEAD
-[node name="Camera3D" type="Camera3D" parent="MeshInstance3D"]
-transform = Transform3D(0.0222222, 0, 0, 0, 0.0222222, 0, 0, 0, 0.0222222, -3.16892, 0, 0)
-
-=======
->>>>>>> city
 [node name="UploadsFiles2883006Lowpoly+earth" type="MeshInstance3D" parent="."]
 transform = Transform3D(0.47, 0, 0, 0, 0.47, 0, 0, 0, 0.47, 0, 0, 0)
 mesh = ExtResource("2_ifpkx")
@@ -127,8 +110,6 @@ surface_material_override/7 = SubResource("ORMMaterial3D_d56kw")
 surface_material_override/8 = SubResource("StandardMaterial3D_rt7bu")
 surface_material_override/9 = SubResource("ORMMaterial3D_6davj")
 surface_material_override/10 = SubResource("ORMMaterial3D_a7dou")
-<<<<<<< HEAD
-=======
 
 [node name="RigidBody3D" type="RigidBody3D" parent="."]
 
@@ -162,4 +143,3 @@ transform = Transform3D(0.0403062, 0.0295776, 0.000757778, -0.0289373, 0.0391408
 
 [node name="NYC" parent="Cities" instance=ExtResource("9_i2yju")]
 transform = Transform3D(0.0498767, 0.00213189, -0.00278678, -0.00350872, 0.030305, -0.0396144, 0, 0.0397123, 0.0303799, 3.67357, 14.0686, 18.8651)
->>>>>>> city

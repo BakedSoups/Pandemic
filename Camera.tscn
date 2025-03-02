@@ -1,24 +1,13 @@
-<<<<<<< HEAD
-[gd_scene load_steps=16 format=3 uid="uid://ch35nc60niedd"]
-
-[ext_resource type="Script" path="res://planet.gd" id="1_b3wkx"]
-[ext_resource type="PackedScene" uid="uid://c1ml4yvlgnbbv" path="res://addons/naejimer_3d_planet_generator/scenes/planet_gaseous.tscn" id="2_qtl3p"]
-[ext_resource type="PackedScene" uid="uid://uqeq21uwlr4n" path="res://city.tscn" id="3_5o1rc"]
-=======
 [gd_scene load_steps=17 format=3 uid="uid://ch35nc60niedd"]
 
 [ext_resource type="Script" path="res://planet.gd" id="1_b3wkx"]
 [ext_resource type="PackedScene" uid="uid://c1ml4yvlgnbbv" path="res://addons/naejimer_3d_planet_generator/scenes/planet_gaseous.tscn" id="2_qtl3p"]
 [ext_resource type="PackedScene" uid="uid://cpkbycrd7cu5v" path="res://city.tscn" id="3_5o1rc"]
->>>>>>> city
 [ext_resource type="Shader" path="res://Space_shader.gdshader" id="4_bshir"]
 [ext_resource type="PackedScene" uid="uid://bntmcluis2mxc" path="res://Planet.tscn" id="5_ebvm7"]
 [ext_resource type="Shader" path="res://pixelated.gdshader" id="6_h7tmu"]
 [ext_resource type="Shader" path="res://dream.gdshader" id="7_mfnuq"]
-<<<<<<< HEAD
-=======
 [ext_resource type="Script" path="res://main_controller.gd" id="8_2xgsl"]
->>>>>>> city
 
 [sub_resource type="BoxMesh" id="BoxMesh_k6n8u"]
 
@@ -88,12 +77,6 @@ transform = Transform3D(49.8388, 0, 4.01128, 0, 50, 0, -4.01128, 0, 49.8388, 0, 
 visible = false
 
 [node name="sf" parent="." instance=ExtResource("3_5o1rc")]
-<<<<<<< HEAD
-transform = Transform3D(25, 0, 0, 0, 25, 0, 0, 0, 25, -1, 2.33708, 24)
-
-[node name="ny" parent="." instance=ExtResource("3_5o1rc")]
-transform = Transform3D(25, 0, 0, 0, 25, 0, 0, 0, 25, -4.55323, 4.19333, -16.072)
-=======
 transform = Transform3D(-3.97923, 0, -0.207596, -0.0115929, 8.05624, 4.97039, -0.042336, -2.20605, 18.1513, -8.47576, 12.9225, 17.6562)
 
 [node name="nyc" parent="." instance=ExtResource("3_5o1rc")]
@@ -101,7 +84,6 @@ transform = Transform3D(3.40673, 0, 0, 0, 2.96617, 5.36521, 0, -0.853281, 18.650
 
 [node name="wa" parent="." instance=ExtResource("3_5o1rc")]
 transform = Transform3D(-5.33604, 1.08345, -3.58641, -0.0382641, 6.10316, 12.7191, -1.2334, -4.87665, 15.1213, -7.7163, 21.6064, 12.9027)
->>>>>>> city
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_6p80e")
@@ -120,17 +102,6 @@ transform = Transform3D(0.996823, 0, 0, 0, 0.996823, 0, 0, 0, 0.996823, 0, 0, 0)
 
 [node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
 material = SubResource("ShaderMaterial_e5003")
-<<<<<<< HEAD
-offset_left = -1.0
-offset_top = 1.0
-offset_right = 1148.0
-offset_bottom = 646.0
-
-[node name="ColorRect2" type="ColorRect" parent="CanvasLayer"]
-material = SubResource("ShaderMaterial_cxcom")
-offset_right = 1155.0
-offset_bottom = 645.0
-=======
 offset_left = -21631.0
 offset_top = -13865.0
 offset_right = 14031.0
@@ -212,4 +183,3 @@ transform = Transform3D(5, 0, 0, 0, 4.71335, 8.34311, 0, -1.66862, 23.5668, 1.71
 [connection signal="button_down" from="CanvasLayer/PanelContainer4/Start Simulation" to="CanvasLayer/Main_Controller" method="_on_start_simulation_button_down"]
 [connection signal="button_down" from="CanvasLayer/PanelContainer3/Day Add" to="CanvasLayer/Main_Controller" method="_on_day_add_button_down"]
 [connection signal="button_down" from="CanvasLayer/PanelContainer2/Show Graph" to="CanvasLayer/Main_Controller" method="_on_show_graph_button_down"]
->>>>>>> city

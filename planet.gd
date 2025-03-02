@@ -10,21 +10,13 @@ extends Node3D
 @onready var arm_length = spring_arm_3d.get_hit_length()
 @onready var camera_rotating = false
 @onready var planet_rotating = false
-<<<<<<< HEAD
-@export var transition_speed := 1.50
-=======
 @export var transition_speed := 1.9
->>>>>>> city
 @onready var camera: Camera3D = $cameraOrigin/SpringArm3D/Camera3D
 @onready var is_transitioning := false
 @onready var previous_planet_view: bool = planet_view
 @export var non_planet_tilt := 0.2
 @export var inertia_factor := 0.92
-<<<<<<< HEAD
-@export var key_rotation_speed := 3
-=======
 @export var key_rotation_speed := -3
->>>>>>> city
 @export var key_rotation_sens := 6.5
 @export var key_inertia := 0.9
 
@@ -38,11 +30,7 @@ var last_mouse_position = Vector2.ZERO
 @export var zoom_speed := 2
 @export var near_planet_zoom_speed := 0.2
 @export var zoom_transition_distance := 25.0
-<<<<<<< HEAD
-@export var zoom_min := 30
-=======
 @export var zoom_min := 28
->>>>>>> city
 @export var zoom_max := 80
 @export var zoom_smoothness := 0.05
 @export var centering_speed := 2.5

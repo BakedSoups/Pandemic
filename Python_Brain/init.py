@@ -1,15 +1,5 @@
 import numpy as np
 import json
-<<<<<<< HEAD
-
-with open("state.json", "r") as f:
-    state_dictionary = json.load(f)
-
-with open("init_cities.json", "r") as g:
-    city_array = json.load(g)
-
-with open("seed.json", "r") as h:
-=======
 import os
 
 # Get the current working directory
@@ -23,7 +13,6 @@ with open(directory+"/Python_Brain/init_cities.json", "r") as g:
     city_array = json.load(g)
 
 with open(directory+"/Python_Brain/seed.json", "r") as h:
->>>>>>> city
     seed = json.load(h)
 
 def softmax(x):
@@ -50,11 +39,7 @@ markov_matrix = travel_factor*np.random.rand(N, N) + 5*np.eye(N)
 markov_matrix = np.apply_along_axis(softmax, axis = 0, arr = markov_matrix)
 
 
-<<<<<<< HEAD
-with open("state.json", "w") as g:
-=======
 with open(directory+"/Python_Brain/state.json", "w") as g:
->>>>>>> city
     state_dictionary["vector"] = sir_matrix
     state_dictionary["matrix"] = markov_matrix.tolist()
     json.dump(state_dictionary, g)
@@ -71,11 +56,7 @@ for i in range(N):
         "longitude" : city_array[i]["longitude"]
     }
 
-<<<<<<< HEAD
-with open("cities.json", "w") as h:
-=======
 with open(directory+"/Python_Brain/cities.json", "w") as h:
->>>>>>> city
     json.dump(city_dictionary, h)
 
 
