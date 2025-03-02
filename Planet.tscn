@@ -1,7 +1,21 @@
+<<<<<<< HEAD
 [gd_scene load_steps=21 format=3 uid="uid://bntmcluis2mxc"]
 
 [ext_resource type="Shader" path="res://ocean.gdshader" id="1_vnr4k"]
 [ext_resource type="ArrayMesh" uid="uid://dx2hi4du67js0" path="res://addons/uploads_files_2883006_Lowpoly+Earth.obj" id="2_ifpkx"]
+=======
+[gd_scene load_steps=29 format=3 uid="uid://bntmcluis2mxc"]
+
+[ext_resource type="Shader" path="res://ocean.gdshader" id="1_vnr4k"]
+[ext_resource type="ArrayMesh" uid="uid://dx2hi4du67js0" path="res://addons/uploads_files_2883006_Lowpoly+Earth.obj" id="2_ifpkx"]
+[ext_resource type="PackedScene" uid="uid://bhjwk4cvx4bvi" path="res://sf.tscn" id="3_rnh00"]
+[ext_resource type="PackedScene" uid="uid://dthy3ojs6ii2o" path="res://paris.tscn" id="4_j8wxe"]
+[ext_resource type="PackedScene" uid="uid://cv4w6gm5c78vk" path="res://chicago.tscn" id="4_jtic1"]
+[ext_resource type="PackedScene" uid="uid://bk2f2qhnfndul" path="res://london.tscn" id="5_7sfcj"]
+[ext_resource type="PackedScene" uid="uid://byylr7a18fnj" path="res://miami.tscn" id="6_lyypr"]
+[ext_resource type="PackedScene" uid="uid://c5bswetikprta" path="res://washington.tscn" id="7_f1y4w"]
+[ext_resource type="PackedScene" uid="uid://dal2rn4ri4l0v" path="res://nyc.tscn" id="9_i2yju"]
+>>>>>>> city
 
 [sub_resource type="Gradient" id="Gradient_51fra"]
 interpolation_mode = 2
@@ -79,7 +93,14 @@ albedo_color = Color(0, 0.583555, 0.287459, 1)
 [sub_resource type="ORMMaterial3D" id="ORMMaterial3D_a7dou"]
 albedo_color = Color(0.233068, 0.495554, 0.158237, 1)
 
+<<<<<<< HEAD
 [node name="Node3D" type="Node3D"]
+=======
+[sub_resource type="SphereShape3D" id="SphereShape3D_l1f1n"]
+
+[node name="Node3D" type="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.067421, 0.343822, 0.331932)
+>>>>>>> city
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(12.3468, 0, -46.0789, 0, 47.7044, 0, 46.0789, 0, 12.3468, 0, 0, 0)
@@ -87,9 +108,12 @@ material_override = SubResource("ShaderMaterial_mn4gk")
 gi_lightmap_scale = 1
 mesh = SubResource("SphereMesh_vymnm")
 
+<<<<<<< HEAD
 [node name="Camera3D" type="Camera3D" parent="MeshInstance3D"]
 transform = Transform3D(0.0222222, 0, 0, 0, 0.0222222, 0, 0, 0, 0.0222222, -3.16892, 0, 0)
 
+=======
+>>>>>>> city
 [node name="UploadsFiles2883006Lowpoly+earth" type="MeshInstance3D" parent="."]
 transform = Transform3D(0.47, 0, 0, 0, 0.47, 0, 0, 0, 0.47, 0, 0, 0)
 mesh = ExtResource("2_ifpkx")
@@ -103,3 +127,39 @@ surface_material_override/7 = SubResource("ORMMaterial3D_d56kw")
 surface_material_override/8 = SubResource("StandardMaterial3D_rt7bu")
 surface_material_override/9 = SubResource("ORMMaterial3D_6davj")
 surface_material_override/10 = SubResource("ORMMaterial3D_a7dou")
+<<<<<<< HEAD
+=======
+
+[node name="RigidBody3D" type="RigidBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D"]
+transform = Transform3D(12.4233, 0, -46.3644, 0, 48, 0, 46.3644, 0, 12.4233, 0, 0, 0)
+shape = SubResource("SphereShape3D_l1f1n")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(0.996894, -0.0149975, -0.0773137, 0, 0.9817, -0.190432, 0.0787549, 0.189841, 0.978651, -10.7989, 15.1812, 27.8888)
+fov = 90.0
+
+[node name="Cities" type="Node3D" parent="."]
+
+[node name="SF" parent="Cities" instance=ExtResource("3_rnh00")]
+transform = Transform3D(0.187258, -0.0546918, 0.0440802, 0.0696612, 0.12845, -0.136557, 0.00903221, 0.143211, 0.139317, -8.19097, 14.2438, 17.2368)
+
+[node name="Chicago" parent="Cities" instance=ExtResource("4_jtic1")]
+transform = Transform3D(0.05, 0, 0, 0, 0.031929, -0.0384778, 0, 0.0384778, 0.031929, -0.15725, 16.5282, 17.3431)
+
+[node name="London" parent="Cities" instance=ExtResource("5_7sfcj")]
+transform = Transform3D(0.356437, 0.305987, 0.171243, -0.284848, 0.395074, -0.113041, -0.204485, -0.0169722, 0.455958, 13.7119, 19.3579, 0.207494)
+
+[node name="Miami" parent="Cities" instance=ExtResource("6_lyypr")]
+transform = Transform3D(0.0499558, -0.00186977, -0.000957675, 0, 0.0227936, -0.0445023, 0.00210076, 0.044463, 0.0227734, 3.55099, 11.0085, 21.0514)
+
+[node name="Washington" parent="Cities" instance=ExtResource("7_f1y4w")]
+transform = Transform3D(-0.132279, -0.0461355, -0.0536068, -0.0674967, 0.11631, 0.066454, 0.0211275, 0.0827251, -0.12333, -6.97434, 18.6489, 13.2683)
+
+[node name="Paris" parent="Cities" instance=ExtResource("4_j8wxe")]
+transform = Transform3D(0.0403062, 0.0295776, 0.000757778, -0.0289373, 0.0391408, 0.0114293, 0.00616785, -0.00965203, 0.0486703, 14.961, 18.212, -4.20067)
+
+[node name="NYC" parent="Cities" instance=ExtResource("9_i2yju")]
+transform = Transform3D(0.0498767, 0.00213189, -0.00278678, -0.00350872, 0.030305, -0.0396144, 0, 0.0397123, 0.0303799, 3.67357, 14.0686, 18.8651)
+>>>>>>> city

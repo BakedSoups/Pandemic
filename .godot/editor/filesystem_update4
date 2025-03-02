@@ -1,4 +1,27 @@
+<<<<<<< HEAD
 res://Camera.tscn
 res://addons/naejimer_3d_planet_generator/noises/planet_gaseous.tres
 res://water.gdshader
 res://Planet.tscn
+=======
+res://building.tscn
+res://addons/naejimer_3d_planet_generator/noises/planet_gaseous.tres
+res://building_flash.gdshader
+res://water.gdshader
+res://sf.tscn
+res://chicago.gd
+res://Camera.tscn
+res://chicago.tscn
+res://nyc.tscn
+res://paris.tscn
+res://london.tscn
+res://washington.tscn
+res://Planet.tscn
+res://city.tscn
+res://london.gd
+res://miami.gd
+res://nyc.gd
+res://paris.gd
+res://sf.gd
+res://washington.gd
+>>>>>>> city

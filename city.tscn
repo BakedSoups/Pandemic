@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 [gd_scene load_steps=5 format=3 uid="uid://uqeq21uwlr4n"]
+=======
+[gd_scene load_steps=5 format=3 uid="uid://cpkbycrd7cu5v"]
+>>>>>>> city
 
 [ext_resource type="Script" path="res://city.gd" id="1_dvocl"]
 
@@ -19,6 +23,10 @@ transform = Transform3D(25, 0, 0, 0, 25, 0, 0, 0, 25, 0, 2.33708, 0)
 script = ExtResource("1_dvocl")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+<<<<<<< HEAD
+=======
+visible = false
+>>>>>>> city
 shape = SubResource("BoxShape3D_q7ir1")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="CollisionShape3D"]
