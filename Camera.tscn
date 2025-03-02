@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://planet.gd" id="1_b3wkx"]
 [ext_resource type="PackedScene" uid="uid://c1ml4yvlgnbbv" path="res://addons/naejimer_3d_planet_generator/scenes/planet_gaseous.tscn" id="2_qtl3p"]
-[ext_resource type="PackedScene" uid="uid://uqeq21uwlr4n" path="res://city.tscn" id="3_5o1rc"]
+[ext_resource type="PackedScene" path="res://city.tscn" id="3_5o1rc"]
 [ext_resource type="Shader" path="res://Space_shader.gdshader" id="4_bshir"]
 [ext_resource type="PackedScene" uid="uid://bntmcluis2mxc" path="res://Planet.tscn" id="5_ebvm7"]
 [ext_resource type="Shader" path="res://pixelated.gdshader" id="6_h7tmu"]
