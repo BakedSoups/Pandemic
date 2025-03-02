@@ -6,7 +6,13 @@
 
 [sub_resource type="BoxMesh" id="BoxMesh_2ueio"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_khvhn"]
+[sub_resource type="ORMMaterial3D" id="ORMMaterial3D_txg28"]
+transparency = 1
+blend_mode = 1
+depth_draw_mode = 1
+vertex_color_use_as_albedo = true
+albedo_color = Color(0.0901961, 1, 1, 1)
+proximity_fade_enabled = true
 
 [node name="Node3D" type="Area3D"]
 transform = Transform3D(25, 0, 0, 0, 25, 0, 0, 0, 25, 0, 2.33708, 0)
@@ -16,5 +22,6 @@ script = ExtResource("1_dvocl")
 shape = SubResource("BoxShape3D_q7ir1")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="CollisionShape3D"]
+transform = Transform3D(0.999185, 0, 0, 0, 0.999185, 0, 0, 0, 0.999185, 0, 0, 0)
 mesh = SubResource("BoxMesh_2ueio")
-surface_material_override/0 = SubResource("ShaderMaterial_khvhn")
+surface_material_override/0 = SubResource("ORMMaterial3D_txg28")

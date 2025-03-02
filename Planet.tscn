@@ -1,0 +1,89 @@
+[gd_scene load_steps=14 format=3 uid="uid://bntmcluis2mxc"]
+
+[ext_resource type="Shader" path="res://ocean.gdshader" id="1_vnr4k"]
+
+[sub_resource type="Gradient" id="Gradient_51fra"]
+offsets = PackedFloat32Array(0.128788, 0.563131, 0.661616, 0.742424, 1)
+colors = PackedColorArray(0, 0, 0, 1, 0.593038, 0.593038, 0.593038, 1, 0.550505, 0.550505, 0.550505, 1, 0.59596, 0.59596, 0.59596, 1, 1, 1, 1, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_w1fp2"]
+frequency = 0.0132
+fractal_octaves = 8
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_rado1"]
+invert = true
+in_3d_space = true
+seamless = true
+seamless_blend_skirt = 1.0
+as_normal_map = true
+bump_strength = 2.1
+normalize = false
+color_ramp = SubResource("Gradient_51fra")
+noise = SubResource("FastNoiseLite_w1fp2")
+
+[sub_resource type="Gradient" id="Gradient_cencu"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_4lnyg"]
+seed = 2
+frequency = 0.0051
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_6w0xr"]
+color_ramp = SubResource("Gradient_cencu")
+noise = SubResource("FastNoiseLite_4lnyg")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_mn4gk"]
+render_priority = -128
+shader = ExtResource("1_vnr4k")
+shader_parameter/uAlbedo = Color(0.205349, 0.374561, 0.971529, 1)
+shader_parameter/uNormalMix = 0.2
+shader_parameter/uWaveDirection = Vector2(1, 0)
+shader_parameter/uWaveDirection2 = Vector2(0, 1)
+shader_parameter/uTimeScale = 0.001
+shader_parameter/uWaveScale = 1.3
+shader_parameter/uTexureNormal = SubResource("NoiseTexture2D_rado1")
+shader_parameter/uTexureNormal2 = SubResource("NoiseTexture2D_6w0xr")
+
+[sub_resource type="SphereMesh" id="SphereMesh_vymnm"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_k24pk"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_42iek"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_ydcrb"]
+noise = SubResource("FastNoiseLite_42iek")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_fspau"]
+render_priority = 0
+shader = ExtResource("1_vnr4k")
+shader_parameter/uAlbedo = Color(0, 0, 0.8, 1)
+shader_parameter/uNormalMix = 0.2
+shader_parameter/uWaveDirection = Vector2(1, 0)
+shader_parameter/uWaveDirection2 = Vector2(0, 1)
+shader_parameter/uTimeScale = 0.0015
+shader_parameter/uWaveScale = 1.6
+shader_parameter/uTexureNormal = SubResource("NoiseTexture2D_ydcrb")
+
+[node name="Node3D" type="Node3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(12.3468, 0, -46.0789, 0, 47.7044, 0, 46.0789, 0, 12.3468, 0, 0, 0)
+material_override = SubResource("ShaderMaterial_mn4gk")
+gi_lightmap_scale = 1
+mesh = SubResource("SphereMesh_vymnm")
+
+[node name="Camera3D" type="Camera3D" parent="MeshInstance3D"]
+transform = Transform3D(0.0222222, 0, 0, 0, 0.0222222, 0, 0, 0, 0.0222222, -3.16892, 0, 0)
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(11.8942, 0, -44.3899, 0, 45.9558, 0, 44.3899, 0, 11.8942, -90, 0, 0)
+material_override = SubResource("StandardMaterial3D_k24pk")
+transparency = 0.16
+gi_lightmap_scale = 1
+mesh = SubResource("SphereMesh_vymnm")
+
+[node name="SubViewport" type="SubViewport" parent="MeshInstance3D2"]
+
+[node name="ColorRect" type="ColorRect" parent="MeshInstance3D2/SubViewport"]
+material = SubResource("ShaderMaterial_fspau")
+offset_right = 40.0
+offset_bottom = 40.0

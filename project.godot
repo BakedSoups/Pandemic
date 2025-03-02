@@ -87,3 +87,18 @@ left_click={
 "events": [Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"button_mask":1,"position":Vector2(102, 20),"global_position":Vector2(111, 66),"factor":1.0,"button_index":1,"canceled":false,"pressed":true,"double_click":false,"script":null)
 ]
 }
+
+[shader_globals]
+
+wind_intensity={
+"type": "float",
+"value": 1.0
+}
+wind_direction={
+"type": "vec3",
+"value": Vector3(1, 0, 0)
+}
+player_position={
+"type": "vec3",
+"value": Vector3(0, 0, 0)
+}
