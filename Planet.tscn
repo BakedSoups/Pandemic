@@ -1,15 +1,16 @@
-[gd_scene load_steps=17 format=3 uid="uid://bntmcluis2mxc"]
+[gd_scene load_steps=21 format=3 uid="uid://bntmcluis2mxc"]
 
 [ext_resource type="Shader" path="res://ocean.gdshader" id="1_vnr4k"]
 [ext_resource type="ArrayMesh" uid="uid://dx2hi4du67js0" path="res://addons/uploads_files_2883006_Lowpoly+Earth.obj" id="2_ifpkx"]
-[ext_resource type="Shader" path="res://waterOcean.gdshader" id="3_dwtov"]
 
 [sub_resource type="Gradient" id="Gradient_51fra"]
-offsets = PackedFloat32Array(0.128788, 0.563131, 0.661616, 0.742424, 1)
+interpolation_mode = 2
+offsets = PackedFloat32Array(0.236934, 0.538328, 0.661616, 0.719512, 1)
 colors = PackedColorArray(0, 0, 0, 1, 0.593038, 0.593038, 0.593038, 1, 0.550505, 0.550505, 0.550505, 1, 0.59596, 0.59596, 0.59596, 1, 1, 1, 1, 1)
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_w1fp2"]
-frequency = 0.0132
+frequency = 0.0099
+offset = Vector3(20.41, 0, 0)
 fractal_octaves = 8
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_rado1"]
@@ -18,12 +19,12 @@ in_3d_space = true
 seamless = true
 seamless_blend_skirt = 1.0
 as_normal_map = true
-bump_strength = 2.1
-normalize = false
+bump_strength = 1.8
 color_ramp = SubResource("Gradient_51fra")
 noise = SubResource("FastNoiseLite_w1fp2")
 
 [sub_resource type="Gradient" id="Gradient_cencu"]
+offsets = PackedFloat32Array(0.132404, 1)
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_4lnyg"]
 seed = 2
@@ -36,7 +37,7 @@ noise = SubResource("FastNoiseLite_4lnyg")
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_mn4gk"]
 render_priority = -128
 shader = ExtResource("1_vnr4k")
-shader_parameter/uAlbedo = Color(0.205349, 0.374561, 0.971529, 1)
+shader_parameter/uAlbedo = Color(0.172912, 0.332356, 0.961214, 1)
 shader_parameter/uNormalMix = 0.2
 shader_parameter/uWaveDirection = Vector2(1, 0)
 shader_parameter/uWaveDirection2 = Vector2(0, 1)
@@ -61,9 +62,22 @@ albedo_color = Color(0.454024, 0.729119, 0.27334, 1)
 [sub_resource type="ORMMaterial3D" id="ORMMaterial3D_l83pa"]
 albedo_color = Color(0.286275, 0.756863, 1, 1)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_scuav"]
-render_priority = 0
-shader = ExtResource("3_dwtov")
+[sub_resource type="ORMMaterial3D" id="ORMMaterial3D_jpl6t"]
+albedo_color = Color(0.168627, 0.647059, 1, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0p21m"]
+vertex_color_use_as_albedo = true
+
+[sub_resource type="ORMMaterial3D" id="ORMMaterial3D_d56kw"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rt7bu"]
+albedo_color = Color(0.105359, 0.321719, 0, 1)
+
+[sub_resource type="ORMMaterial3D" id="ORMMaterial3D_6davj"]
+albedo_color = Color(0, 0.583555, 0.287459, 1)
+
+[sub_resource type="ORMMaterial3D" id="ORMMaterial3D_a7dou"]
+albedo_color = Color(0.233068, 0.495554, 0.158237, 1)
 
 [node name="Node3D" type="Node3D"]
 
@@ -77,10 +91,15 @@ mesh = SubResource("SphereMesh_vymnm")
 transform = Transform3D(0.0222222, 0, 0, 0, 0.0222222, 0, 0, 0, 0.0222222, -3.16892, 0, 0)
 
 [node name="UploadsFiles2883006Lowpoly+earth" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -73, 0, -37.1422)
+transform = Transform3D(0.47, 0, 0, 0, 0.47, 0, 0, 0, 0.47, 0, 0, 0)
 mesh = ExtResource("2_ifpkx")
 surface_material_override/0 = SubResource("ORMMaterial3D_u7gbt")
 surface_material_override/1 = SubResource("ORMMaterial3D_0wvsp")
 surface_material_override/2 = SubResource("ORMMaterial3D_3klnw")
 surface_material_override/3 = SubResource("ORMMaterial3D_l83pa")
-surface_material_override/4 = SubResource("ShaderMaterial_scuav")
+surface_material_override/4 = SubResource("ORMMaterial3D_jpl6t")
+surface_material_override/6 = SubResource("StandardMaterial3D_0p21m")
+surface_material_override/7 = SubResource("ORMMaterial3D_d56kw")
+surface_material_override/8 = SubResource("StandardMaterial3D_rt7bu")
+surface_material_override/9 = SubResource("ORMMaterial3D_6davj")
+surface_material_override/10 = SubResource("ORMMaterial3D_a7dou")
