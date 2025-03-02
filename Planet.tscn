@@ -1,7 +1,8 @@
-[gd_scene load_steps=12 format=3 uid="uid://bntmcluis2mxc"]
+[gd_scene load_steps=17 format=3 uid="uid://bntmcluis2mxc"]
 
 [ext_resource type="Shader" path="res://ocean.gdshader" id="1_vnr4k"]
 [ext_resource type="ArrayMesh" uid="uid://dx2hi4du67js0" path="res://addons/uploads_files_2883006_Lowpoly+Earth.obj" id="2_ifpkx"]
+[ext_resource type="Shader" path="res://waterOcean.gdshader" id="3_dwtov"]
 
 [sub_resource type="Gradient" id="Gradient_51fra"]
 offsets = PackedFloat32Array(0.128788, 0.563131, 0.661616, 0.742424, 1)
@@ -48,7 +49,21 @@ shader_parameter/uTexureNormal2 = SubResource("NoiseTexture2D_6w0xr")
 
 [sub_resource type="ORMMaterial3D" id="ORMMaterial3D_u7gbt"]
 vertex_color_use_as_albedo = true
-albedo_color = Color(0.689764, 0.939522, 0.880761, 1)
+albedo_color = Color(0.992297, 0.858891, 0.637573, 1)
+
+[sub_resource type="ORMMaterial3D" id="ORMMaterial3D_0wvsp"]
+vertex_color_use_as_albedo = true
+albedo_color = Color(0.209877, 0.601677, 0.255003, 1)
+
+[sub_resource type="ORMMaterial3D" id="ORMMaterial3D_3klnw"]
+albedo_color = Color(0.454024, 0.729119, 0.27334, 1)
+
+[sub_resource type="ORMMaterial3D" id="ORMMaterial3D_l83pa"]
+albedo_color = Color(0.286275, 0.756863, 1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_scuav"]
+render_priority = 0
+shader = ExtResource("3_dwtov")
 
 [node name="Node3D" type="Node3D"]
 
@@ -65,3 +80,7 @@ transform = Transform3D(0.0222222, 0, 0, 0, 0.0222222, 0, 0, 0, 0.0222222, -3.16
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -73, 0, -37.1422)
 mesh = ExtResource("2_ifpkx")
 surface_material_override/0 = SubResource("ORMMaterial3D_u7gbt")
+surface_material_override/1 = SubResource("ORMMaterial3D_0wvsp")
+surface_material_override/2 = SubResource("ORMMaterial3D_3klnw")
+surface_material_override/3 = SubResource("ORMMaterial3D_l83pa")
+surface_material_override/4 = SubResource("ShaderMaterial_scuav")
