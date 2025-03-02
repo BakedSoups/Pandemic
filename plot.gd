@@ -29,9 +29,9 @@ var line_width = 2
 
 
 ## Fetch city data
-var read_S = [90.0, 44.0, 43.0, 41.0, 40.0, 38.0, 36.0, 33.0, 30.0, 27.0, 10.0, 9.0, 8.0, 7.0]
-var read_I = [1.0, 6.0, 7.0, 8.0, 9.0, 10.0, 10.0, 9.0, 7.0, 5.0, 3.0, 2.0, 1.0, 0.0]
-var read_R = [0.0, 1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 10.0, 15.0, 16.0, 18.0, 20.0]
+var read_S = Data.Current_S
+var read_I = Data.Current_I
+var read_R = Data.Current_R
 
 var max_og = max(read_S.max(), read_I.max(), read_R.max())
 
@@ -242,3 +242,7 @@ func _ready():
 	draw_axis()
 	plot_actual()
 	plot_model(BETA, GAMMA)
+
+
+func _on_leave_button_down() -> void:
+	get_tree().change_scene_to_file("res://Camera.tscn")

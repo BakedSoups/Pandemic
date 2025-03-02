@@ -6,20 +6,20 @@ var zoom_factor : float = 1.5
 ## Camera movement based on user input to allow users to explore wider ranges of data
 func _process(delta):
 
-	if Input.is_action_pressed("ui_right"):
+	if Input.is_action_pressed("camera_move_right"):
 		position.x += scroll_speed * delta
-	if Input.is_action_pressed("ui_left"):
+	if Input.is_action_pressed("camera_move_left"):
 		position.x -= scroll_speed * delta
-	if Input.is_action_pressed("ui_down"):
+	if Input.is_action_pressed("camera_move_backward"):
 		position.y += scroll_speed * delta
-	if Input.is_action_pressed("ui_up"):
+	if Input.is_action_pressed("camera_move_forward"):
 		position.y -= scroll_speed * delta
 
-	if Input.is_action_pressed("ui_W"):
+	if Input.is_action_pressed("camera_zoom_in"):
 		position.y -= scroll_speed * delta  
 	if Input.is_action_pressed("ui_A"):
 		position.x -= scroll_speed * delta  
-	if Input.is_action_pressed("ui_S"):
+	if Input.is_action_pressed("camera_zoom_out"):
 		position.y += scroll_speed * delta  
 	if Input.is_action_pressed("ui_D"):
 		position.x += scroll_speed * delta 

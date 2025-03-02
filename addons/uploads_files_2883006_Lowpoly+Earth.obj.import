@@ -1,0 +1,22 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://dx2hi4du67js0"
+path="res://.godot/imported/uploads_files_2883006_Lowpoly+Earth.obj-4a1b1c1d83f1202c9dc1b6a187405861.mesh"
+
+[deps]
+
+files=["res://.godot/imported/uploads_files_2883006_Lowpoly+Earth.obj-4a1b1c1d83f1202c9dc1b6a187405861.mesh"]
+
+source_file="res://addons/uploads_files_2883006_Lowpoly+Earth.obj"
+dest_files=["res://.godot/imported/uploads_files_2883006_Lowpoly+Earth.obj-4a1b1c1d83f1202c9dc1b6a187405861.mesh", "res://.godot/imported/uploads_files_2883006_Lowpoly+Earth.obj-4a1b1c1d83f1202c9dc1b6a187405861.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
+force_disable_mesh_compression=false

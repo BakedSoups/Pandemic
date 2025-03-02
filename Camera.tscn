@@ -1,0 +1,168 @@
+[gd_scene load_steps=17 format=3 uid="uid://ch35nc60niedd"]
+
+[ext_resource type="Script" path="res://planet.gd" id="1_b3wkx"]
+[ext_resource type="PackedScene" uid="uid://c1ml4yvlgnbbv" path="res://addons/naejimer_3d_planet_generator/scenes/planet_gaseous.tscn" id="2_qtl3p"]
+[ext_resource type="PackedScene" path="res://city.tscn" id="3_5o1rc"]
+[ext_resource type="Shader" path="res://Space_shader.gdshader" id="4_bshir"]
+[ext_resource type="PackedScene" uid="uid://bntmcluis2mxc" path="res://Planet.tscn" id="5_ebvm7"]
+[ext_resource type="Shader" path="res://pixelated.gdshader" id="6_h7tmu"]
+[ext_resource type="Shader" path="res://dream.gdshader" id="7_mfnuq"]
+[ext_resource type="Script" path="res://main_controller.gd" id="8_2xgsl"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_k6n8u"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_3yuvx"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_xstv6"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_x6rg3"]
+shader = ExtResource("4_bshir")
+shader_parameter/sky_color = Color(0.03, 0.05, 0.11, 1)
+shader_parameter/star_base_color = Color(0.870403, 0.915511, 1, 1)
+shader_parameter/star_hue_offset = 0.6
+shader_parameter/star_intensity = 0.04
+shader_parameter/star_twinkle_speed = 0.8
+shader_parameter/star_twinkle_intensity = 0.2
+shader_parameter/layer_scale = 20.0
+shader_parameter/layer_scale_step = 10.0
+shader_parameter/layers_count = 3
+
+[sub_resource type="Sky" id="Sky_8t7mb"]
+sky_material = SubResource("ShaderMaterial_x6rg3")
+
+[sub_resource type="Environment" id="Environment_6p80e"]
+background_mode = 2
+sky = SubResource("Sky_8t7mb")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_e5003"]
+shader = ExtResource("6_h7tmu")
+shader_parameter/pixel_size = Vector2(4, 4)
+shader_parameter/pixel_factor = 0.5
+shader_parameter/enable_dithering = true
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_cxcom"]
+shader = ExtResource("7_mfnuq")
+shader_parameter/scale = Vector2(1, 1)
+shader_parameter/speed = 0.5
+shader_parameter/pink = Color(1, 0.4, 0.7, 0.2)
+shader_parameter/blue = Color(0.4, 0.6, 1, 0.2)
+
+[node name="Camera" type="Node3D"]
+script = ExtResource("1_b3wkx")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
+shadow_enabled = true
+
+[node name="example planet" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, 0)
+mesh = SubResource("BoxMesh_k6n8u")
+
+[node name="cameraOrigin" type="Node3D" parent="."]
+
+[node name="SpringArm3D" type="SpringArm3D" parent="cameraOrigin"]
+shape = SubResource("SphereShape3D_3yuvx")
+spring_length = 80.0
+
+[node name="Camera3D" type="Camera3D" parent="cameraOrigin/SpringArm3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 65)
+
+[node name="Area3D" type="Area3D" parent="cameraOrigin/SpringArm3D/Camera3D"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="cameraOrigin/SpringArm3D/Camera3D/Area3D"]
+shape = SubResource("BoxShape3D_xstv6")
+
+[node name="PlanetGaseous" parent="." instance=ExtResource("2_qtl3p")]
+transform = Transform3D(49.8388, 0, 4.01128, 0, 50, 0, -4.01128, 0, 49.8388, 0, 0, 0)
+visible = false
+
+[node name="sf" parent="." instance=ExtResource("3_5o1rc")]
+transform = Transform3D(-3.96865, 0, 0, 0, 9.12294, 0, 0, 0, 25, -1, 2.33708, 24)
+
+[node name="nyc" parent="." instance=ExtResource("3_5o1rc")]
+transform = Transform3D(11.2849, 0, 0, 0, 8.16127, 0, 0, 0, 25, -4.55323, 4.19333, -16.072)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_6p80e")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+transform = Transform3D(0.999154, 0, -0.0411258, 0, 1, 0, 0.0411258, 0, 0.999154, 0, 0, 0)
+light_energy = 9.889
+light_size = 0.488
+omni_range = 80.0
+omni_attenuation = 0.596
+
+[node name="Node3D" parent="." instance=ExtResource("5_ebvm7")]
+transform = Transform3D(0.996823, 0, 0, 0, 0.996823, 0, 0, 0, 0.996823, 0, 0, 0)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+material = SubResource("ShaderMaterial_e5003")
+offset_left = -1.0
+offset_top = 1.0
+offset_right = 1148.0
+offset_bottom = 646.0
+
+[node name="ColorRect2" type="ColorRect" parent="CanvasLayer"]
+material = SubResource("ShaderMaterial_cxcom")
+offset_right = 1155.0
+offset_bottom = 645.0
+
+[node name="PanelContainer4" type="PanelContainer" parent="CanvasLayer"]
+offset_left = 891.0
+offset_top = 295.0
+offset_right = 1150.0
+offset_bottom = 382.0
+scale = Vector2(0.84, 1)
+
+[node name="Start Simulation" type="Button" parent="CanvasLayer/PanelContainer4"]
+layout_mode = 2
+text = "Start Simulation"
+
+[node name="PanelContainer3" type="PanelContainer" parent="CanvasLayer"]
+offset_left = 897.0
+offset_top = 399.0
+offset_right = 1156.0
+offset_bottom = 486.0
+scale = Vector2(0.8, 1)
+
+[node name="Day Add" type="Button" parent="CanvasLayer/PanelContainer3"]
+layout_mode = 2
+text = "Day Add"
+
+[node name="PanelContainer2" type="PanelContainer" parent="CanvasLayer"]
+offset_left = 897.0
+offset_top = 516.0
+offset_right = 1156.0
+offset_bottom = 603.0
+scale = Vector2(0.782882, 0.979131)
+
+[node name="Show Graph" type="Button" parent="CanvasLayer/PanelContainer2"]
+layout_mode = 2
+text = "Show Graph "
+
+[node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer"]
+texture_filter = 1
+offset_left = 21.0
+offset_top = 28.0
+offset_right = 61.0
+offset_bottom = 68.0
+scale = Vector2(2.83246, 2.25227)
+text = "nyc"
+
+[node name="Day Counter" type="RichTextLabel" parent="CanvasLayer"]
+texture_filter = 2
+offset_left = 890.0
+offset_top = 58.0
+offset_right = 960.0
+offset_bottom = 98.0
+scale = Vector2(2.60222, 1.92638)
+text = "Days"
+
+[node name="Main_Controller" type="Node2D" parent="CanvasLayer"]
+script = ExtResource("8_2xgsl")
+
+[connection signal="button_down" from="CanvasLayer/PanelContainer4/Start Simulation" to="CanvasLayer/Main_Controller" method="_on_start_simulation_button_down"]
+[connection signal="button_down" from="CanvasLayer/PanelContainer3/Day Add" to="CanvasLayer/Main_Controller" method="_on_day_add_button_down"]
+[connection signal="button_down" from="CanvasLayer/PanelContainer2/Show Graph" to="CanvasLayer/Main_Controller" method="_on_show_graph_button_down"]
