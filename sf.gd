@@ -9,11 +9,9 @@ extends Node3D
 @onready var green = Vector3(Color.GREEN.r, Color.GREEN.g, Color.GREEN.b)
 @onready var blue = Vector3(Color.BLUE.r, Color.BLUE.g, Color.BLUE.b)
 
-# 3 lists: population(r, g, b)
-#@onready var cities = ["sf", "nyc", "chicago"];
-
-@onready var flash_speed: float = 5.0;
-@onready var flash_color: Vector3 = green;
+@onready var colors = [red, green, blue]
+@onready var flash_speed: float = randf() + 2;
+@onready var flash_color: Vector3 = colors[randi() % colors.size()]
 
 func _ready():
 	pass

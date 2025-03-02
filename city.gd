@@ -43,6 +43,7 @@ func _on_area_exited(area):
 		
 func is_camera_related(node):
 	var current = node
+
 	while current:
 		if current.name == "Camera3D":
 			return true
@@ -52,6 +53,7 @@ func is_camera_related(node):
 func update_text(message):
 	if rich_text_label:
 		rich_text_label.text = message 
+		Data.Current_City = message.to_upper()
 		rich_text_label.scroll_to_line(rich_text_label.get_line_count() - 1)
 	else:
 		print("RichTextLabel not found, message: ", message)

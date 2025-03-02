@@ -1,152 +1,20 @@
-res://Python_Brain/venv/lib/python3.12/site-packages/numpy/random/tests/data/philox-testset-2. 0x0.translation
-res://Python_Brain/venv/lib/python3.12/site-packages/numpy/random/tests/data/sfc64-testset-1. 0xdeadbeaf.translation
-res://Python_Brain/venv/lib/python3.12/site-packages/numpy/random/tests/data/pcg64dxsm-testset-2. 0x0.translation
-res://Python_Brain/venv/lib/python3.12/site-packages/numpy/random/tests/data/philox-testset-1. 0xdeadbeaf.translation
-res://Python_Brain/venv/lib/python3.12/site-packages/numpy/random/tests/data/sfc64-testset-2. 0x0.translation
-res://Python_Brain/venv/lib/python3.12/site-packages/numpy/_core/tests/data/umath-validation-set-exp.input.translation
-res://Python_Brain/venv/lib/python3.12/site-packages/numpy/_core/tests/data/umath-validation-set-exp.output.translation
-res://Python_Brain/venv/lib/python3.12/site-packages/numpy/_core/tests/data/umath-validation-set-exp.ulperrortol.translation
-res://Python_Brain/venv/lib/python3.12/site-packages/numpy/_core/tests/data/umath-validation-set-arcsinh.input.translation
-res://Python_Brain/venv/lib/python3.12/site-packages/numpy/_core/tests/data/umath-validation-set-arccos.input.translation
-res://Python_Brain/venv/lib/python3.12/site-packages/numpy/_core/tests/data/umath-validation-set-arctan.input.translation
-res://Python_Brain/venv/lib/python3.12/site-packages/numpy/_core/tests/data/umath-validation-set-arcsin.input.translation
-res://Python_Brain/venv/lib/python3.12/site-packages/numpy/_core/tests/data/umath-validation-set-arcsinh.output.translation
-res://Python_Brain/venv/lib/python3.12/site-packages/numpy/_core/tests/data/umath-validation-set-arccos.output.translation
-res://Python_Brain/venv/lib/python3.12/site-packages/numpy/_core/tests/data/umath-validation-set-cbrt.input.translation
-res://Python_Brain/venv/lib/python3.12/site-packages/numpy/_core/tests/data/umath-validation-set-arctan.output.translation
-res://Python_Brain/venv/lib/python3.12/site-packages/numpy/_core/tests/data/umath-validation-set-arcsin.output.translation
-res://Python_Brain/venv/lib/python3.12/site-packages/numpy/_core/tests/data/umath-validation-set-arcsinh.ulperrortol.translation
-res://Python_Brain/venv/lib/python3.12/site-packages/numpy/_core/tests/data/umath-validation-set-arccos.ulperrortol.translation
-res://Python_Brain/venv/lib/python3.12/site-packages/numpy/_core/tests/data/umath-validation-set-cbrt.output.translation
-res://Python_Brain/venv/lib/python3.12/site-packages/numpy/_core/tests/data/umath-validation-set-arctanh.input.translation
-res://Python_Brain/venv/lib/python3.12/site-packages/numpy/_core/tests/data/umath-validation-set-arctan.ulperrortol.translation
-res://Python_Brain/venv/lib/python3.12/site-packages/numpy/_core/tests/data/umath-validation-set-arcsin.ulperrortol.translation
-res://Python_Brain/venv/lib/python3.12/site-packages/numpy/_core/tests/data/umath-validation-set-arccosh.input.translation
-res://Python_Brain/venv/lib/python3.12/site-packages/numpy/_core/tests/data/umath-validation-set-cbrt.ulperrortol.translation
-res://Python_Brain/venv/lib/python3.12/site-packages/numpy/_core/tests/data/umath-validation-set-arctanh.output.translation
-res://Python_Brain/venv/lib/python3.12/site-packages/numpy/_core/tests/data/umath-validation-set-arccosh.output.translation
-res://Python_Brain/venv/lib/python3.12/site-packages/numpy/_core/tests/data/umath-validation-set-arctanh.ulperrortol.translation
-res://Python_Brain/venv/lib/python3.12/site-packages/numpy/_core/tests/data/umath-validation-set-arccosh.ulperrortol.translation
-res://Python_Brain/venv/lib/python3.12/site-packages/numpy/_core/tests/data/umath-validation-set-log.input.translation
-res://Python_Brain/venv/lib/python3.12/site-packages/numpy/_core/tests/data/umath-validation-set-log.output.translation
-res://Python_Brain/venv/lib/python3.12/site-packages/numpy/_core/tests/data/umath-validation-set-log.ulperrortol.translation
-res://Python_Brain/venv/lib/python3.12/site-packages/numpy/_core/tests/data/umath-validation-set-cosh.input.translation
-res://Python_Brain/venv/lib/python3.12/site-packages/numpy/_core/tests/data/umath-validation-set-cos.input.translation
-res://Python_Brain/venv/lib/python3.12/site-packages/numpy/_core/tests/data/umath-validation-set-cosh.output.translation
-res://Python_Brain/venv/lib/python3.12/site-packages/numpy/_core/tests/data/umath-validation-set-cos.output.translation
-res://Python_Brain/venv/lib/python3.12/site-packages/numpy/_core/tests/data/umath-validation-set-cosh.ulperrortol.translation
-res://Python_Brain/venv/lib/python3.12/site-packages/numpy/_core/tests/data/umath-validation-set-cos.ulperrortol.translation
-res://Python_Brain/venv/lib/python3.12/site-packages/numpy/_core/tests/data/umath-validation-set-exp2.input.translation
-res://Python_Brain/venv/lib/python3.12/site-packages/numpy/_core/tests/data/umath-validation-set-exp2.output.translation
-res://Python_Brain/venv/lib/python3.12/site-packages/numpy/_core/tests/data/umath-validation-set-exp2.ulperrortol.translation
-res://Python_Brain/venv/lib/python3.12/site-packages/numpy/_core/tests/data/umath-validation-set-expm1.input.translation
-res://Python_Brain/venv/lib/python3.12/site-packages/numpy/_core/tests/data/umath-validation-set-expm1.output.translation
-res://Python_Brain/venv/lib/python3.12/site-packages/numpy/_core/tests/data/umath-validation-set-expm1.ulperrortol.translation
-res://Python_Brain/venv/lib/python3.12/site-packages/numpy/random/tests/data/mt19937-testset-1. 0xdeadbeaf.translation
-res://Python_Brain/venv/lib/python3.12/site-packages/numpy/_core/tests/data/umath-validation-set-log1p.input.translation
-res://Python_Brain/venv/lib/python3.12/site-packages/numpy/random/tests/data/mt19937-testset-2. 0x0.translation
-res://Python_Brain/venv/lib/python3.12/site-packages/numpy/_core/tests/data/umath-validation-set-log1p.output.translation
-res://Python_Brain/venv/lib/python3.12/site-packages/numpy/random/tests/data/pcg64-testset-1. 0xdeadbeaf.translation
-res://Python_Brain/venv/lib/python3.12/site-packages/numpy/_core/tests/data/umath-validation-set-log1p.ulperrortol.translation
-res://Python_Brain/venv/lib/python3.12/site-packages/numpy/random/tests/data/pcg64-testset-2. 0x0.translation
-res://Python_Brain/venv/lib/python3.12/site-packages/numpy/random/tests/data/pcg64dxsm-testset-1. 0xdeadbeaf.translation
-res://Python_Brain/venv/lib/python3.12/site-packages/numpy/_core/tests/data/umath-validation-set-sinh.input.translation
-res://Python_Brain/venv/lib/python3.12/site-packages/numpy/_core/tests/data/umath-validation-set-sin.input.translation
-res://Python_Brain/venv/lib/python3.12/site-packages/numpy/_core/tests/data/umath-validation-set-sinh.output.translation
-res://Python_Brain/venv/lib/python3.12/site-packages/numpy/_core/tests/data/umath-validation-set-sin.output.translation
-res://Python_Brain/venv/lib/python3.12/site-packages/numpy/_core/tests/data/umath-validation-set-sinh.ulperrortol.translation
-res://Python_Brain/venv/lib/python3.12/site-packages/numpy/_core/tests/data/umath-validation-set-tan.input.translation
-res://Python_Brain/venv/lib64/python3.12/site-packages/numpy/random/tests/data/philox-testset-2. 0x0.translation
-res://Python_Brain/venv/lib/python3.12/site-packages/numpy/_core/tests/data/umath-validation-set-sin.ulperrortol.translation
-res://Python_Brain/venv/lib/python3.12/site-packages/numpy/_core/tests/data/umath-validation-set-tan.output.translation
-res://Python_Brain/venv/lib/python3.12/site-packages/numpy/_core/tests/data/umath-validation-set-tanh.input.translation
-res://Python_Brain/venv/lib/python3.12/site-packages/numpy/_core/tests/data/umath-validation-set-tan.ulperrortol.translation
-res://Python_Brain/venv/lib/python3.12/site-packages/numpy/_core/tests/data/umath-validation-set-tanh.output.translation
-res://Python_Brain/venv/lib64/python3.12/site-packages/numpy/random/tests/data/philox-testset-1. 0xdeadbeaf.translation
-res://Python_Brain/venv/lib/python3.12/site-packages/numpy/_core/tests/data/umath-validation-set-tanh.ulperrortol.translation
-res://Python_Brain/venv/lib/python3.12/site-packages/numpy/_core/tests/data/umath-validation-set-log2.input.translation
-res://Python_Brain/venv/lib/python3.12/site-packages/numpy/_core/tests/data/umath-validation-set-log10.input.translation
-res://Python_Brain/venv/lib64/python3.12/site-packages/numpy/random/tests/data/pcg64dxsm-testset-2. 0x0.translation
-res://Python_Brain/venv/lib/python3.12/site-packages/numpy/_core/tests/data/umath-validation-set-log2.output.translation
-res://Python_Brain/venv/lib/python3.12/site-packages/numpy/_core/tests/data/umath-validation-set-log10.output.translation
-res://Python_Brain/venv/lib64/python3.12/site-packages/numpy/random/tests/data/pcg64dxsm-testset-1. 0xdeadbeaf.translation
-res://Python_Brain/venv/lib/python3.12/site-packages/numpy/_core/tests/data/umath-validation-set-log2.ulperrortol.translation
-res://Python_Brain/venv/lib/python3.12/site-packages/numpy/_core/tests/data/umath-validation-set-log10.ulperrortol.translation
-res://Python_Brain/venv/lib64/python3.12/site-packages/numpy/random/tests/data/pcg64-testset-2. 0x0.translation
-res://Python_Brain/venv/lib64/python3.12/site-packages/numpy/random/tests/data/pcg64-testset-1. 0xdeadbeaf.translation
-res://Python_Brain/venv/lib64/python3.12/site-packages/numpy/random/tests/data/mt19937-testset-2. 0x0.translation
-res://Python_Brain/venv/lib64/python3.12/site-packages/numpy/_core/tests/data/umath-validation-set-log.input.translation
-res://Python_Brain/venv/lib64/python3.12/site-packages/numpy/random/tests/data/mt19937-testset-1. 0xdeadbeaf.translation
-res://Python_Brain/venv/lib64/python3.12/site-packages/numpy/_core/tests/data/umath-validation-set-log.output.translation
-res://Python_Brain/venv/lib64/python3.12/site-packages/numpy/_core/tests/data/umath-validation-set-log.ulperrortol.translation
-res://Python_Brain/venv/lib64/python3.12/site-packages/numpy/_core/tests/data/umath-validation-set-exp.input.translation
-res://Python_Brain/venv/lib64/python3.12/site-packages/numpy/_core/tests/data/umath-validation-set-exp.output.translation
-res://Python_Brain/venv/lib64/python3.12/site-packages/numpy/_core/tests/data/umath-validation-set-exp.ulperrortol.translation
-res://Python_Brain/venv/lib64/python3.12/site-packages/numpy/_core/tests/data/umath-validation-set-tanh.input.translation
-res://Python_Brain/venv/lib64/python3.12/site-packages/numpy/_core/tests/data/umath-validation-set-sinh.input.translation
-res://Python_Brain/venv/lib64/python3.12/site-packages/numpy/_core/tests/data/umath-validation-set-tanh.output.translation
-res://Python_Brain/venv/lib64/python3.12/site-packages/numpy/_core/tests/data/umath-validation-set-sinh.output.translation
-res://Python_Brain/venv/lib64/python3.12/site-packages/numpy/_core/tests/data/umath-validation-set-tanh.ulperrortol.translation
-res://Python_Brain/venv/lib64/python3.12/site-packages/numpy/_core/tests/data/umath-validation-set-sinh.ulperrortol.translation
-res://Python_Brain/venv/lib64/python3.12/site-packages/numpy/_core/tests/data/umath-validation-set-tan.input.translation
-res://Python_Brain/venv/lib64/python3.12/site-packages/numpy/_core/tests/data/umath-validation-set-sin.input.translation
-res://Python_Brain/venv/lib64/python3.12/site-packages/numpy/_core/tests/data/umath-validation-set-tan.output.translation
-res://Python_Brain/venv/lib64/python3.12/site-packages/numpy/_core/tests/data/umath-validation-set-sin.output.translation
-res://Python_Brain/venv/lib64/python3.12/site-packages/numpy/_core/tests/data/umath-validation-set-tan.ulperrortol.translation
-res://Python_Brain/venv/lib64/python3.12/site-packages/numpy/_core/tests/data/umath-validation-set-sin.ulperrortol.translation
-res://Python_Brain/venv/lib64/python3.12/site-packages/numpy/_core/tests/data/umath-validation-set-expm1.input.translation
-res://Python_Brain/venv/lib64/python3.12/site-packages/numpy/_core/tests/data/umath-validation-set-log1p.input.translation
-res://Python_Brain/venv/lib64/python3.12/site-packages/numpy/_core/tests/data/umath-validation-set-expm1.output.translation
-res://Python_Brain/venv/lib64/python3.12/site-packages/numpy/_core/tests/data/umath-validation-set-log1p.output.translation
-res://Python_Brain/venv/lib64/python3.12/site-packages/numpy/_core/tests/data/umath-validation-set-expm1.ulperrortol.translation
-res://Python_Brain/venv/lib64/python3.12/site-packages/numpy/_core/tests/data/umath-validation-set-log1p.ulperrortol.translation
-res://Python_Brain/venv/lib64/python3.12/site-packages/numpy/_core/tests/data/umath-validation-set-log10.input.translation
-res://Python_Brain/venv/lib64/python3.12/site-packages/numpy/_core/tests/data/umath-validation-set-log10.output.translation
-res://Python_Brain/venv/lib64/python3.12/site-packages/numpy/_core/tests/data/umath-validation-set-log10.ulperrortol.translation
-res://Python_Brain/venv/lib64/python3.12/site-packages/numpy/_core/tests/data/umath-validation-set-log2.input.translation
-res://Python_Brain/venv/lib64/python3.12/site-packages/numpy/_core/tests/data/umath-validation-set-log2.output.translation
-res://Python_Brain/venv/lib64/python3.12/site-packages/numpy/_core/tests/data/umath-validation-set-cosh.input.translation
-res://Python_Brain/venv/lib64/python3.12/site-packages/numpy/_core/tests/data/umath-validation-set-log2.ulperrortol.translation
-res://Python_Brain/venv/lib64/python3.12/site-packages/numpy/_core/tests/data/umath-validation-set-cosh.output.translation
-res://Python_Brain/venv/lib64/python3.12/site-packages/numpy/_core/tests/data/umath-validation-set-exp2.input.translation
-res://Python_Brain/venv/lib64/python3.12/site-packages/numpy/_core/tests/data/umath-validation-set-cosh.ulperrortol.translation
-res://Python_Brain/venv/lib64/python3.12/site-packages/numpy/_core/tests/data/umath-validation-set-exp2.output.translation
-res://Python_Brain/venv/lib64/python3.12/site-packages/numpy/_core/tests/data/umath-validation-set-exp2.ulperrortol.translation
-res://Python_Brain/venv/lib64/python3.12/site-packages/numpy/_core/tests/data/umath-validation-set-cos.input.translation
-res://Python_Brain/venv/lib64/python3.12/site-packages/numpy/_core/tests/data/umath-validation-set-cos.output.translation
-res://Python_Brain/venv/lib64/python3.12/site-packages/numpy/_core/tests/data/umath-validation-set-cos.ulperrortol.translation
-res://Python_Brain/venv/lib64/python3.12/site-packages/numpy/random/tests/data/sfc64-testset-1. 0xdeadbeaf.translation
-res://Python_Brain/venv/lib64/python3.12/site-packages/numpy/random/tests/data/sfc64-testset-2. 0x0.translation
-res://Python_Brain/venv/lib64/python3.12/site-packages/numpy/_core/tests/data/umath-validation-set-cbrt.input.translation
-res://Python_Brain/venv/lib64/python3.12/site-packages/numpy/_core/tests/data/umath-validation-set-cbrt.output.translation
-res://Python_Brain/venv/lib64/python3.12/site-packages/numpy/_core/tests/data/umath-validation-set-cbrt.ulperrortol.translation
-res://Python_Brain/venv/lib64/python3.12/site-packages/numpy/_core/tests/data/umath-validation-set-arctan.input.translation
-res://Python_Brain/venv/lib64/python3.12/site-packages/numpy/_core/tests/data/umath-validation-set-arctan.output.translation
-res://Python_Brain/venv/lib64/python3.12/site-packages/numpy/_core/tests/data/umath-validation-set-arctan.ulperrortol.translation
-res://Python_Brain/venv/lib64/python3.12/site-packages/numpy/_core/tests/data/umath-validation-set-arcsin.input.translation
-res://Python_Brain/venv/lib64/python3.12/site-packages/numpy/_core/tests/data/umath-validation-set-arcsin.output.translation
-res://Python_Brain/venv/lib64/python3.12/site-packages/numpy/_core/tests/data/umath-validation-set-arctanh.input.translation
-res://Python_Brain/venv/lib64/python3.12/site-packages/numpy/_core/tests/data/umath-validation-set-arcsin.ulperrortol.translation
-res://Python_Brain/venv/lib64/python3.12/site-packages/numpy/_core/tests/data/umath-validation-set-arctanh.output.translation
-res://Python_Brain/venv/lib64/python3.12/site-packages/numpy/_core/tests/data/umath-validation-set-arctanh.ulperrortol.translation
-res://Python_Brain/venv/lib64/python3.12/site-packages/numpy/_core/tests/data/umath-validation-set-arccosh.input.translation
-res://Python_Brain/venv/lib64/python3.12/site-packages/numpy/_core/tests/data/umath-validation-set-arcsinh.input.translation
-res://Python_Brain/venv/lib64/python3.12/site-packages/numpy/_core/tests/data/umath-validation-set-arccos.input.translation
-res://Python_Brain/venv/lib64/python3.12/site-packages/numpy/_core/tests/data/umath-validation-set-arccosh.output.translation
-res://Python_Brain/venv/lib64/python3.12/site-packages/numpy/_core/tests/data/umath-validation-set-arccos.output.translation
-res://Python_Brain/venv/lib64/python3.12/site-packages/numpy/_core/tests/data/umath-validation-set-arccosh.ulperrortol.translation
-res://Python_Brain/venv/lib64/python3.12/site-packages/numpy/_core/tests/data/umath-validation-set-arcsinh.output.translation
-res://Python_Brain/venv/lib64/python3.12/site-packages/numpy/_core/tests/data/umath-validation-set-arccos.ulperrortol.translation
-res://Python_Brain/venv/lib64/python3.12/site-packages/numpy/_core/tests/data/umath-validation-set-arcsinh.ulperrortol.translation
-res://Camera.tscn
+res://building.tscn
 res://addons/naejimer_3d_planet_generator/noises/planet_gaseous.tres
 res://building_flash.gdshader
 res://water.gdshader
-res://building.tscn
 res://sf.tscn
+res://chicago.gd
+res://Camera.tscn
 res://chicago.tscn
 res://nyc.tscn
 res://paris.tscn
 res://london.tscn
 res://washington.tscn
 res://Planet.tscn
+res://city.tscn
+res://london.gd
+res://miami.gd
+res://nyc.gd
+res://paris.gd
+res://sf.gd
+res://washington.gd

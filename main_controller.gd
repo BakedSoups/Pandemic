@@ -50,9 +50,10 @@ func _on_day_add_button_down() -> void:
 	rich_text.text = "Days: " + str(Data.day_count) 
 
 func _on_show_graph_button_down() -> void:
-	if Data.dict_names.has("SF"):
-		var sir_history = Data.dict_names["SF"]["sir_history"]
-		print("SF SIR history: ", sir_history)
+	var current_city = Data.Current_City
+	if Data.dict_names.has(current_city):
+		var sir_history = Data.dict_names[current_city]["sir_history"]
+		print(current_city," SIR history: ", sir_history)
 
 		# Update your global variables
 		Data.Current_S = sir_history[0]

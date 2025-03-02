@@ -9,8 +9,9 @@ extends Node3D
 @onready var green = Vector3(Color.GREEN.r, Color.GREEN.g, Color.GREEN.b)
 @onready var blue = Vector3(Color.BLUE.r, Color.BLUE.g, Color.BLUE.b)
 
-@onready var flash_speed: float = 5.0;
-@onready var flash_color: Vector3 = green;
+@onready var colors = [red, green, blue]
+@onready var flash_speed: float = randf() + 2;
+@onready var flash_color: Vector3 = colors[randi() % colors.size()]
 
 func _ready():
 	shader_material.set_shader_parameter("flash_speed", flash_speed)
