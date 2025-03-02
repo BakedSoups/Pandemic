@@ -1,6 +1,7 @@
-[gd_scene load_steps=14 format=3 uid="uid://bntmcluis2mxc"]
+[gd_scene load_steps=12 format=3 uid="uid://bntmcluis2mxc"]
 
 [ext_resource type="Shader" path="res://ocean.gdshader" id="1_vnr4k"]
+[ext_resource type="ArrayMesh" uid="uid://dx2hi4du67js0" path="res://addons/uploads_files_2883006_Lowpoly+Earth.obj" id="2_ifpkx"]
 
 [sub_resource type="Gradient" id="Gradient_51fra"]
 offsets = PackedFloat32Array(0.128788, 0.563131, 0.661616, 0.742424, 1)
@@ -45,23 +46,9 @@ shader_parameter/uTexureNormal2 = SubResource("NoiseTexture2D_6w0xr")
 
 [sub_resource type="SphereMesh" id="SphereMesh_vymnm"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_k24pk"]
-
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_42iek"]
-
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_ydcrb"]
-noise = SubResource("FastNoiseLite_42iek")
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_fspau"]
-render_priority = 0
-shader = ExtResource("1_vnr4k")
-shader_parameter/uAlbedo = Color(0, 0, 0.8, 1)
-shader_parameter/uNormalMix = 0.2
-shader_parameter/uWaveDirection = Vector2(1, 0)
-shader_parameter/uWaveDirection2 = Vector2(0, 1)
-shader_parameter/uTimeScale = 0.0015
-shader_parameter/uWaveScale = 1.6
-shader_parameter/uTexureNormal = SubResource("NoiseTexture2D_ydcrb")
+[sub_resource type="ORMMaterial3D" id="ORMMaterial3D_u7gbt"]
+vertex_color_use_as_albedo = true
+albedo_color = Color(0.689764, 0.939522, 0.880761, 1)
 
 [node name="Node3D" type="Node3D"]
 
@@ -74,16 +61,7 @@ mesh = SubResource("SphereMesh_vymnm")
 [node name="Camera3D" type="Camera3D" parent="MeshInstance3D"]
 transform = Transform3D(0.0222222, 0, 0, 0, 0.0222222, 0, 0, 0, 0.0222222, -3.16892, 0, 0)
 
-[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
-transform = Transform3D(11.8942, 0, -44.3899, 0, 45.9558, 0, 44.3899, 0, 11.8942, -90, 0, 0)
-material_override = SubResource("StandardMaterial3D_k24pk")
-transparency = 0.16
-gi_lightmap_scale = 1
-mesh = SubResource("SphereMesh_vymnm")
-
-[node name="SubViewport" type="SubViewport" parent="MeshInstance3D2"]
-
-[node name="ColorRect" type="ColorRect" parent="MeshInstance3D2/SubViewport"]
-material = SubResource("ShaderMaterial_fspau")
-offset_right = 40.0
-offset_bottom = 40.0
+[node name="UploadsFiles2883006Lowpoly+earth" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -73, 0, -37.1422)
+mesh = ExtResource("2_ifpkx")
+surface_material_override/0 = SubResource("ORMMaterial3D_u7gbt")
