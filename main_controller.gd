@@ -1,8 +1,8 @@
 extends Node2D
 var DIR = OS.get_executable_path().get_base_dir()
-var interpreter_path = "/usr/bin/python3"
-var script_path = "/home/alex/Documents/Pandemic/Python_Brain/evolve.py"
-var script_path2 = "/home/alex/Documents/Pandemic/Python_Brain/init.py"
+var interpreter_path = "res://Python_Brain/venv/bin/python3"
+var script_path = "res://Python_Brain/evolve.py"
+var script_path2 = "res://Python_Brain/init.py"
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	if !OS.has_feature("standalone"): # if NOT exported version

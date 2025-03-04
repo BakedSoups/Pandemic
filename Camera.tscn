@@ -1,13 +1,13 @@
 [gd_scene load_steps=17 format=3 uid="uid://ch35nc60niedd"]
 
-[ext_resource type="Script" path="res://planet.gd" id="1_b3wkx"]
+[ext_resource type="Script" uid="uid://ci8d57i3pqmxe" path="res://planet.gd" id="1_b3wkx"]
 [ext_resource type="PackedScene" uid="uid://c1ml4yvlgnbbv" path="res://addons/naejimer_3d_planet_generator/scenes/planet_gaseous.tscn" id="2_qtl3p"]
 [ext_resource type="PackedScene" uid="uid://cpkbycrd7cu5v" path="res://city.tscn" id="3_5o1rc"]
-[ext_resource type="Shader" path="res://Space_shader.gdshader" id="4_bshir"]
+[ext_resource type="Shader" uid="uid://crotx72i4ov5c" path="res://Space_shader.gdshader" id="4_bshir"]
 [ext_resource type="PackedScene" uid="uid://bntmcluis2mxc" path="res://Planet.tscn" id="5_ebvm7"]
-[ext_resource type="Shader" path="res://pixelated.gdshader" id="6_h7tmu"]
-[ext_resource type="Shader" path="res://dream.gdshader" id="7_mfnuq"]
-[ext_resource type="Script" path="res://main_controller.gd" id="8_2xgsl"]
+[ext_resource type="Shader" uid="uid://b0wpgmlg138o8" path="res://pixelated.gdshader" id="6_h7tmu"]
+[ext_resource type="Shader" uid="uid://c7di3qjou4icq" path="res://dream.gdshader" id="7_mfnuq"]
+[ext_resource type="Script" uid="uid://db3uhm458p526" path="res://main_controller.gd" id="8_2xgsl"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_k6n8u"]
 

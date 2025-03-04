@@ -16,18 +16,14 @@ with open(directory+"/Python_Brain/state.json", "r") as f:
     state_dictionary = json.load(f)
 
 
-# markov_matrix = np.random.rand(5, 5) + 2*np.eye(5)
-# markov_matrix = np.apply_along_axis(softmax, axis = 0, arr = markov_matrix)
-# state_dictionary["matrix"] = markov_matrix.tolist()
-
 sir_matrix = np.array(state_dictionary["vector"])
 markov_matrix = np.array(state_dictionary["matrix"])
 a = state_dictionary["infection_rate"]
 b = state_dictionary["recovery_rate"]
 
-
-
+#store this into a local dicionary instead (render 50)
 sir_matrix = step_function(sir_matrix, markov_matrix, a , b)
+
 print(sir_matrix)
 
 with open(directory+"/Python_Brain/state.json", "w") as g:
