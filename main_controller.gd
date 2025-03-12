@@ -1,12 +1,12 @@
 extends Node2D
 var DIR = OS.get_executable_path().get_base_dir()
-var interpreter_path = "res://Python_Brain/venv/bin/python3"
+var interpreter_path = "res://Python_Brain/venv/Scripts/python"
 var script_path = "res://Python_Brain/evolve.py"
 var script_path2 = "res://Python_Brain/init.py"
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	if !OS.has_feature("standalone"): # if NOT exported version
-		interpreter_path = ProjectSettings.globalize_path("res://Python_Brain/venv/bin/python3.12")
+		interpreter_path = ProjectSettings.globalize_path("res://Python_Brain/venv/Scripts/python")
 		script_path = ProjectSettings.globalize_path("res://Python_Brain/evolve.py")
 		script_path2 = ProjectSettings.globalize_path("res://Python_Brain/init.py")
 	notify("Godot", "Ready", "Godot is initialized!")
