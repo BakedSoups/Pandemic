@@ -5,14 +5,15 @@ import os
 
 # Get the current working directory
 directory = os.getcwd()
-
+# change to empty this out when testing python version
+mode = directory + "/Python_Brain/"
 
 
 def softmax(x):
     exp_x = np.exp(x - np.max(x))
     return exp_x / np.sum(exp_x)
 
-with open("state.json", "r") as f:
+with open(mode + "state.json", "r") as f:
     state_dictionary = json.load(f)
 
 
@@ -26,15 +27,15 @@ sir_matrix = step_function(sir_matrix, markov_matrix, a , b)
 
 print(sir_matrix)
 
-with open("state.json", "w") as g:
+with open(mode + "state.json", "w") as g:
     state_dictionary["vector"] = sir_matrix.tolist()
     json.dump(state_dictionary, g)
 
 
-with open("init_cities.json", "r") as g:
+with open(mode + "init_cities.json", "r") as g:
     city_array = json.load(g)
 
-with open("cities.json", "r") as g:
+with open(mode +"cities.json", "r") as g:
     city_dictionary = json.load(g)
 
 N = len(city_array)
@@ -44,7 +45,7 @@ for i in range(N):
     city_dictionary[city_array[i]["name"]]["sir_history"][1].append(float(sir_matrix[i][1]))
     city_dictionary[city_array[i]["name"]]["sir_history"][2].append(float(sir_matrix[i][2]))
 
-with open("cities.json", "w") as g:
+with open(mode + "cities.json", "w") as g:
     json.dump(city_dictionary, g)
 
 # for i in range(100):
