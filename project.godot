@@ -21,7 +21,7 @@ Data="*res://Data.gd"
 
 [editor]
 
-ignore_folders="Python_Brain"
+filesystem/scan_exclude=["Python_Brain"]
 
 [input]
 
