@@ -16,6 +16,3 @@ extends Node3D
 func _ready():
 	shader_material.set_shader_parameter("flash_speed", flash_speed)
 	shader_material.set_shader_parameter("flash_color", flash_color)
-
-func _process(delta):
-	pass

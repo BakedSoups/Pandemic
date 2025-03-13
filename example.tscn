@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://bya0oapk302ag"]
+[gd_scene load_steps=9 format=3 uid="uid://ccs3ey0okbqty"]
 
 [ext_resource type="PackedScene" uid="uid://yo6lqoksa53k" path="res://addons/naejimer_3d_planet_generator/scenes/planet_terrestrial.tscn" id="2_j1hjd"]
 [ext_resource type="PackedScene" uid="uid://dneumird5vcjw" path="res://addons/naejimer_3d_planet_generator/scenes/planet_lava.tscn" id="3_3uru6"]
@@ -20,27 +20,27 @@ glow_blend_mode = 0
 [node name="Planets" type="Node3D" parent="."]
 
 [node name="PlanetNoAtmosphere" parent="Planets" instance=ExtResource("4_mbgn3")]
-transform = Transform3D(196.217, 0, 38.7141, 0, 200, 0, -38.7141, 0, 196.217, 0, 0, 0)
+transform = Transform3D(27.345, 0, 198.122, 0, 200, 0, -198.122, 0, 27.345, 0, 0, 0)
 skeleton = NodePath("../..")
 
 [node name="PlanetIce" parent="Planets" instance=ExtResource("3_mm0k4")]
-transform = Transform3D(379.711, 0, 14.8011, 0, 380, 0, -14.8011, 0, 379.711, 369.316, 0, 0)
+transform = Transform3D(364.486, 0, 107.47, 0, 380, 0, -107.47, 0, 364.486, 369.316, 0, 0)
 
 [node name="PlanetLava" parent="Planets" instance=ExtResource("3_3uru6")]
-transform = Transform3D(379.711, 0, 14.8011, 0, 380, 0, -14.8011, 0, 379.711, 844.344, 0, 0)
+transform = Transform3D(364.486, 0, 107.47, 0, 380, 0, -107.47, 0, 364.486, 844.344, 0, 0)
 
 [node name="PlanetSand" parent="Planets" instance=ExtResource("4_h2dlt")]
-transform = Transform3D(379.709, 0, 14.801, 0, 380, 0, -14.801, 0, 379.709, 1317.07, 0, 0)
+transform = Transform3D(364.484, 0, 107.469, 0, 380, 0, -107.469, 0, 364.484, 1317.07, 0, 0)
 
 [node name="PlanetTerrestrial" parent="Planets" instance=ExtResource("2_j1hjd")]
-transform = Transform3D(399.697, 0, 15.5801, 0, 400, 0, -15.5801, 0, 399.697, 1803.38, 0, 0)
+transform = Transform3D(383.67, 0, 113.126, 0, 400, 0, -113.126, 0, 383.67, 1803.38, 0, 0)
 
 [node name="PlanetGaseous" parent="Planets" instance=ExtResource("4_bn1xh")]
 transform = Transform3D(799.918, 0, 11.4481, 0, 800, 0, -11.4481, 0, 799.918, 2515.88, 0, 0)
 skeleton = NodePath("../..")
 
 [node name="Star" parent="Planets" instance=ExtResource("6_7xwvl")]
-transform = Transform3D(1149.14, 0, 345.673, 0, 1200, 0, -345.673, 0, 1149.14, 3658.05, 0, 0)
+transform = Transform3D(-657.296, 0, 1003.98, 0, 1200, 0, -1003.98, 0, -657.296, 3658.05, 0, 0)
 layers = 2
 skeleton = NodePath("../..")
 

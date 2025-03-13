@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="a epic demic"
-run/main_scene="res://Camera.tscn"
+run/main_scene="res://scenes/Camera.tscn"
 config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="res://icon.svg"
 

@@ -1,9 +1,9 @@
 [gd_scene load_steps=24 format=3 uid="uid://dwt3hj0jv12b1"]
 
-[ext_resource type="Shader" path="res://ocean.gdshader" id="1_7oom3"]
+[ext_resource type="Shader" uid="uid://bcipvylievlkm" path="res://shaders/ocean.gdshader" id="1_7oom3"]
 [ext_resource type="ArrayMesh" uid="uid://dx2hi4du67js0" path="res://addons/uploads_files_2883006_Lowpoly+Earth.obj" id="2_x5d01"]
 [ext_resource type="PackedScene" uid="uid://bhjwk4cvx4bvi" path="res://sf.tscn" id="3_j8gm8"]
-[ext_resource type="PackedScene" uid="uid://b7ale2cdn4kvc" path="res://flashing_buildings.tscn" id="4_ehgvl"]
+[ext_resource type="PackedScene" uid="uid://b7ale2cdn4kvc" path="res://scenes/flashing_buildings.tscn" id="4_ehgvl"]
 
 [sub_resource type="Gradient" id="Gradient_51fra"]
 interpolation_mode = 2

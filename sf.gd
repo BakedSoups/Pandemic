@@ -17,7 +17,7 @@ func _ready():
 	pass
 
 
-func _process(delta):
+func _process(_delta):
 	shader_material.set_shader_parameter("flash_speed", flash_speed)
 	shader_material.set_shader_parameter("flash_color", flash_color)
 	

@@ -16,13 +16,13 @@ def add_day(state_dictionary, city_dictionary, city_array):
     a = state_dictionary["infection_rate"]
     b = state_dictionary["recovery_rate"]
     
-    # Get city names for movement tracking
+    # get city names for movement tracking
     city_names = [city["name"] for city in city_array]
     
-    # Use updated step_function that returns movement data and city exodus
+    # returns movement data and city exodus
     result = step_function(sir_matrix, markov_matrix, a, b, city_names)
     
-    # Unpack the result (new sir_matrix, movement_data, and city_exodus)
+    # unpack the result (new sir_matrix, movement_data, and city_exodus)
     if isinstance(result, tuple) and len(result) == 3:
         sir_matrix, movement_data, city_exodus = result
     elif isinstance(result, tuple) and len(result) == 2:
@@ -33,32 +33,28 @@ def add_day(state_dictionary, city_dictionary, city_array):
         movement_data = []
         city_exodus = {}
     
-    # Update the state vector
+    #  state vector
     state_dictionary["vector"] = sir_matrix.tolist()
     
-    # Get current day
     current_day = len(city_dictionary[city_array[0]["name"]]["sir_history"][0])
     day_key = f"day_{current_day}"
     
-    # Record the movements for this day
     if "movements" not in city_dictionary:
         city_dictionary["movements"] = {}
     
     city_dictionary["movements"][day_key] = movement_data
     
-    # Record the city exodus data
     for city_name in city_names:
-        # Initialize exodus tracking if it doesn't exist
         if "exodus_history" not in city_dictionary[city_name]:
             city_dictionary[city_name]["exodus_history"] = {}
             
-        # Store this day's exodus data for the city
+        #storing the day exodus history into the city_name
         if city_name in city_exodus:
             city_dictionary[city_name]["exodus_history"][day_key] = city_exodus[city_name]["left_for"]
         else:
             city_dictionary[city_name]["exodus_history"][day_key] = {}
     
-    # Update SIR history as before
+    # now update the sir from before
     N = len(city_array)
     for i in range(N):
         city_dictionary[city_array[i]["name"]]["sir_history"][0].append(float(sir_matrix[i][0]))
@@ -96,10 +92,10 @@ def start_pandemic(seed, state_dictionary, city_array):
             "longitude": city_array[i]["longitude"]
         }
     
-    # Initialize empty movements record
+    # initialize empty movements record
     city_dictionary["movements"] = {"day_0": []}
     
-    # Initialize exodus tracking for each city
+    # initialize exodus tracking for each city
     for city_name in [city["name"] for city in city_array]:
         city_dictionary[city_name]["exodus_history"] = {"day_0": {}}
     

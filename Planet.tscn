@@ -1,6 +1,6 @@
 [gd_scene load_steps=29 format=3 uid="uid://bntmcluis2mxc"]
 
-[ext_resource type="Shader" path="res://ocean.gdshader" id="1_vnr4k"]
+[ext_resource type="Shader" uid="uid://bcipvylievlkm" path="res://shaders/ocean.gdshader" id="1_vnr4k"]
 [ext_resource type="ArrayMesh" uid="uid://dx2hi4du67js0" path="res://addons/uploads_files_2883006_Lowpoly+Earth.obj" id="2_ifpkx"]
 [ext_resource type="PackedScene" uid="uid://bhjwk4cvx4bvi" path="res://sf.tscn" id="3_rnh00"]
 [ext_resource type="PackedScene" uid="uid://dthy3ojs6ii2o" path="res://paris.tscn" id="4_j8wxe"]
@@ -45,13 +45,13 @@ noise = SubResource("FastNoiseLite_4lnyg")
 render_priority = -128
 shader = ExtResource("1_vnr4k")
 shader_parameter/uAlbedo = Color(0.172912, 0.332356, 0.961214, 1)
+shader_parameter/uTexureNormal = SubResource("NoiseTexture2D_rado1")
+shader_parameter/uTexureNormal2 = SubResource("NoiseTexture2D_6w0xr")
 shader_parameter/uNormalMix = 0.2
 shader_parameter/uWaveDirection = Vector2(1, 0)
 shader_parameter/uWaveDirection2 = Vector2(0, 1)
 shader_parameter/uTimeScale = 0.001
 shader_parameter/uWaveScale = 1.3
-shader_parameter/uTexureNormal = SubResource("NoiseTexture2D_rado1")
-shader_parameter/uTexureNormal2 = SubResource("NoiseTexture2D_6w0xr")
 
 [sub_resource type="SphereMesh" id="SphereMesh_vymnm"]
 
@@ -94,7 +94,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.067421, 0.343822, 0.331932)
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(12.3468, 0, -46.0789, 0, 47.7044, 0, 46.0789, 0, 12.3468, 0, 0, 0)
 material_override = SubResource("ShaderMaterial_mn4gk")
-gi_lightmap_scale = 1
+gi_lightmap_texel_scale = 2.0
 mesh = SubResource("SphereMesh_vymnm")
 
 [node name="UploadsFiles2883006Lowpoly+earth" type="MeshInstance3D" parent="."]

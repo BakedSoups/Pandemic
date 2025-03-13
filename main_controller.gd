@@ -11,7 +11,6 @@ func _ready():
 func notify(title="", subtitle="", body=""):
 	var output = []
 	var exit_code = OS.execute(interpreter_path, [script_path, title, subtitle, body], output, true)
-	var json = JSON.new()
 	var names = FileAccess.get_file_as_string("res://Python_Brain/pandemic_simulation.json")
 	var dict_names = JSON.parse_string(names)
 	print("Exit code: ", exit_code)
@@ -19,9 +18,7 @@ func notify(title="", subtitle="", body=""):
 	
 	Data.dict_names = dict_names
 #save into a global dictionary
-func _process(delta: float) -> void:
-	pass
-		
+
 func _on_start_simulation_button_down() -> void:
 	print("Starting simulation...")
 	notify("Simulation", "Started", "The simulation has begun!")
@@ -31,13 +28,17 @@ func _on_day_add_button_down() -> void:
 	var rich_text
 	rich_text = $"../Day Counter"
 	
-	# Now update the text with your variable
-	var health = 100
 	rich_text.text = "Days: " + str(Data.day_count) 
 
-func _on_show_graph_button_down() -> void:
+func _on_show_graph_button_down() -> int:
+	
 	var current_city = Data.Current_City
-	var city_stats = Data.dict_names["day_"+str(Data.day_count)][current_city]["sir_history"]
+	var current_day = "day_"+str(Data.day_count)
+	var city_day = Data.dict_names[current_day]
+	
+	if not city_day.has(current_city) or (current_day <= 0):
+		return -1
+	var city_stats = city_day[current_city]["sir_history"]
 	print(" SIR history: ",city_stats)
 	
 	# Update global variables
@@ -48,16 +49,10 @@ func _on_show_graph_button_down() -> void:
 	print("Current S: ", Data.Current_S)
 	print("Current I: ", Data.Current_I)
 	print("Current R: ", Data.Current_R)
-		#
-		# Get the NYC data for day 10
-#nyc_data = simulation_data["day_10"]["NYC"]
-#
-## Get the SIR values for day 10
-## Remember that city_stats stores all days from 0 to current
-#susceptible = nyc_data["city_stats"][0][10]  # S value on day 10
-#infected = nyc_data["city_stats"][1][10]     # I value on day 10
-#recovered = nyc_data["city_stats"][2][10]    # R value on day 10
-	get_tree().change_scene_to_file("res://plot.tscn")
+		
+	get_tree().change_scene_to_file("res://scenes/plot.tscn")
+	return 0
+		
 
 func _on_day_back_button_down() -> int:
 	if Data.day_count <= 0: 
@@ -67,7 +62,5 @@ func _on_day_back_button_down() -> int:
 	var rich_text
 	rich_text = $"../Day Counter"
 	
-	# Now update the text with your variable
-	var health = 100
 	rich_text.text = "Days: " + str(Data.day_count) 
 	return 0

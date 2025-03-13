@@ -43,5 +43,3 @@ func _diagnostics() -> void:
 	print(typeof(dict_names))
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass

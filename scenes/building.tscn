@@ -1,0 +1,40 @@
+[gd_scene load_steps=7 format=3 uid="uid://e1qmhk2v3dpe"]
+
+[ext_resource type="Script" uid="uid://bhbphhsdcxjls" path="res://scripts/building.gd" id="1_n24kj"]
+[ext_resource type="ArrayMesh" uid="uid://cj1pw34j6rj5d" path="res://assets/SC_Bld_StatueOfLiberty.obj" id="4_56qy8"]
+[ext_resource type="Shader" uid="uid://cw326nm3esxit" path="res://building_flash.gdshader" id="5_ltbsv"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_mffbc"]
+render_priority = 0
+shader = ExtResource("5_ltbsv")
+shader_parameter/red = Vector3(1, 0, 0)
+shader_parameter/green = Vector3(0, 1, 0)
+shader_parameter/blue = Vector3(0, 0, 1)
+shader_parameter/flash_color = Vector3(0, 0, 0)
+shader_parameter/flash_speed = 0.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_r7j04"]
+render_priority = 0
+next_pass = SubResource("ShaderMaterial_mffbc")
+shader = ExtResource("5_ltbsv")
+shader_parameter/red = Vector3(1, 0, 0)
+shader_parameter/green = Vector3(0, 1, 0)
+shader_parameter/blue = Vector3(0, 0, 1)
+shader_parameter/flash_color = Vector3(0, 0, 0)
+shader_parameter/flash_speed = 0.0
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_os42p"]
+
+[node name="Building" type="Node3D"]
+script = ExtResource("1_n24kj")
+
+[node name="Area3D" type="Area3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Area3D"]
+mesh = ExtResource("4_56qy8")
+skeleton = NodePath("")
+surface_material_override/0 = SubResource("ShaderMaterial_r7j04")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
+shape = SubResource("BoxShape3D_os42p")
