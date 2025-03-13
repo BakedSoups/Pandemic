@@ -109,21 +109,32 @@ offset_bottom = 10749.0
 
 [node name="ColorRect2" type="ColorRect" parent="CanvasLayer"]
 material = SubResource("ShaderMaterial_cxcom")
-offset_left = -56785.0
-offset_top = -35303.0
-offset_right = 51850.0
-offset_bottom = 34577.0
+offset_left = -56831.0
+offset_top = -35343.0
+offset_right = 51804.0
+offset_bottom = 34537.0
 
 [node name="PanelContainer4" type="PanelContainer" parent="CanvasLayer"]
-offset_left = 891.0
-offset_top = 295.0
+offset_left = 893.0
+offset_top = 171.0
 offset_right = 1150.0
-offset_bottom = 382.0
+offset_bottom = 261.0
 scale = Vector2(0.84, 1)
 
 [node name="Start Simulation" type="Button" parent="CanvasLayer/PanelContainer4"]
 layout_mode = 2
 text = "Start Simulation"
+
+[node name="PanelContainer5" type="PanelContainer" parent="CanvasLayer"]
+offset_left = 897.0
+offset_top = 285.0
+offset_right = 1156.0
+offset_bottom = 372.0
+scale = Vector2(0.8, 1)
+
+[node name="Day Back" type="Button" parent="CanvasLayer/PanelContainer5"]
+layout_mode = 2
+text = "Day Back"
 
 [node name="PanelContainer3" type="PanelContainer" parent="CanvasLayer"]
 offset_left = 897.0
@@ -181,5 +192,6 @@ transform = Transform3D(5.1531, 0, 0, 0, 5.16411, 8.85441, 0, -3.00643, 15.2091,
 transform = Transform3D(5, 0, 0, 0, 4.71335, 8.34311, 0, -1.66862, 23.5668, 1.71065, 10.5272, 23.2694)
 
 [connection signal="button_down" from="CanvasLayer/PanelContainer4/Start Simulation" to="CanvasLayer/Main_Controller" method="_on_start_simulation_button_down"]
+[connection signal="button_down" from="CanvasLayer/PanelContainer5/Day Back" to="CanvasLayer/Main_Controller" method="_on_day_back_button_down"]
 [connection signal="button_down" from="CanvasLayer/PanelContainer3/Day Add" to="CanvasLayer/Main_Controller" method="_on_day_add_button_down"]
 [connection signal="button_down" from="CanvasLayer/PanelContainer2/Show Graph" to="CanvasLayer/Main_Controller" method="_on_show_graph_button_down"]

@@ -19,6 +19,10 @@ config/icon="res://icon.svg"
 
 Data="*res://Data.gd"
 
+[editor]
+
+ignore_folders="Python_Brain"
+
 [input]
 
 quit={
