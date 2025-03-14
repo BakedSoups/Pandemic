@@ -1,13 +1,13 @@
 extends Node3D
 
 @onready var building_materials = {
-	"sf": $SF/Area3D/MeshInstance3D.get_surface_override_material(0),
-	"chicago": $Chicago/Area3D/MeshInstance3D.get_surface_override_material(0),
-	"london": $London/Area3D/MeshInstance3D.get_surface_override_material(0),
-	"miami": $Miami/Area3D/MeshInstance3D.get_surface_override_material(0),
-	"washington": $Washington/Area3D/MeshInstance3D.get_surface_override_material(0),
-	"Paris": $Paris/Area3D/MeshInstance3D.get_surface_override_material(0),
-	"nyc": $NYC/Area3D/MeshInstance3D.get_surface_override_material(0),
+	"SF": $SF/Area3D/MeshInstance3D.get_surface_override_material(0),
+	"CHI": $CHI/Area3D/MeshInstance3D.get_surface_override_material(0),
+	"LON": $LON/Area3D/MeshInstance3D.get_surface_override_material(0),
+	"MA": $MA/Area3D/MeshInstance3D.get_surface_override_material(0),
+	"WA": $WA/Area3D/MeshInstance3D.get_surface_override_material(0),
+	"PA": $PA/Area3D/MeshInstance3D.get_surface_override_material(0),
+	"NYC": $NYC/Area3D/MeshInstance3D.get_surface_override_material(0),
 }
 
 @export_category("SRI Color")
@@ -30,16 +30,39 @@ func _ready():
 	pass
 
 func _process(delta):
+	if Data.day_count == 0: 
+		return -1
 	for building in building_materials:
 		var material = building_materials[building]
 		# > TEMP >
-		
-		if building == "sf":
+		var current_day = "day_"+str(Data.day_count)
+		var city_day = Data.dict_names[current_day]
+		#
+		#if not city_da
+		var city_stats = city_day[building]["sir_history"]
+
+
+		var current_stats = len(city_stats[0])-1 #they are all the same size this will get the last elelemtn of the list
+		var S = city_stats[0][current_stats]
+		var I = city_stats[1][current_stats]
+		var R = city_stats[2][current_stats]
+		if building == "CHI":
+			print(building,"stats:")
+			print("Current S: ",S )
+			print("Current I: ", I)
+			print("Current R: ", R)
+			
+			
+		if I > 20000:
 			material.set_shader_parameter("factor", 5.0)
 			material.set_shader_parameter("color", red)
+		elif R > 20000:
+			material.set_shader_parameter("factor", 0.0)
+			material.set_shader_parameter("color", green)
 		else:
 			material.set_shader_parameter("factor", 0.0)
 			material.set_shader_parameter("color", blue)
+			
 		# < TEMP <
 
 ''' TODO: 

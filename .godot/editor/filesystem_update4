@@ -11,3 +11,4 @@ res://scripts/main_controller.gd
 res://scenes/building.tscn
 res://scenes/buildings/buildings.tscn
 res://scripts/building.gd
+res://scenes/buildings/sf.tscn
