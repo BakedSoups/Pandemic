@@ -1,0 +1,34 @@
+[gd_scene load_steps=7 format=3 uid="uid://cv4w6gm5c78vk"]
+
+[ext_resource type="Script" uid="uid://bhbphhsdcxjls" path="res://scripts/building.gd" id="1_ye38q"]
+[ext_resource type="ArrayMesh" uid="uid://dh0cdrkofw5i0" path="res://assets/SC_Bld_03_Bright.obj" id="2_4q7u0"]
+[ext_resource type="Shader" uid="uid://cw326nm3esxit" path="res://shaders/building_flash.gdshader" id="3_w4m8t"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_mffbc"]
+render_priority = 0
+shader = ExtResource("3_w4m8t")
+shader_parameter/flash_color = Vector3(0, 0, 0)
+shader_parameter/flash_speed = 0.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_r7j04"]
+render_priority = 0
+next_pass = SubResource("ShaderMaterial_mffbc")
+shader = ExtResource("3_w4m8t")
+shader_parameter/flash_color = Vector3(0, 0, 0)
+shader_parameter/flash_speed = 0.0
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_qwlj3"]
+points = PackedVector3Array(-4.08322, 67.5446, -4.71216, 3.35139, 4.34951, 10.1622, 8.34328, 45.5081, 7.7953, 9.55024, -0.604237, -9.67026, -8.4229, 2.03931, -9.00918, -9.04266, -0.604237, 8.92167, -7.8357, 45.5081, 7.7953, 8.4229, 45.5717, -8.46777, 0.872581, 78.7022, 0.245952, -8.4229, 45.977, -9.00918, 9.55024, -0.604237, 8.92167, -4.08322, 67.5446, 3.96356, 3.35139, 67.5446, -4.71216, -2.84382, -0.604237, 10.1622, 3.35139, 67.5446, 3.96356, -0.365005, 78.7022, -0.992605, -2.84382, 4.34951, 10.1622, 3.35139, -0.604237, 10.1622, 0.872581, 78.7022, -0.992605, -0.365005, 78.7022, 0.245952)
+
+[node name="Chicago" type="Node3D"]
+script = ExtResource("1_ye38q")
+
+[node name="Area3D" type="Area3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Area3D"]
+mesh = ExtResource("2_4q7u0")
+skeleton = NodePath("")
+surface_material_override/0 = SubResource("ShaderMaterial_r7j04")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+shape = SubResource("ConvexPolygonShape3D_qwlj3")

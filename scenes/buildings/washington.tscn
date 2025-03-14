@@ -1,0 +1,36 @@
+[gd_scene load_steps=7 format=3 uid="uid://c5bswetikprta"]
+
+[ext_resource type="Script" uid="uid://bhbphhsdcxjls" path="res://scripts/building.gd" id="1_ojlj2"]
+[ext_resource type="ArrayMesh" uid="uid://coh1g1bcyrdvs" path="res://assets/SC_Bld_CapitolBuilding.obj" id="2_b7bp3"]
+[ext_resource type="Shader" uid="uid://cw326nm3esxit" path="res://shaders/building_flash.gdshader" id="3_7bvsq"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_mffbc"]
+render_priority = 0
+shader = ExtResource("3_7bvsq")
+shader_parameter/flash_color = Vector3(0, 0, 0)
+shader_parameter/flash_speed = 0.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_r7j04"]
+render_priority = 0
+next_pass = SubResource("ShaderMaterial_mffbc")
+shader = ExtResource("3_7bvsq")
+shader_parameter/flash_color = Vector3(0, 0, 0)
+shader_parameter/flash_speed = 0.0
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_87w61"]
+points = PackedVector3Array(1.39491, 50.0285, 3.07495, -29.4816, 0.5355, -26.5463, -30.9659, 0.418675, -25.3261, 40.9136, 0.903847, 12.1368, -12.6778, 0.70573, 28.4459, 32.4095, 3.52645, -26.5117, -45.0961, 16.2097, 14.3534, 45.0961, 16.2097, 14.3534, -45.0961, 16.2097, -13.8317, 45.0961, 16.2097, -13.8317, -40.9054, 0.903847, 12.1368, -32.4007, 9.16291, -25.1046, -1.41257, 50.0285, 0.260853, 12.6778, 0.70573, 28.4459, 42.075, 0.229459, -11.9522, 30.997, 9.16291, -25.1046, -42.0665, 0.229459, -11.9522, 30.997, 0.70573, -27.9242, -30.997, 0.70573, -27.9242, -1.41257, 50.0285, 3.07495, 1.39491, 50.0285, 0.260853, 11.2652, 9.16291, 24.2138, -11.2652, 9.16291, 24.2138, 30.9743, 0.418675, -25.3261, -32.4007, 3.52645, -26.5117)
+
+[node name="Washington" type="Node3D"]
+script = ExtResource("1_ojlj2")
+
+[node name="Area3D" type="Area3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Area3D"]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, 0)
+mesh = ExtResource("2_b7bp3")
+skeleton = NodePath("")
+surface_material_override/0 = SubResource("ShaderMaterial_r7j04")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, 0)
+shape = SubResource("ConvexPolygonShape3D_87w61")

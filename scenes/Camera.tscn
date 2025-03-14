@@ -7,7 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://bntmcluis2mxc" path="res://Planet.tscn" id="5_kn7q7"]
 [ext_resource type="Shader" uid="uid://b0wpgmlg138o8" path="res://shaders/pixelated.gdshader" id="6_8stbe"]
 [ext_resource type="Shader" uid="uid://c7di3qjou4icq" path="res://shaders/dream.gdshader" id="7_rbawg"]
-[ext_resource type="Script" uid="uid://db3uhm458p526" path="res://main_controller.gd" id="8_qx3gj"]
+[ext_resource type="Script" uid="uid://db3uhm458p526" path="res://scripts/main_controller.gd" id="8_qx3gj"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_k6n8u"]
 
@@ -19,20 +19,37 @@
 shader = ExtResource("4_w4phd")
 shader_parameter/sky_color = Color(0.03, 0.05, 0.11, 1)
 shader_parameter/star_base_color = Color(0.870403, 0.915511, 1, 1)
-shader_parameter/star_hue_offset = 0.6
-shader_parameter/star_intensity = 0.04
-shader_parameter/star_twinkle_speed = 0.8
-shader_parameter/star_twinkle_intensity = 0.2
+shader_parameter/star_hue_offset = 0.491
+shader_parameter/star_intensity = 0.087
+shader_parameter/star_twinkle_speed = 0.691
+shader_parameter/star_twinkle_intensity = 0.348
 shader_parameter/layer_scale = 20.0
 shader_parameter/layer_scale_step = 10.0
 shader_parameter/layers_count = 3
 
 [sub_resource type="Sky" id="Sky_8t7mb"]
 sky_material = SubResource("ShaderMaterial_x6rg3")
+process_mode = 3
 
 [sub_resource type="Environment" id="Environment_6p80e"]
 background_mode = 2
+background_energy_multiplier = 3.36
 sky = SubResource("Sky_8t7mb")
+ambient_light_energy = 16.0
+tonemap_exposure = 0.83
+glow_enabled = true
+glow_intensity = 8.0
+glow_strength = 1.61
+glow_bloom = 0.34
+glow_hdr_threshold = 0.34
+glow_hdr_luminance_cap = 21.7
+glow_map_strength = 0.78
+fog_enabled = true
+fog_mode = 1
+fog_light_color = Color(0.0748774, 0.0855735, 0.102389, 1)
+fog_light_energy = 0.17
+fog_density = 0.1474
+fog_sky_affect = 0.947
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_e5003"]
 shader = ExtResource("6_8stbe")
@@ -95,7 +112,7 @@ light_size = 0.488
 omni_range = 80.0
 omni_attenuation = 0.596
 
-[node name="Node3D" parent="." instance=ExtResource("5_kn7q7")]
+[node name="Earth" parent="." instance=ExtResource("5_kn7q7")]
 transform = Transform3D(0.996823, 0, 0, 0, 0.996823, 0, 0, 0, 0.996823, 0, 0, 0)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]

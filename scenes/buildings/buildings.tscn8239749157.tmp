@@ -1,0 +1,40 @@
+[gd_scene load_steps=9 format=3 uid="uid://b6k1rb081012t"]
+
+[ext_resource type="Script" uid="uid://bhbphhsdcxjls" path="res://scripts/building.gd" id="1_ydm6t"]
+[ext_resource type="PackedScene" uid="uid://bhjwk4cvx4bvi" path="res://scenes/buildings/sf.tscn" id="2_ado32"]
+[ext_resource type="PackedScene" uid="uid://cv4w6gm5c78vk" path="res://scenes/buildings/chicago.tscn" id="3_qke0h"]
+[ext_resource type="PackedScene" uid="uid://bk2f2qhnfndul" path="res://scenes/buildings/london.tscn" id="4_gfkbi"]
+[ext_resource type="PackedScene" uid="uid://byylr7a18fnj" path="res://scenes/buildings/miami.tscn" id="5_rbym2"]
+[ext_resource type="PackedScene" uid="uid://c5bswetikprta" path="res://scenes/buildings/washington.tscn" id="6_4kjf4"]
+[ext_resource type="PackedScene" uid="uid://dthy3ojs6ii2o" path="res://scenes/buildings/paris.tscn" id="7_rxheo"]
+[ext_resource type="PackedScene" uid="uid://dal2rn4ri4l0v" path="res://scenes/buildings/nyc.tscn" id="8_bmpi4"]
+
+[node name="Buildings" type="Node3D"]
+script = ExtResource("1_ydm6t")
+
+[node name="SF" parent="." instance=ExtResource("2_ado32")]
+transform = Transform3D(0.187258, -0.0546918, 0.0440802, 0.0696612, 0.12845, -0.136557, 0.00903221, 0.143211, 0.139317, -8.19097, 14.2438, 17.2368)
+
+[node name="Chicago" parent="." instance=ExtResource("3_qke0h")]
+transform = Transform3D(0.05, 0, 0, 0, 0.031929, -0.0384778, 0, 0.0384778, 0.031929, -0.15725, 16.5282, 17.3431)
+script = null
+
+[node name="London" parent="." instance=ExtResource("4_gfkbi")]
+transform = Transform3D(0.356437, 0.305987, 0.171243, -0.284848, 0.395074, -0.113041, -0.204485, -0.0169722, 0.455958, 13.7119, 19.3579, 0.207494)
+script = null
+
+[node name="Miami" parent="." instance=ExtResource("5_rbym2")]
+transform = Transform3D(0.0499558, -0.00186977, -0.000957675, 0, 0.0227936, -0.0445023, 0.00210076, 0.044463, 0.0227734, 3.55099, 11.0085, 21.0514)
+script = null
+
+[node name="Washington" parent="." instance=ExtResource("6_4kjf4")]
+transform = Transform3D(-0.132279, -0.0461355, -0.0536068, -0.0674967, 0.11631, 0.066454, 0.0211275, 0.0827251, -0.12333, -6.97434, 18.6489, 13.2683)
+script = null
+
+[node name="Paris" parent="." instance=ExtResource("7_rxheo")]
+transform = Transform3D(0.0403062, 0.0295776, 0.000757778, -0.0289373, 0.0391408, 0.0114293, 0.00616785, -0.00965203, 0.0486703, 14.961, 18.212, -4.20067)
+script = null
+
+[node name="NYC" parent="." instance=ExtResource("8_bmpi4")]
+transform = Transform3D(0.0498767, 0.00213189, -0.00278678, -0.00350872, 0.030305, -0.0396144, 0, 0.0397123, 0.0303799, 3.67357, 14.0686, 18.8651)
+script = null

@@ -1,0 +1,34 @@
+[gd_scene load_steps=7 format=3 uid="uid://dthy3ojs6ii2o"]
+
+[ext_resource type="Script" uid="uid://bhbphhsdcxjls" path="res://scripts/building.gd" id="1_5mhhj"]
+[ext_resource type="ArrayMesh" uid="uid://dxqi2syd4jmhj" path="res://assets/SC_Bld_EiffelTower.obj" id="2_gbmko"]
+[ext_resource type="Shader" uid="uid://cw326nm3esxit" path="res://shaders/building_flash.gdshader" id="3_43l8l"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_mffbc"]
+render_priority = 0
+shader = ExtResource("3_43l8l")
+shader_parameter/flash_color = Vector3(0, 0, 0)
+shader_parameter/flash_speed = 0.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_r7j04"]
+render_priority = 0
+next_pass = SubResource("ShaderMaterial_mffbc")
+shader = ExtResource("3_43l8l")
+shader_parameter/flash_color = Vector3(0, 0, 0)
+shader_parameter/flash_speed = 0.0
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_20uwj"]
+points = PackedVector3Array(0.595554, 95.3951, 0.684154, -21.187, 0.906549, -21.0984, -21.187, 0.906549, 20.9656, 21.6281, 2.26049, -21.8495, 21.6281, 2.26049, 21.7167, -3.90351, 83.3674, -3.81491, -21.9381, 2.26049, 21.7167, -21.9381, 2.26049, -21.8495, 21.0098, 0.613471, 21.0984, 20.877, 0.906549, -21.0984, 3.59351, 83.3674, 3.68211, -0.905555, 95.3951, -0.816955, 3.59351, 83.3674, -3.81491, -3.90351, 83.3674, 3.68211, -0.905555, 95.3951, 0.684154, 0.595554, 95.3951, -0.816955)
+
+[node name="Paris" type="Node3D"]
+script = ExtResource("1_5mhhj")
+
+[node name="Area3D" type="Area3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Area3D"]
+mesh = ExtResource("2_gbmko")
+skeleton = NodePath("")
+surface_material_override/0 = SubResource("ShaderMaterial_r7j04")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+shape = SubResource("ConvexPolygonShape3D_20uwj")
