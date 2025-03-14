@@ -1,0 +1,58 @@
+[gd_scene load_steps=7 format=3 uid="uid://bhjwk4cvx4bvi"]
+
+[ext_resource type="Script" uid="uid://bhbphhsdcxjls" path="res://scripts/building.gd" id="1_aovkg"]
+[ext_resource type="ArrayMesh" uid="uid://cnkqwjjcotkx6" path="res://assets/SC_Prop_Bridge_01.obj" id="2_ph3hk"]
+[ext_resource type="Shader" uid="uid://cw326nm3esxit" path="res://shaders/building_flash.gdshader" id="3_o8kg4"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_mffbc"]
+render_priority = 0
+shader = ExtResource("3_o8kg4")
+shader_parameter/flash_color = Vector3(0, 0, 0)
+shader_parameter/flash_speed = 0.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_r7j04"]
+render_priority = 0
+next_pass = SubResource("ShaderMaterial_mffbc")
+shader = ExtResource("3_o8kg4")
+shader_parameter/flash_color = Vector3(0, 0, 0)
+shader_parameter/flash_speed = 0.0
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_os42p"]
+size = Vector3(22.6339, 1.03656, 89.6122)
+
+[node name="SF" type="Node3D"]
+script = ExtResource("1_aovkg")
+
+[node name="Area3D" type="Area3D" parent="."]
+
+[node name="Sf_Mesh" type="MeshInstance3D" parent="Area3D"]
+unique_name_in_owner = true
+process_mode = 4
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, -9.1458)
+mesh = ExtResource("2_ph3hk")
+skeleton = NodePath("")
+surface_material_override/0 = SubResource("ShaderMaterial_r7j04")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, -0.0382875, 1.72977, -9.15045)
+shape = SubResource("BoxShape3D_os42p")
+
+[node name="Area3D2" type="Area3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Area3D2"]
+process_mode = 4
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, -9.1458)
+mesh = ExtResource("2_ph3hk")
+skeleton = NodePath("")
+surface_material_override/0 = SubResource("ShaderMaterial_r7j04")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Area3D2"]
+process_mode = 4
+transform = Transform3D(0.2, 0, 0, 0, 0.199523, -0.0138016, 0, 0.0138016, 0.199523, 0, -0.626765, 8.90575)
+mesh = ExtResource("2_ph3hk")
+skeleton = NodePath("")
+surface_material_override/0 = SubResource("ShaderMaterial_r7j04")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D2"]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, -0.0382875, 1.72977, -9.15045)
+shape = SubResource("BoxShape3D_os42p")

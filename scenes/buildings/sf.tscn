@@ -1,0 +1,49 @@
+[gd_scene load_steps=7 format=3 uid="uid://bhjwk4cvx4bvi"]
+
+[ext_resource type="ArrayMesh" uid="uid://cnkqwjjcotkx6" path="res://assets/SC_Prop_Bridge_01.obj" id="2_ph3hk"]
+[ext_resource type="Shader" uid="uid://cw326nm3esxit" path="res://shaders/building_flash.gdshader" id="3_o8kg4"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_mffbc"]
+render_priority = 0
+shader = ExtResource("3_o8kg4")
+shader_parameter/flash_color = Vector3(0, 0, 0)
+shader_parameter/flash_speed = 0.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_r7j04"]
+render_priority = 0
+next_pass = SubResource("ShaderMaterial_mffbc")
+shader = ExtResource("3_o8kg4")
+shader_parameter/flash_color = Vector3(0, 0, 0)
+shader_parameter/flash_speed = 0.0
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_s4fc0"]
+points = PackedVector3Array(13.4773, 11.0343, 47.0459, 15.0026, 33.0108, -2.6813, -14.5143, 33.0103, 2.6812, -12.9895, 11.0343, -47.0459, -12.9895, 6.61943, 47.0459, 13.4773, 6.61943, -47.0459, 16.4191, -0.735237, 2.93864, -15.9313, -0.735237, -2.93864, -12.9895, 11.0343, 47.0459, 13.4773, 11.0343, -47.0459, -12.9895, 6.61943, -47.0459, 13.4773, 6.61943, 47.0459, 11.8649, 32.4062, 5.1612, -14.5148, 33.0108, -2.6813, -15.9313, -0.735237, 2.93864, 16.4191, -0.735237, -2.93864, 11.8136, 32.3377, -5.1384, 15.002, 33.0103, 2.6812)
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_tdncs"]
+points = PackedVector3Array(13.4773, 11.0343, 47.0459, 15.0026, 33.0108, -2.6813, -14.5143, 33.0103, 2.6812, -12.9895, 11.0343, -47.0459, -12.9895, 6.61943, 47.0459, 13.4773, 6.61943, -47.0459, 16.4191, -0.735237, 2.93864, -15.9313, -0.735237, -2.93864, -12.9895, 11.0343, 47.0459, 13.4773, 11.0343, -47.0459, -12.9895, 6.61943, -47.0459, 13.4773, 6.61943, 47.0459, 11.8649, 32.4062, 5.1612, -14.5148, 33.0108, -2.6813, -15.9313, -0.735237, 2.93864, 16.4191, -0.735237, -2.93864, 11.8136, 32.3377, -5.1384, 15.002, 33.0103, 2.6812)
+
+[node name="SF" type="Node3D"]
+
+[node name="Area3D" type="Area3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Area3D"]
+process_mode = 4
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, -9.1458)
+mesh = ExtResource("2_ph3hk")
+skeleton = NodePath("")
+surface_material_override/0 = SubResource("ShaderMaterial_r7j04")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(0.2, 0, 0, 0, 0.199523, -0.0138016, 0, 0.0138016, 0.199523, 0, -0.626765, 8.90575)
+shape = SubResource("ConvexPolygonShape3D_s4fc0")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, -9.1458)
+shape = SubResource("ConvexPolygonShape3D_tdncs")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Area3D"]
+process_mode = 4
+transform = Transform3D(0.2, 0, 0, 0, 0.199523, -0.0138016, 0, 0.0138016, 0.199523, 0, -0.626765, 8.90575)
+mesh = ExtResource("2_ph3hk")
+skeleton = NodePath("")
+surface_material_override/0 = SubResource("ShaderMaterial_r7j04")

@@ -1,0 +1,34 @@
+[gd_scene load_steps=7 format=3 uid="uid://dal2rn4ri4l0v"]
+
+[ext_resource type="Script" uid="uid://bhbphhsdcxjls" path="res://scripts/building.gd" id="1_ciuja"]
+[ext_resource type="ArrayMesh" uid="uid://cj1pw34j6rj5d" path="res://assets/SC_Bld_StatueOfLiberty.obj" id="2_p77f2"]
+[ext_resource type="Shader" uid="uid://cw326nm3esxit" path="res://shaders/building_flash.gdshader" id="3_cghmh"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_mffbc"]
+render_priority = 0
+shader = ExtResource("3_cghmh")
+shader_parameter/flash_color = Vector3(0, 0, 0)
+shader_parameter/flash_speed = 0.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_r7j04"]
+render_priority = 0
+next_pass = SubResource("ShaderMaterial_mffbc")
+shader = ExtResource("3_cghmh")
+shader_parameter/flash_color = Vector3(0, 0, 0)
+shader_parameter/flash_speed = 0.0
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_ciuja"]
+points = PackedVector3Array(-4.54879, 0.777331, -23.8119, 1.30233, 5.634, 24.4536, 7.35961, 42.837, 4.54332, 22.9406, 5.634, -6.7036, -22.9313, 5.634, 4.54332, -9.07451, 53.2193, -0.643112, 16.3951, 0.364658, 15.3403, 16.8743, 5.634, -17.9554, -16.5962, 0.0192647, -17.6727, -16.3858, 0.364658, 15.3403, -9.07451, 53.2193, 2.81451, 5.62639, 48.0254, -0.643112, 4.76427, 5.634, -24.8803, 16.5965, 0.0340846, -17.6632, -22.9313, 5.634, -6.7036, 22.9406, 5.634, 4.54332, -4.75494, 5.634, -24.8803, -16.865, 5.634, 15.7951, -16.865, 5.634, -17.9554, 16.8743, 5.634, 15.7951, -5.61706, 54.9542, -0.643112, -4.75494, 53.2193, 3.67891, -1.293, 5.634, 24.4536, -1.22211, 1.09071, 23.106, -21.8938, 0.830447, -6.41004, 21.8964, 0.838639, -6.40812, 9.08384, 42.837, 1.08087, 1.30233, 48.8929, 4.54332, -8.21688, 53.2193, -1.50752, 9.08384, 41.9695, -0.643112, 4.55602, 0.789538, -23.801, 8.22621, 42.837, 3.67891)
+
+[node name="NYC" type="Node3D"]
+script = ExtResource("1_ciuja")
+
+[node name="Area3D" type="Area3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Area3D"]
+mesh = ExtResource("2_p77f2")
+skeleton = NodePath("")
+surface_material_override/0 = SubResource("ShaderMaterial_r7j04")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+shape = SubResource("ConvexPolygonShape3D_ciuja")

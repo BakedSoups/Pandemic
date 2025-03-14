@@ -1,0 +1,34 @@
+[gd_scene load_steps=7 format=3 uid="uid://byylr7a18fnj"]
+
+[ext_resource type="Script" uid="uid://bhbphhsdcxjls" path="res://scripts/building.gd" id="1_xvg6k"]
+[ext_resource type="ArrayMesh" uid="uid://du1256ur2e2nx" path="res://assets/SC_Bld_01_Bright.obj" id="2_yax36"]
+[ext_resource type="Shader" uid="uid://cw326nm3esxit" path="res://shaders/building_flash.gdshader" id="3_sw1qd"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_mffbc"]
+render_priority = 0
+shader = ExtResource("3_sw1qd")
+shader_parameter/flash_color = Vector3(0, 0, 0)
+shader_parameter/flash_speed = 0.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_r7j04"]
+render_priority = 0
+next_pass = SubResource("ShaderMaterial_mffbc")
+shader = ExtResource("3_sw1qd")
+shader_parameter/flash_color = Vector3(0, 0, 0)
+shader_parameter/flash_speed = 0.0
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_0lfqq"]
+points = PackedVector3Array(-4.18483, -0.459251, -13.487, 4.18525, 3.26393, 13.4876, 12.5553, 59.065, 4.18537, -12.5549, 59.065, 4.18273, 4.18525, 59.065, -12.5523, 13.4874, -0.459251, -4.18477, -13.487, -0.459251, 4.18273, -4.18483, 59.065, 12.5529, -12.5549, 59.065, -4.18477, -4.18483, -0.459251, 13.4876, 13.4874, -0.459251, 4.18537, 4.18525, -0.459251, -13.487, -13.487, -0.459251, -4.18477, 12.5553, 59.065, -4.18477, -4.18483, 59.065, -12.5523, 4.18525, 59.065, 12.5529, 4.18525, -0.459251, 13.4876, -4.18483, 3.26393, -13.487, -13.487, 3.26393, 4.18273, 13.4874, 3.26393, -4.18477, 4.18525, 3.26393, -13.487, -4.18483, 3.26393, 13.4876, 13.4874, 3.26393, 4.18537, -13.487, 3.26393, -4.18477)
+
+[node name="Miami" type="Node3D"]
+script = ExtResource("1_xvg6k")
+
+[node name="Area3D" type="Area3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Area3D"]
+mesh = ExtResource("2_yax36")
+skeleton = NodePath("")
+surface_material_override/0 = SubResource("ShaderMaterial_r7j04")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+shape = SubResource("ConvexPolygonShape3D_0lfqq")

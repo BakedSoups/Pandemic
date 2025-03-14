@@ -1,0 +1,36 @@
+[gd_scene load_steps=7 format=3 uid="uid://bk2f2qhnfndul"]
+
+[ext_resource type="Script" uid="uid://bhbphhsdcxjls" path="res://scripts/building.gd" id="1_2j2tw"]
+[ext_resource type="ArrayMesh" uid="uid://bqgge0pirwahn" path="res://assets/SC_Bld_FerrisWheel_Static.obj" id="2_g30gc"]
+[ext_resource type="Shader" uid="uid://cw326nm3esxit" path="res://shaders/building_flash.gdshader" id="3_vexid"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_mffbc"]
+render_priority = 0
+shader = ExtResource("3_vexid")
+shader_parameter/flash_color = Vector3(0, 0, 0)
+shader_parameter/flash_speed = 0.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_r7j04"]
+render_priority = 0
+next_pass = SubResource("ShaderMaterial_mffbc")
+shader = ExtResource("3_vexid")
+shader_parameter/flash_color = Vector3(0, 0, 0)
+shader_parameter/flash_speed = 0.0
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_2j2tw"]
+points = PackedVector3Array(-19.0323, 21.5886, -1.218, -15.4739, 0, -4.47601, -19.0323, 21.5886, 1.21699, -19.0323, 22.7204, -1.218, -8.24547, 0, -5.12059, -15.4739, 0, 4.47501, -15.4739, 0.996658, -4.47601, -19.0323, 22.7204, 1.21699, -18.9393, 24.5364, -1.14582, -17.8647, 25.3599, -1.7884, -8.24547, 0.527891, -5.12059, 8.07792, 0, -5.12059, -8.24547, 0, 5.12059, -15.4739, 0.996658, 4.47501, -15.485, 34.2496, -1.7884, -17.8647, 25.3599, 1.7874, -18.9393, 24.5364, 1.14482, -16.6935, 32.9869, -1.14582, 8.07792, 0.527891, -5.12059, -8.97426, 40.7574, -1.7884, -0.0837765, 43.1393, -1.7884, 15.3063, 0, -4.47601, 8.07792, 0, 5.12059, -8.24547, 0.527891, 5.12059, -15.485, 34.2496, 1.7874, -10.4244, 39.6129, -1.14582, -16.6935, 32.9869, 1.14482, 15.3063, 0.996658, -4.47601, 8.80671, 40.7574, -1.7884, 15.3175, 34.2496, -1.7884, -8.97426, 40.7574, 1.7874, -0.0837765, 43.1393, 1.7874, 15.3063, 0, 4.47501, 18.9503, 21.6182, -1.218, 18.954, 21.6182, 1.21699, 8.07792, 0.527891, 5.12059, -10.4244, 39.6129, 1.14482, 17.6972, 25.3599, -1.7884, 18.9503, 22.7458, -1.218, 8.80671, 40.7574, 1.7874, 10.1825, 39.5031, -1.14582, 16.5445, 33.0882, -1.14582, 18.8573, 24.5659, -1.14582, 15.3063, 0.996658, 4.47501, 18.954, 22.7458, 1.21699, 15.3175, 34.2496, 1.7874, 10.1825, 39.5031, 1.14482, 16.5445, 33.0882, 1.14482, 18.8573, 24.5659, 1.14482, 17.6972, 25.3599, 1.7874)
+
+[node name="London" type="Node3D"]
+script = ExtResource("1_2j2tw")
+
+[node name="Area3D" type="Area3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Area3D"]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, 0)
+mesh = ExtResource("2_g30gc")
+skeleton = NodePath("")
+surface_material_override/0 = SubResource("ShaderMaterial_r7j04")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, 0)
+shape = SubResource("ConvexPolygonShape3D_2j2tw")

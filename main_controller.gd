@@ -52,7 +52,6 @@ func _on_show_graph_button_down() -> int:
 		
 	get_tree().change_scene_to_file("res://scenes/plot.tscn")
 	return 0
-		
 
 func _on_day_back_button_down() -> int:
 	if Data.day_count <= 0: 
