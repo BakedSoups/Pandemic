@@ -50,3 +50,5 @@ for i in range(1,50):
 with open("pandemic_simulation.json", "w") as json_file:
     json.dump(preloaded, json_file, indent=4)
 
+# print(json.dumps(preloaded))
+# sys.stdout.flush() 

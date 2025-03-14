@@ -1,6 +1,6 @@
 import numpy as np
 from scipy.integrate import solve_ivp
-
+import concurrent.futures
 
 
 dt = 5
@@ -15,8 +15,34 @@ def sir_ode(t,y,a,b):
     dRdt = b * I
     return np.array([dSdt, dIdt, dRdt]) 
 
-
-
+def process_city_pair(args):
+    i, j, sir_matrix, markov_matrix, city_names = args
+    
+    from_city = city_names[i]
+    to_city = city_names[j]
+    
+    if i == j or markov_matrix[j][i] == 0:
+        return None
+    
+    s_source, i_source, r_source = sir_matrix[i]
+    
+    # probability of people who traversed from city i to city j
+    transition_prob = markov_matrix[j][i]
+    s_moved = s_source * transition_prob
+    i_moved = i_source * transition_prob
+    r_moved = r_source * transition_prob
+    
+    # if the sum is less than 0.1 nobody moved
+    if s_moved + i_moved + r_moved > 0.1:
+        return {
+            "from_city": from_city,
+            "to_city": to_city,
+            "s_count": int(s_moved),
+            "i_count": int(i_moved),
+            "r_count": int(r_moved),
+            "total": int(s_moved + i_moved + r_moved)
+        }
+    return None
 
 def hare_neimeyer(array):
     ints = np.floor(array).astype(int)
@@ -45,45 +71,26 @@ def global_sir_evo(sir_matrix, a, b):
     return np.apply_along_axis(lambda matrix: local_sir_evo(matrix, a, b), axis = 1, arr = sir_matrix)
 
 
-def track_movement(sir_matrix, markov_matrix, city_names):
-    # Calculate the raw movement by applying the Markov matrix
+
+def track_movement(sir_matrix, markov_matrix, city_names, max_workers=None):
+    # just movement values applying the Markov matrix
     moved_matrix = markov_matrix @ sir_matrix
     
-    # Track detailed movement information
+    args_list = [(i, j, sir_matrix, markov_matrix, city_names) 
+                 for i in range(len(sir_matrix)) 
+                 for j in range(len(sir_matrix))]
+    
     movement_data = []
     
-    # each source city (row in sir_matrix)
-    for i in range(len(sir_matrix)):
-        from_city = city_names[i]
-        s_source, i_source, r_source = sir_matrix[i]
+    # process city pairs in parallel
+    with concurrent.futures.ThreadPoolExecutor(max_workers=max_workers) as executor:
+        results = executor.map(process_city_pair, args_list)
         
-        # each destination city (column in markov_matrix)
-        for j in range(len(sir_matrix)):
-            to_city = city_names[j]
-            
-            # Skip if source and destination are the same or probability is 0
-            if i == j or markov_matrix[j][i] == 0:
-                continue
-                
-            # probablility of people who traversed from city i to city j 
-            transition_prob = markov_matrix[j][i]
-            s_moved = s_source * transition_prob
-            i_moved = i_source * transition_prob
-            r_moved = r_source * transition_prob
-            
-            # if the sum is less than 0.1 nobody moved 
-            if s_moved + i_moved + r_moved > 0.1:
-                movement_data.append({
-                    "from_city": from_city,
-                    "to_city": to_city,
-                    "s_count": int(s_moved),
-                    "i_count": int(i_moved),
-                    "r_count": int(r_moved),
-                    "total": int(s_moved + i_moved + r_moved)
-                })
+        for result in results:
+            if result is not None:
+                movement_data.append(result)
     
     return moved_matrix, movement_data
-
 
 
 # city_exodus is a dictionary where:
@@ -93,11 +100,9 @@ def step_function(sir_matrix, markov_matrix, a, b, city_names=None):
     if city_names is None:
         return clean_2(global_sir_evo(clean_1(markov_matrix @ sir_matrix), a, b))
     else:
-        # Track movement and return both the new state and movement data
         moved_matrix, movement_data = track_movement(sir_matrix, markov_matrix, city_names)
         new_sir_matrix = clean_2(global_sir_evo(clean_1(moved_matrix), a, b))
         
-        # Create a city-centric view of who left and where they went
         city_exodus = {}
         for city_name in city_names:
             city_exodus[city_name] = {"left_for": {}}
