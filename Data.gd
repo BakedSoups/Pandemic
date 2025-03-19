@@ -33,6 +33,7 @@ var day_count: int = 0
 var Current_S = [0]
 var Current_I = [0]
 var Current_R = [0]
+var Current_D = [0]
 var Current_City = "none"
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:

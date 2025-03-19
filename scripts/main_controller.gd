@@ -45,6 +45,7 @@ func _on_show_graph_button_down() -> int:
 	Data.Current_S = city_stats[0]
 	Data.Current_I = city_stats[1]
 	Data.Current_R = city_stats[2]
+	Data.Current_D = city_stats[3]
 
 	print("Current S: ", Data.Current_S)
 	print("Current I: ", Data.Current_I)
