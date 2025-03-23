@@ -47,12 +47,12 @@ func _process(delta):
 		var I = city_stats[1][current_stats]
 		var R = city_stats[2][current_stats]
 		var D = city_stats[3][current_stats]
-		if building == "CHI":
-			print(building,"stats:")
-			print("Current S: ",S )
-			print("Current I: ", I)
-			print("Current R: ", R)
-			print("Current R: ", D)
+		#if building == "CHI":
+			#print(building,"stats:")
+			#print("Current S: ",S )
+			#print("Current I: ", I)
+			#print("Current R: ", R)
+			#print("Current R: ", D)
 			
 		if I > 20000:
 			material.set_shader_parameter("factor", 5.0)

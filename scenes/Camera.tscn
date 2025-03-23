@@ -1,15 +1,13 @@
-[gd_scene load_steps=17 format=3 uid="uid://ch35nc60niedd"]
+[gd_scene load_steps=16 format=3 uid="uid://ch35nc60niedd"]
 
 [ext_resource type="Script" uid="uid://ci8d57i3pqmxe" path="res://planet.gd" id="1_5udrv"]
-[ext_resource type="PackedScene" uid="uid://c1ml4yvlgnbbv" path="res://addons/naejimer_3d_planet_generator/scenes/planet_gaseous.tscn" id="2_7j4ev"]
 [ext_resource type="PackedScene" uid="uid://cpkbycrd7cu5v" path="res://city.tscn" id="3_6df8m"]
 [ext_resource type="Shader" uid="uid://crotx72i4ov5c" path="res://shaders/Space_shader.gdshader" id="4_w4phd"]
 [ext_resource type="PackedScene" uid="uid://bntmcluis2mxc" path="res://Planet.tscn" id="5_kn7q7"]
 [ext_resource type="Shader" uid="uid://b0wpgmlg138o8" path="res://shaders/pixelated.gdshader" id="6_8stbe"]
 [ext_resource type="Shader" uid="uid://c7di3qjou4icq" path="res://shaders/dream.gdshader" id="7_rbawg"]
+[ext_resource type="AudioStream" uid="uid://1i165q64u13s" path="res://scenes/demo.mp3" id="8_5udrv"]
 [ext_resource type="Script" uid="uid://db3uhm458p526" path="res://scripts/main_controller.gd" id="8_qx3gj"]
-
-[sub_resource type="BoxMesh" id="BoxMesh_k6n8u"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_3yuvx"]
 
@@ -64,16 +62,12 @@ shader_parameter/speed = 0.5
 shader_parameter/pink = Color(1, 0.4, 0.7, 0.2)
 shader_parameter/blue = Color(0.4, 0.6, 1, 0.2)
 
-[node name="Camera" type="Node3D"]
+[node name="Main_Scene" type="Node3D"]
 script = ExtResource("1_5udrv")
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+[node name="Sun" type="DirectionalLight3D" parent="."]
 transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
 shadow_enabled = true
-
-[node name="example planet" type="MeshInstance3D" parent="."]
-transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, 0)
-mesh = SubResource("BoxMesh_k6n8u")
 
 [node name="cameraOrigin" type="Node3D" parent="."]
 
@@ -89,31 +83,18 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 65)
 [node name="CollisionShape3D" type="CollisionShape3D" parent="cameraOrigin/SpringArm3D/Camera3D/Area3D"]
 shape = SubResource("BoxShape3D_xstv6")
 
-[node name="PlanetGaseous" parent="." instance=ExtResource("2_7j4ev")]
-transform = Transform3D(49.8388, 0, 4.01128, 0, 50, 0, -4.01128, 0, 49.8388, 0, 0, 0)
-visible = false
-
-[node name="sf" parent="." instance=ExtResource("3_6df8m")]
-transform = Transform3D(-3.97923, 0, -0.207596, -0.0115929, 8.05624, 4.97039, -0.042336, -2.20605, 18.1513, -8.47576, 12.9225, 17.6562)
-
-[node name="nyc" parent="." instance=ExtResource("3_6df8m")]
-transform = Transform3D(3.40673, 0, 0, 0, 2.96617, 5.36521, 0, -0.853281, 18.6505, 3.56019, 15.807, 23.0643)
-
-[node name="wa" parent="." instance=ExtResource("3_6df8m")]
-transform = Transform3D(-5.33604, 1.08345, -3.58641, -0.0382641, 6.10316, 12.7191, -1.2334, -4.87665, 15.1213, -7.7163, 21.6064, 12.9027)
-
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_6p80e")
 
-[node name="OmniLight3D" type="OmniLight3D" parent="."]
-transform = Transform3D(0.999154, 0, -0.0411258, 0, 1, 0, 0.0411258, 0, 0.999154, 0, 0, 0)
+[node name="Earth" parent="." instance=ExtResource("5_kn7q7")]
+transform = Transform3D(0.996823, 0, 0, 0, 0.996823, 0, 0, 0, 0.996823, 0, 0, 0)
+
+[node name="Under_Glow" type="OmniLight3D" parent="Earth"]
+transform = Transform3D(1.00234, 0, -0.0412569, 0, 1.00319, 0, 0.0412569, 0, 1.00234, 0, 0, 0)
 light_energy = 9.889
 light_size = 0.488
 omni_range = 80.0
 omni_attenuation = 0.596
-
-[node name="Earth" parent="." instance=ExtResource("5_kn7q7")]
-transform = Transform3D(0.996823, 0, 0, 0, 0.996823, 0, 0, 0, 0.996823, 0, 0, 0)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -196,17 +177,31 @@ text = "Days"
 [node name="Main_Controller" type="Node2D" parent="CanvasLayer"]
 script = ExtResource("8_qx3gj")
 
-[node name="PA" parent="." instance=ExtResource("3_6df8m")]
+[node name="City_Zones" type="Node3D" parent="."]
+
+[node name="PA" parent="City_Zones" instance=ExtResource("3_6df8m")]
 transform = Transform3D(4.34112, -0.309162, 17.9048, -3.66801, -0.365896, 21.1904, 0, -4.9208, -2.70057, 15.6206, 20.1935, -4.37612)
 
-[node name="LON" parent="." instance=ExtResource("3_6df8m")]
+[node name="LON" parent="City_Zones" instance=ExtResource("3_6df8m")]
 transform = Transform3D(4.19962, -0.0213591, 13.5672, -2.71353, -0.0330567, 20.9974, 0, -4.99985, -0.196784, 13.9327, 20.9171, 1.14887)
 
-[node name="CHI" parent="." instance=ExtResource("3_6df8m")]
+[node name="CHI" parent="City_Zones" instance=ExtResource("3_6df8m")]
 transform = Transform3D(5.1531, 0, 0, 0, 5.16411, 8.85441, 0, -3.00643, 15.2091, -0.470559, 18.1076, 18.4614)
 
-[node name="MA" parent="." instance=ExtResource("3_6df8m")]
+[node name="MA" parent="City_Zones" instance=ExtResource("3_6df8m")]
 transform = Transform3D(5, 0, 0, 0, 4.71335, 8.34311, 0, -1.66862, 23.5668, 1.71065, 10.5272, 23.2694)
+
+[node name="SF" parent="City_Zones" instance=ExtResource("3_6df8m")]
+transform = Transform3D(-3.97923, 0, -0.207596, -0.0115929, 8.05624, 4.97039, -0.042336, -2.20605, 18.1513, -8.47576, 12.9225, 17.6562)
+
+[node name="NYC" parent="City_Zones" instance=ExtResource("3_6df8m")]
+transform = Transform3D(3.40673, 0, 0, 0, 2.96617, 5.36521, 0, -0.853281, 18.6505, 3.56019, 15.807, 23.0643)
+
+[node name="WA" parent="City_Zones" instance=ExtResource("3_6df8m")]
+transform = Transform3D(-5.33604, 1.08345, -3.58641, -0.0382641, 6.10316, 12.7191, -1.2334, -4.87665, 15.1213, -7.7163, 21.6064, 12.9027)
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("8_5udrv")
 
 [connection signal="button_down" from="CanvasLayer/PanelContainer4/Start Simulation" to="CanvasLayer/Main_Controller" method="_on_start_simulation_button_down"]
 [connection signal="button_down" from="CanvasLayer/PanelContainer5/Day Back" to="CanvasLayer/Main_Controller" method="_on_day_back_button_down"]

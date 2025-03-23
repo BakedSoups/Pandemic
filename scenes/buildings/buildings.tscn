@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://b6k1rb081012t"]
+[gd_scene load_steps=13 format=3 uid="uid://b6k1rb081012t"]
 
 [ext_resource type="Script" uid="uid://bhbphhsdcxjls" path="res://scripts/building.gd" id="1_ydm6t"]
 [ext_resource type="PackedScene" uid="uid://bhjwk4cvx4bvi" path="res://scenes/buildings/sf.tscn" id="2_ado32"]
@@ -8,33 +8,58 @@
 [ext_resource type="PackedScene" uid="uid://c5bswetikprta" path="res://scenes/buildings/washington.tscn" id="6_4kjf4"]
 [ext_resource type="PackedScene" uid="uid://dthy3ojs6ii2o" path="res://scenes/buildings/paris.tscn" id="7_rxheo"]
 [ext_resource type="PackedScene" uid="uid://dal2rn4ri4l0v" path="res://scenes/buildings/nyc.tscn" id="8_bmpi4"]
+[ext_resource type="Script" uid="uid://0qpouym42iiw" path="res://airport_terminal.gd" id="9_ado32"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_qke0h"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_gfkbi"]
+
+[sub_resource type="ORMMaterial3D" id="ORMMaterial3D_rbym2"]
+albedo_color = Color(0.947918, 0.947918, 1.54018e-06, 1)
 
 [node name="Buildings" type="Node3D"]
 script = ExtResource("1_ydm6t")
 
 [node name="SF" parent="." instance=ExtResource("2_ado32")]
-transform = Transform3D(0.187258, -0.0546918, 0.0440802, 0.0696612, 0.12845, -0.136557, 0.00903221, 0.143211, 0.139317, -8.19097, 14.2438, 17.2368)
+transform = Transform3D(0.0922168, -0.0365466, 0.0126653, 0.0340735, 0.0612617, -0.0713162, 0.0183047, 0.070081, 0.0689462, -8.98205, 15.0712, 16.6392)
 
 [node name="CHI" parent="." instance=ExtResource("3_qke0h")]
-transform = Transform3D(0.05, 0, 0, 0, 0.031929, -0.0384778, 0, 0.0384778, 0.031929, -0.15725, 16.5282, 17.3431)
+transform = Transform3D(0.03, 0, 0, 0, 0.0191574, -0.0230867, 0, 0.0230867, 0.0191574, -0.15725, 16.5282, 17.3431)
 script = null
 
 [node name="LON" parent="." instance=ExtResource("4_gfkbi")]
-transform = Transform3D(0.356437, 0.305987, 0.171243, -0.284848, 0.395074, -0.113041, -0.204485, -0.0169722, 0.455958, 13.7119, 19.3579, 0.207494)
+transform = Transform3D(0.213862, 0.183593, 0.102745, -0.170909, 0.237044, -0.0678245, -0.122691, -0.0101835, 0.273575, 13.7119, 19.3579, 0.207494)
 script = null
 
 [node name="MA" parent="." instance=ExtResource("5_rbym2")]
-transform = Transform3D(0.0499558, -0.00186977, -0.000957675, 0, 0.0227936, -0.0445023, 0.00210076, 0.044463, 0.0227734, 3.55099, 11.0085, 21.0514)
+transform = Transform3D(0.0299735, -0.00112186, -0.000574607, 0, 0.0136762, -0.0267014, 0.00126046, 0.0266778, 0.0136641, 3.55099, 11.0085, 21.0514)
 script = null
 
 [node name="WA" parent="." instance=ExtResource("6_4kjf4")]
-transform = Transform3D(-0.132279, -0.0461355, -0.0536068, -0.0674967, 0.11631, 0.066454, 0.0211275, 0.0827251, -0.12333, -6.97434, 18.6489, 13.2683)
+transform = Transform3D(-0.0793675, -0.0276815, -0.0321641, -0.0404982, 0.0697861, 0.0398723, 0.0126765, 0.0496351, -0.0739978, -6.97434, 18.6489, 13.2683)
 script = null
 
 [node name="PA" parent="." instance=ExtResource("7_rxheo")]
-transform = Transform3D(0.0403062, 0.0295776, 0.000757778, -0.0289373, 0.0391408, 0.0114293, 0.00616785, -0.00965203, 0.0486703, 14.961, 18.212, -4.20067)
+transform = Transform3D(0.0241837, 0.0177466, 0.000454669, -0.0173624, 0.0234845, 0.00685761, 0.00370071, -0.00579122, 0.0292022, 14.961, 18.212, -4.20067)
 script = null
 
 [node name="NYC" parent="." instance=ExtResource("8_bmpi4")]
-transform = Transform3D(0.0498767, 0.00213189, -0.00278678, -0.00350872, 0.030305, -0.0396144, 0, 0.0397123, 0.0303799, 3.67357, 14.0686, 18.8651)
+transform = Transform3D(0.029926, 0.00127913, -0.00167207, -0.00210523, 0.018183, -0.0237686, 0, 0.0238274, 0.0182279, 3.67357, 14.0686, 18.8651)
 script = null
+
+[node name="Airport_Terminal" type="Node3D" parent="."]
+script = ExtResource("9_ado32")
+path_width = 0.01
+path_color = Color(2.02149e-06, 0.778685, 0.518997, 1)
+plane_model_path = NodePath("plane")
+
+[node name="Area3D" type="Area3D" parent="Airport_Terminal"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Airport_Terminal/Area3D"]
+transform = Transform3D(49, 0, 0, 0, 49, 0, 0, 0, 49, 0, 0, 0)
+shape = SubResource("SphereShape3D_qke0h")
+
+[node name="plane" type="MeshInstance3D" parent="Airport_Terminal"]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -0.116508, 5.58362, -0.167145)
+mesh = SubResource("SphereMesh_gfkbi")
+surface_material_override/0 = SubResource("ORMMaterial3D_rbym2")
