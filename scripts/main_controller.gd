@@ -2,11 +2,17 @@ extends Node2D
 var DIR = OS.get_executable_path().get_base_dir()
 var interpreter_path = "res://Python_Brain/venv/Scripts/python"
 var script_path = "res://Python_Brain/preload.py"
+var is_day_processing := false
+@onready var graph_node := $"../Graph"
+
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	if !OS.has_feature("standalone"): # if NOT exported version
 		interpreter_path = ProjectSettings.globalize_path("res://Python_Brain/venv/Scripts/python")
 		script_path = ProjectSettings.globalize_path("res://Python_Brain/preload.py")
+	print("Starting simulation...")
+	notify("Simulation", "Started", "The simulation has begun!")
 		
 func notify(title="", subtitle="", body=""):
 	var output = []
@@ -17,33 +23,32 @@ func notify(title="", subtitle="", body=""):
 	print("Output: ", output)
 	
 	Data.dict_names = dict_names
-#save into a global dictionary
-
-func _on_start_simulation_button_down() -> void:
-	print("Starting simulation...")
-	notify("Simulation", "Started", "The simulation has begun!")
 
 func _on_day_add_button_down() -> void:
-	Data.day_count += 1
-	var rich_text
-	rich_text = $"../Day Counter"
-	rich_text.text = "Days: " + str(Data.day_count) 
-	create_test_flight()
-
-
-
-func _on_show_graph_button_down() -> int:
+	#if is_day_processing:
+		#print("Flight already in progress. Please wait.")
+		#return
 	
+	is_day_processing = true  # 
+	
+	Data.day_count += 1
+	var rich_text = $"../Day Counter"
+	rich_text.text = "Days: " + str(Data.day_count)
+	
+	create_test_flight()
+	
+	is_day_processing = false 
+func _on_show_graph_button_down() -> int:
 	var current_city = Data.Current_City
-	var current_day = "day_"+str(Data.day_count)
+	var current_day = "day_" + str(Data.day_count)
 	var city_day = Data.dict_names[current_day]
 	
 	if not city_day.has(current_city) or (Data.day_count <= 0):
 		return -1
+
 	var city_stats = city_day[current_city]["sir_history"]
-	print(" SIR history: ",city_stats)
-	
-	# Update global variables
+
+	# Save to globals
 	Data.Current_S = city_stats[0]
 	Data.Current_I = city_stats[1]
 	Data.Current_R = city_stats[2]
@@ -52,9 +57,16 @@ func _on_show_graph_button_down() -> int:
 	print("Current S: ", Data.Current_S)
 	print("Current I: ", Data.Current_I)
 	print("Current R: ", Data.Current_R)
-		
-	get_tree().change_scene_to_file("res://scenes/plot.tscn")
+	for child in graph_node.get_children():
+		child.queue_free()
+
+	var graph_node = get_node_or_null("../Graph")  # or $"../YourGraphNode"
+	if graph_node:
+		graph_node.update_graph()
+	
+
 	return 0
+
 		
 
 func _on_day_back_button_down() -> int:
@@ -90,8 +102,8 @@ func create_test_flight() -> void:
 	var movements = Data.dict_names[current_day]["movements"][current_day]
 	print("Found " + str(movements.size()) + " movements for " + current_day)
 	
-	var MAX_TOTAL_PLANES = 80  # Adjust this based on your system capabilities
-	var MAX_PLANES_PER_ROUTE = 20 # Maximum planes between any two cities
+	var MAX_TOTAL_PLANES = 35  # Adjust this based on your system capabilities
+	var MAX_PLANES_PER_ROUTE = 5 # Maximum planes between any two cities
 	
 	print("Phase 1: Planning flight routes...")
 	var flight_data = []
@@ -107,7 +119,7 @@ func create_test_flight() -> void:
 		if total < 5000:
 			continue
 			
-		var desired_planes = max(1, int(total / 6000))
+		var desired_planes = max(1, int(total / 7000))
 		
 		var num_planes = min(desired_planes, MAX_PLANES_PER_ROUTE)
 		

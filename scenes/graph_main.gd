@@ -53,14 +53,47 @@ var N = get_N()
 var T = max(len(S), len(I), len(R), len(D))
 
 ## Graph Dimensions
-var l_margin = 100
-var top_margin = 50
-var dim = 500  # Fixed size for graph regardless of time range
+var l_margin = 50
+var top_margin = 25
+var dim = 350  # Fixed size for graph regardless of time range
 var width = max_value + 50
 var scale_factor_y = (dim - top_margin) / max_value
 var scale_factor_x = (dim - l_margin) / T
 
+func format_abbreviated_number(value: int) -> String:
+	if value >= 1_000_000_000:
+		return str(round(value / 1_000_000_000.0 * 10) / 10.0) + "b"
+	elif value >= 1_000_000:
+		return str(round(value / 1_000_000.0 * 10) / 10.0) + "m"
+	elif value >= 1_000:
+		return str(round(value / 1_000.0 * 10) / 10.0) + "k"
+	else:
+		return str(value)
+func update_graph():
+	read_S = Data.Current_S
+	read_I = Data.Current_I
+	read_R = Data.Current_R
+	read_D = Data.Current_D
 
+	print("ACTIVATED", read_S, read_I, read_R, read_D)
+
+	max_og = max(read_S.max(), read_I.max(), read_R.max(), read_D.max())
+
+	S = normalize(read_S)
+	I = normalize(read_I)
+	R = normalize(read_R)
+	D = normalize(read_D)
+
+	max_value = max(S.max(), I.max(), R.max(), D.max())
+	T = max(len(S), len(I), len(R), len(D))
+	N = get_N()
+
+	scale_factor_y = (dim - top_margin) / max_value
+	scale_factor_x = (dim - l_margin) / T
+
+	draw_axis()
+	plot_actual()
+	plot_model(BETA, GAMMA, DELTA)
 ## Normalizing function to prevent larger ranges from dominating the screen
 func normalize(arr: Array) -> Array:
 	var scaled_values = []
@@ -162,13 +195,12 @@ func draw_axis():
 
 		var label = Label.new()
 		# Convert to integer instead of decimal
-		label.text = str(int(i * (max_og / 10)))
+		label.text = format_abbreviated_number(int(i * (max_og / 10)))
 		label.position = Vector2(l_margin - 70, tick_pos - 5)
 		label.z_index = -1  # Place behind the bar
 		add_child(label)
 
 
-	# Draw tick marks for time axis - use fixed interval regardless of data length
 	var max_ticks = 10  # Maximum number of ticks to show
 	var step = max(1, int(T / max_ticks))  # Calculate step size based on data length
 	
@@ -266,12 +298,12 @@ func plot_vector(vector : Array, color : Color, line : Line2D):
 		line.add_point(Vector2(x_pos, y_pos))
 
 
-
-
-func _ready():
+func _on_show_graph_button_down() -> void:
 	# Initialize with fixed dimensions
+
 	set_process(true)
-	
+		
+
 	# Recalculate scale factors based on fixed dimensions
 	scale_factor_y = (dim - top_margin) / max_value
 	scale_factor_x = (dim - l_margin) / T
@@ -279,7 +311,5 @@ func _ready():
 	draw_axis()
 	plot_actual()
 	plot_model(BETA, GAMMA, DELTA)
-
-
-func _on_leave_button_down() -> void:
-	get_tree().change_scene_to_file("res://scenes/Camera.tscn")
+	print("ACTIVATED", S,I,R,D)
+	

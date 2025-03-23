@@ -45,7 +45,54 @@ var path: Path3D
 var is_flight_active: bool = true  # Whether the plane is currently moving
 var target_progress_ratio: float = 1.0  # Target position along the path (1.0 = end)
 var flight_completed: bool = false  # Whether the flight has completed
+var path_cache := {}
+func _ready():
+	preload_all_paths()
 
+func create_path_between(start_pos: Vector3, end_pos: Vector3) -> Path3D:
+	var path := Path3D.new()
+	path.name = "CachedPath_" + str(start_pos) + "_to_" + str(end_pos)
+
+	var curve := Curve3D.new()
+	curve.add_point(start_pos)
+
+	var direction = end_pos - start_pos
+	var path_length = direction.length()
+	var midpoint = (start_pos + end_pos) / 2.0
+	var adaptive_height = curve_height_factor * clamp(path_length / 100.0, 0.5, 3.0)
+
+	var outward_dir = ((start_pos - curve_origin_point).normalized() + (end_pos - curve_origin_point).normalized()).normalized()
+	var curve_center = midpoint + outward_dir * adaptive_height
+
+	for i in 2:  # Always 2 control points for this function
+		var t = float(i + 1) / 3.0
+		var control1 = start_pos.lerp(curve_center, t)
+		var control2 = curve_center.lerp(end_pos, t)
+		var point = control1.lerp(control2, t)
+		curve.add_point(point)
+
+	curve.add_point(end_pos)
+	path.curve = curve
+
+	if debug_mode:
+		print("Generated cached path between: ", start_pos, " and ", end_pos)
+
+	return path
+func preload_all_paths():
+	var city_codes = ["SF", "CHI", "NYC", "LA", "MA", "WA", "LON", "PA"]
+	for from_code in city_codes:
+		for to_code in city_codes:
+			if from_code == to_code:
+				continue
+
+			var from_node = find_city_by_code(from_code)
+			var to_node = find_city_by_code(to_code)
+
+			if from_node and to_node:
+				var key = from_code + "->" + to_code
+				if not path_cache.has(key):
+					var new_path = create_path_between(from_node.global_position, to_node.global_position)
+					path_cache[key] = new_path
 
 func _process(delta):
 	if path_follow and spawn_plane:
@@ -431,84 +478,31 @@ func update_path():
 	
 	create_path()# Flight direction command handler
 func set_flight_directions(from_city_code: String, to_city_code: String, stop_ratio: float = 1.0) -> bool:
-	var from_node = find_city_by_code(from_city_code)
-	var to_node = find_city_by_code(to_city_code)
+	var route_key = from_city_code + "->" + to_city_code
 	
-	if debug_mode:
-		print("RECEIVED FLIGHT REQUEST: " + from_city_code + " -> " + to_city_code)
-		print("Found nodes:")
-		print("- From: " + (from_node.name if from_node else "NULL"))
-		print("- To: " + (to_node.name if to_node else "NULL"))
-	
-	if not from_node or not to_node:
-		push_error("Invalid city codes provided: " + from_city_code + " -> " + to_city_code)
+	if not path_cache.has(route_key):
+		push_error("Cached path not found for: " + route_key)
 		return false
 	
-	# IMPORTANT: Clear any existing path
-	if path:
-		path.queue_free()
-		path = null
-		path_follow = null
-		plane_model = null
-	
-	path = Path3D.new()
-	path.name = path_name
+	var cached_path = path_cache[route_key]
+	path = cached_path.duplicate()
 	add_child(path)
-	
-	var curve = Curve3D.new()
-	
-	var start_pos = from_node.global_position
-	var end_pos = to_node.global_position
-	
-	curve.add_point(start_pos)
-	
-	var direction = end_pos - start_pos
-	var path_length = direction.length()
-	var midpoint = (start_pos + end_pos) / 2.0
-	
-	var adaptive_height = curve_height_factor * clamp(path_length / 100.0, 0.5, 3.0)
-	
-	var origin_to_start = start_pos - curve_origin_point
-	var origin_to_end = end_pos - curve_origin_point
-	var outward_dir = ((origin_to_start.normalized() + origin_to_end.normalized()) * 0.5).normalized()
-	
-	var curve_center = midpoint + outward_dir * adaptive_height
-	
-	for i in 2:  # Simplified to just 2 control points for clarity
-		var t = float(i + 1) / 3.0
-		var control1 = start_pos.lerp(curve_center, t)
-		var control2 = curve_center.lerp(end_pos, t)
-		var point = control1.lerp(control2, t)
-		curve.add_point(point)
-	
-	curve.add_point(end_pos)
-	
-	path.curve = curve
-	
+
 	path_follow = PathFollow3D.new()
 	path_follow.name = "PlanePathFollow"
 	path_follow.loop = false
 	path_follow.use_model_front = true
 	path_follow.rotation_mode = PathFollow3D.ROTATION_ORIENTED
-	path_follow.progress = 0
-	path_follow.h_offset = 0
-	path_follow.v_offset = 0
 	path.add_child(path_follow)
-	
-	create_path_visualization()
-	
-	if spawn_plane:
-		setup_plane()
-	
+
+	setup_plane()
+
 	current_destination = to_city_code
 	target_progress_ratio = clamp(stop_ratio, 0.0, 1.0)
 	path_follow.progress_ratio = 0.0
 	is_flight_active = true
 	flight_completed = false
-	
-	if debug_mode:
-		print("Created new path from " + from_node.name + " to " + to_node.name)
-	
+
 	return true
 
 func parse_flight_command(command: String) -> bool:
@@ -542,7 +536,6 @@ func find_city_by_code(city_code: String) -> Node3D:
 	
 	var direct_path = "../" + city_code
 	if has_node(direct_path):
-		print("Found city by direct path: " + direct_path)
 		return get_node(direct_path)
 	
 	direct_path = "../" + city_code.capitalize()
@@ -586,7 +579,6 @@ func find_city_by_code(city_code: String) -> Node3D:
 			print("Found city through alias: " + city_code + " -> " + node_name)
 			return get_node(aliased_path)
 	
-	print("WARNING: Could not find city: " + city_code + " - Using SF as fallback")
 	if has_node("../SF"):
 		return get_node("../SF")
 	
