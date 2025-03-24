@@ -183,6 +183,157 @@ def add_day(state_dictionary, city_dictionary, city_array):
 
 def start_pandemic(seed, state_dictionary, city_array, virus_config=None):
     """
+    Initialize pandemic simulation with enhanced virus model and improved travel distribution
+    """
+    # configure virus and basic parameters
+    virus = configure_virus(virus_config)
+    state_dictionary["virus"] = virus
+    
+    infection_rate = virus["infection_rate"]
+    recovery_rate = virus["recovery_rate"]
+    state_dictionary["infection_rate"] = infection_rate
+    state_dictionary["recovery_rate"] = recovery_rate
+    
+    N = len(city_array)
+    
+    # initialize SIRD matrix
+    sird_matrix = []
+    for i in range(N):
+        res = 0
+        if city_array[i]["name"] == seed:
+            res = 1
+        sird_matrix.append([city_array[i]["population"] - res, res, 0, 0])
+    
+    # create a more balanced markov matrix using population and distance factors
+    markov_matrix = np.eye(N)  # start with identity matrix (staying in place)
+    
+    # calculate distances between cities
+    distances = np.zeros((N, N))
+    for i in range(N):
+        for j in range(N):
+            if i != j:
+                # simple euclidean distance between city coordinates
+                lat1, lon1 = city_array[i]["latitude"], city_array[i]["longitude"]
+                lat2, lon2 = city_array[j]["latitude"], city_array[j]["longitude"]
+                distances[i][j] = np.sqrt((lat1 - lat2)**2 + (lon1 - lon2)**2)
+    
+    # normalize distances
+    max_dist = np.max(distances)
+    if max_dist > 0:
+        norm_distances = distances / max_dist
+    else:
+        norm_distances = distances
+    
+    # create transition probabilities based on population and distance
+    for i in range(N):  # from city
+        for j in range(N):  # to city
+            if i != j:
+                # probability based on destination population (attractive factor)
+                pop_factor = city_array[j]["population"] / 10000000  # normalize large populations
+                
+                # inverse distance factor (closer = more likely)
+                dist_factor = 0
+                if norm_distances[i][j] > 0:
+                    dist_factor = 1 / (1 + norm_distances[i][j])
+                
+                # combined factor with small random component
+                travel_prob = 0.05 * pop_factor * dist_factor
+                travel_prob += np.random.uniform(0, 0.01)  # small random variation
+                
+                markov_matrix[j][i] = travel_prob
+    
+    # normalize each column to create proper probability distribution
+    # columns represent "from city", rows represent "to city"
+    for i in range(N):
+        markov_matrix[:, i] = markov_matrix[:, i] / np.sum(markov_matrix[:, i])
+    
+    state_dictionary["vector"] = sird_matrix
+    state_dictionary["matrix"] = markov_matrix.tolist()
+    
+    # initialize city dictionary
+    city_dictionary = {}
+    for i in range(N):
+        city_dictionary[city_array[i]["name"]] = {
+            "sir_history": [
+                [float(sird_matrix[i][0])],  # S
+                [float(sird_matrix[i][1])],  # I
+                [float(sird_matrix[i][2])],  # R
+                [float(sird_matrix[i][3])]   # D
+            ],
+            "latitude": city_array[i]["latitude"],
+            "longitude": city_array[i]["longitude"]
+        }
+    
+    city_dictionary["movements"] = {"day_0": []}
+    city_dictionary["in_transit"] = []
+    
+    city_dictionary["virus_history"] = {
+        "day_0": {
+            "current_strain": virus["current_strain"],
+            "strains": copy.deepcopy(virus["strains"]),
+            "mutation_rate": virus["mutation_rate"]
+        }
+    }
+    
+    for city_name in [city["name"] for city in city_array]:
+        city_dictionary[city_name]["exodus_history"] = {"day_0": {}}
+        city_dictionary[city_name]["arrivals_history"] = {"day_0": {}}
+    
+    return state_dictionary, city_dictionary
+
+def get_travel_durations():
+    """Define more balanced travel durations between cities in days."""
+    return {
+        "SF": {"NYC": 4, "WA": 5, "CHI": 3, "PA": 3, "LON": 9, "MA": 6},
+        "NYC": {"SF": 4, "WA": 3, "CHI": 2, "PA": 1, "LON": 7, "MA": 8},
+        "WA": {"SF": 5, "NYC": 3, "CHI": 3, "PA": 2, "LON": 8, "MA": 7},
+        "CHI": {"SF": 3, "NYC": 2, "WA": 3, "PA": 1, "LON": 7, "MA": 6},
+        "PA": {"SF": 3, "NYC": 1, "WA": 2, "CHI": 1, "LON": 6, "MA": 5},
+        "LON": {"SF": 9, "NYC": 7, "WA": 8, "CHI": 7, "PA": 6, "MA": 10},
+        "MA": {"SF": 6, "NYC": 8, "WA": 7, "CHI": 6, "PA": 5, "LON": 10}
+    }
+
+def track_movement(sir_matrix, markov_matrix, city_names, max_workers=None):
+    """Improved movement tracking that ensures more balanced flight distribution"""
+    moved_matrix = markov_matrix @ sir_matrix
+    
+    # process each city pair
+    movement_data = []
+    
+    for i in range(len(sir_matrix)):
+        for j in range(len(sir_matrix)):
+            from_city = city_names[i]
+            to_city = city_names[j]
+            
+            if i == j or markov_matrix[j][i] == 0:
+                continue
+            
+            s_source, i_source, r_source = sir_matrix[i][:3]
+            
+            # transition probability from city i to city j
+            transition_prob = markov_matrix[j][i]
+            
+            # ensure minimum movement threshold for better distribution
+            s_moved = max(1, int(s_source * transition_prob))
+            i_moved = max(0, int(i_source * transition_prob))
+            r_moved = max(0, int(r_source * transition_prob))
+            
+            # only record meaningful movement
+            if s_moved + i_moved + r_moved > 0:
+                movement_data.append({
+                    "from_city": from_city,
+                    "to_city": to_city,
+                    "s_count": s_moved,
+                    "i_count": i_moved,
+                    "r_count": r_moved,
+                    "total": s_moved + i_moved + r_moved
+                })
+    
+    return moved_matrix, movement_data
+
+# make sure to include this in your simulation.py file
+# and update the city array in preload.py to have unique coordinates for MA
+    """
     Initialize pandemic simulation with enhanced virus model
     """
     def softmax(x):

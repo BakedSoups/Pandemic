@@ -58,14 +58,14 @@ state_dictionary = books.state
 city_array = books.cities
 virus_config = books.virus
 
-print("\n=== INITIAL VIRUS CONFIGURATION ===")
-print(f"Infection rate: {virus_config['infection_rate']}")
-print(f"Recovery rate: {virus_config['recovery_rate']}")
-print(f"Lethality: {virus_config['lethality']}")
-print(f"Mutation rate: {virus_config['mutation_rate']}")
-print(f"Transmission mode: {virus_config['attributes']['transmission_mode']}")
-print(f"Incubation period: {virus_config['attributes']['incubation_period']} days")
-print(f"Symptom severity: {virus_config['attributes']['symptom_severity']}/10")
+# print("\n=== INITIAL VIRUS CONFIGURATION ===")
+# print(f"Infection rate: {virus_config['infection_rate']}")
+# print(f"Recovery rate: {virus_config['recovery_rate']}")
+# print(f"Lethality: {virus_config['lethality']}")
+# print(f"Mutation rate: {virus_config['mutation_rate']}")
+# print(f"Transmission mode: {virus_config['attributes']['transmission_mode']}")
+# print(f"Incubation period: {virus_config['attributes']['incubation_period']} days")
+# print(f"Symptom severity: {virus_config['attributes']['symptom_severity']}/10")
 
 seed = "SF"
 print("\nStarting pandemic simulation...")
@@ -145,47 +145,47 @@ else:
 with open("pandemic_simulation.json", "w") as json_file:
     json.dump(preloaded, json_file, indent=4)
 
-print("\nSimulation complete! Data saved to pandemic_simulation.json")
+# print("\nSimulation complete! Data saved to pandemic_simulation.json")
 
-total_infected = 0
-total_deaths = 0
-total_population = 0
+# total_infected = 0
+# total_deaths = 0
+# total_population = 0
 
-for city_name in [city["name"] for city in city_array]:
-    city_data = preloaded[last_day][city_name]
-    current_infected = city_data["sir_history"][1][-1]
+# for city_name in [city["name"] for city in city_array]:
+#     city_data = preloaded[last_day][city_name]
+#     current_infected = city_data["sir_history"][1][-1]
     
-    if len(city_data["sir_history"]) > 3:
-        current_deaths = city_data["sir_history"][3][-1]
-        total_deaths += current_deaths
+#     if len(city_data["sir_history"]) > 3:
+#         current_deaths = city_data["sir_history"][3][-1]
+#         total_deaths += current_deaths
     
-    total_infected += current_infected
-    total_population += sum(city_data["sir_history"][j][-1] for j in range(len(city_data["sir_history"])))
+#     total_infected += current_infected
+#     total_population += sum(city_data["sir_history"][j][-1] for j in range(len(city_data["sir_history"])))
 
-print(f"\nFinal statistics (Day 49):")
-print(f"Total infected: {int(total_infected)} ({total_infected/total_population*100:.2f}%)")
+# print(f"\nFinal statistics (Day 49):")
+# print(f"Total infected: {int(total_infected)} ({total_infected/total_population*100:.2f}%)")
 
-if total_deaths > 0:
-    print(f"Total deaths: {int(total_deaths)} ({total_deaths/total_population*100:.2f}%)")
+# if total_deaths > 0:
+#     print(f"Total deaths: {int(total_deaths)} ({total_deaths/total_population*100:.2f}%)")
 
-if active_strains and len(active_strains) > 1:
-    print("\n=== VIRUS MUTATION SUMMARY ===")
-    current_strain = state_dictionary["virus"]["current_strain"]
-    print(f"Final active strain: {current_strain}")
+# if active_strains and len(active_strains) > 1:
+#     print("\n=== VIRUS MUTATION SUMMARY ===")
+#     current_strain = state_dictionary["virus"]["current_strain"]
+#     print(f"Final active strain: {current_strain}")
     
-    for strain in sorted(active_strains, key=lambda s: 0 if s == "original" else mutation_days.get(s, 999)):
-        if strain == "original":
-            strain_data = state_dictionary["virus"]["strains"]["original"]
-            print(f"Day 0: original strain")
-            print(f"  • Infection rate: {strain_data['infection_rate']:.3f}")
-            print(f"  • Lethality: {strain_data['lethality']:.4f}")
-            print(f"  • Transmission: {strain_data['attributes']['transmission_mode']}")
-        else:
-            day = mutation_days.get(strain, "unknown")
-            strain_data = state_dictionary["virus"]["strains"][strain]
-            print(f"Day {day}: {strain}")
-            print(f"  • Infection rate: {strain_data['infection_rate']:.3f}")
-            print(f"  • Lethality: {strain_data['lethality']:.4f}")
-            print(f"  • Transmission: {strain_data['attributes']['transmission_mode']}")
-else:
-    print("\nNo virus mutations occurred during the simulation.")
+#     for strain in sorted(active_strains, key=lambda s: 0 if s == "original" else mutation_days.get(s, 999)):
+#         if strain == "original":
+#             strain_data = state_dictionary["virus"]["strains"]["original"]
+#             print(f"Day 0: original strain")
+#             print(f"  • Infection rate: {strain_data['infection_rate']:.3f}")
+#             print(f"  • Lethality: {strain_data['lethality']:.4f}")
+#             print(f"  • Transmission: {strain_data['attributes']['transmission_mode']}")
+#         else:
+#             day = mutation_days.get(strain, "unknown")
+#             strain_data = state_dictionary["virus"]["strains"][strain]
+#             print(f"Day {day}: {strain}")
+#             print(f"  • Infection rate: {strain_data['infection_rate']:.3f}")
+#             print(f"  • Lethality: {strain_data['lethality']:.4f}")
+#             print(f"  • Transmission: {strain_data['attributes']['transmission_mode']}")
+# else:
+#     print("\nNo virus mutations occurred during the simulation.")

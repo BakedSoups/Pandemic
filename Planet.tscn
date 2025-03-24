@@ -1,142 +1,48 @@
-[gd_scene load_steps=38 format=3 uid="uid://bntmcluis2mxc"]
+[gd_scene load_steps=24 format=3 uid="uid://d1mxbsjsvq7fa"]
 
-[ext_resource type="Shader" uid="uid://bcipvylievlkm" path="res://shaders/ocean.gdshader" id="1_vnr4k"]
+[ext_resource type="Shader" uid="uid://okr2bhx175hk" path="res://shaders/ocean3.gdshader" id="1_i0ybu"]
 [ext_resource type="ArrayMesh" uid="uid://dx2hi4du67js0" path="res://addons/uploads_files_2883006_Lowpoly+Earth.obj" id="2_ifpkx"]
 [ext_resource type="PackedScene" uid="uid://b6k1rb081012t" path="res://scenes/buildings/buildings.tscn" id="4_i0ybu"]
 [ext_resource type="Shader" uid="uid://ddwl76g2cyyyf" path="res://shaders/atmosphere.gdshader" id="10_q7om1"]
 
-[sub_resource type="Gradient" id="Gradient_k80au"]
-offsets = PackedFloat32Array(0.146341, 1)
-
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_q7om1"]
-frequency = 0.0001
-fractal_lacunarity = 200.0
-
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_k80au"]
-seamless = true
-seamless_blend_skirt = 1.0
-color_ramp = SubResource("Gradient_k80au")
-noise = SubResource("FastNoiseLite_q7om1")
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_485rr"]
+noise_type = 3
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_i0ybu"]
-
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_8pr8h"]
-
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_dutye"]
-noise = SubResource("FastNoiseLite_8pr8h")
-
-[sub_resource type="Gradient" id="Gradient_q7om1"]
-offsets = PackedFloat32Array(0, 0.902439)
-
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_k80au"]
-noise_type = 0
-frequency = 0.001
-fractal_octaves = 10
-fractal_lacunarity = 17.21
-fractal_weighted_strength = 1.0
-domain_warp_enabled = true
-domain_warp_amplitude = 10.0
-domain_warp_frequency = 200.0
-
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_fx526"]
-width = 1000
-height = 1000
-in_3d_space = true
 seamless = true
-seamless_blend_skirt = 1.0
-color_ramp = SubResource("Gradient_q7om1")
-noise = SubResource("FastNoiseLite_k80au")
-
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_yhxyk"]
-
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_omkm6"]
-frequency = 1.0
-fractal_octaves = 10
-fractal_lacunarity = 4.0
-fractal_weighted_strength = 0.41
-domain_warp_enabled = true
-domain_warp_type = 1
-
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_85t4c"]
-seamless = true
-noise = SubResource("FastNoiseLite_omkm6")
-
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_fx526"]
-frequency = 0.2863
-
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_5pl0e"]
-in_3d_space = true
-seamless = true
-noise = SubResource("FastNoiseLite_fx526")
-
-[sub_resource type="Gradient" id="Gradient_fx526"]
-
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_yhxyk"]
-
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_bmmvo"]
-in_3d_space = true
-seamless = true
-seamless_blend_skirt = 1.0
 as_normal_map = true
-bump_strength = 15.9
-color_ramp = SubResource("Gradient_fx526")
-noise = SubResource("FastNoiseLite_yhxyk")
+bump_strength = 4.0
+noise = SubResource("FastNoiseLite_485rr")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_mn4gk"]
-render_priority = -122
-shader = ExtResource("1_vnr4k")
-shader_parameter/sync_time = 0.0
-shader_parameter/wave_speed = 2.0
-shader_parameter/caustic_speed = 0.01
-shader_parameter/edge_fade_power = 1.0
-shader_parameter/transmittence = 20.0
-shader_parameter/h_dist_trans_weight = 0.1
-shader_parameter/transmit_color = Color(0, 0, 0.541176, 1)
-shader_parameter/depth_fade = 0.39
-shader_parameter/depth_fade_distance = 24.9
-shader_parameter/surface_albedo = Color(0, 0, 0.741176, 1)
-shader_parameter/surface_bottom = Color(0.000874319, 0.0619473, 0.371101, 1)
-shader_parameter/opacity = 5.0
-shader_parameter/opacity_floor = 1.0
-shader_parameter/opacity_ceiling = 5.0
-shader_parameter/roughness = 1.0
-shader_parameter/height_scale = 0.5
-shader_parameter/amplitude1 = 1.0
-shader_parameter/amplitude2 = 0.01
-shader_parameter/vertex_noise_big = SubResource("NoiseTexture2D_5pl0e")
-shader_parameter/vertex_noise_big2 = SubResource("NoiseTexture2D_bmmvo")
-shader_parameter/v_noise_tile = 5
-shader_parameter/normal_noise = SubResource("NoiseTexture2D_fx526")
-shader_parameter/normal_noise2 = SubResource("NoiseTexture2D_yhxyk")
-shader_parameter/normal_noise_size = 9.0
-shader_parameter/normal_noise_speed = 0.001
-shader_parameter/v_normal_scale = 0.001
-shader_parameter/normal_map_w = 256
-shader_parameter/wobble_power = 0.1
-shader_parameter/under_wobble_noise = SubResource("NoiseTexture2D_85t4c")
-shader_parameter/sky_color = Color(0.369725, 1, 0.883579, 1)
-shader_parameter/foam_color = Color(1, 1, 1, 1)
-shader_parameter/foam = SubResource("NoiseTexture2D_k80au")
-shader_parameter/foam_mask = SubResource("NoiseTexture2D_i0ybu")
-shader_parameter/foam_mask_size = 10.0
-shader_parameter/foam_mask_offset = Vector2(0, 0)
-shader_parameter/foam_wobble = 0.01
-shader_parameter/foam_wobble_noise = SubResource("NoiseTexture2D_dutye")
-shader_parameter/foam_wobble_size = 100.0
-shader_parameter/high_color = Color(0.0043901, 0.174069, 0.779619, 1)
-shader_parameter/low_color = Color(0, 4.33177e-07, 0.501556, 1)
-shader_parameter/wave_color_range = 20.0
-shader_parameter/enable_fake_lighting = false
-shader_parameter/shine_strength = 0.494
-shader_parameter/shine_shininess = 32.0
-shader_parameter/shadow = 0.72
-shader_parameter/shadow_width = 0.18
-shader_parameter/shadow_color = Color(0.650128, 0.650128, 0.650128, 0.705)
-shader_parameter/_specular_smoothness = 0.5
-shader_parameter/_specular_strength = 0.0
-shader_parameter/_glossiness = 0.095
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_8pr8h"]
+seamless = true
+as_normal_map = true
+bump_strength = 2.0
+noise = SubResource("FastNoiseLite_485rr")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8pr8h"]
+render_priority = 0
+shader = ExtResource("1_i0ybu")
+shader_parameter/albedo = Color(0, 0.0901961, 0.831373, 0.952941)
+shader_parameter/albedo_texture_size = Vector2i(0, 0)
+shader_parameter/point_size = 1.0
+shader_parameter/roughness = 0.0
+shader_parameter/metallic_texture_channel = Vector4(1, 0, 0, 0)
+shader_parameter/specular = 0.15
+shader_parameter/metallic = 0.1
+shader_parameter/texture_refraction = SubResource("NoiseTexture2D_8pr8h")
+shader_parameter/refraction = 0.1
+shader_parameter/refraction_texture_channel = Vector4(1, 0, 0, 0)
+shader_parameter/texture_normal = SubResource("NoiseTexture2D_i0ybu")
+shader_parameter/normal_scale = 1.2
+shader_parameter/uv1_blend_sharpness = 1.0
+shader_parameter/uv1_scale = Vector3(0.05, 0.05, 0.05)
+shader_parameter/uv1_offset = Vector3(0, 0, 0)
+shader_parameter/uv2_scale = Vector3(1, 1, 1)
+shader_parameter/uv2_offset = Vector3(0, 0, 0)
 
 [sub_resource type="SphereMesh" id="SphereMesh_vymnm"]
+material = SubResource("ShaderMaterial_8pr8h")
 
 [sub_resource type="ORMMaterial3D" id="ORMMaterial3D_u7gbt"]
 vertex_color_use_as_albedo = true
@@ -189,7 +95,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.067421, 0.343822, 0.331932)
 
 [node name="Water" type="MeshInstance3D" parent="."]
 transform = Transform3D(12.2832, 0, -45.8419, 0, 47.4589, 0, 45.8419, 0, 12.2832, 0, 0, 0)
-material_override = SubResource("ShaderMaterial_mn4gk")
 gi_lightmap_texel_scale = 0.01
 mesh = SubResource("SphereMesh_vymnm")
 
