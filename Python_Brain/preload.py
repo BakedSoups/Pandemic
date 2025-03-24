@@ -3,7 +3,6 @@ import pprint
 import copy
 import json
 
-# goal is to create a prerendered json of all the days incrementally
 
 class SIR_Simulation_Parameters:
     def __init__(self):
@@ -16,13 +15,13 @@ class SIR_Simulation_Parameters:
             "matrix": None
         }
         self.cities = [
-            {"name": "SF", "population": 808988, "latitude": 37.795, "longitude": -122.419},
-            {"name": "NYC", "population": 8258000, "latitude": 40.71, "longitude": -74.006},
-            {"name": "WA", "population": 455924, "latitude": 25.7617, "longitude": -80.1918},
-            {"name": "CHI", "population": 2664000, "latitude": 41.8781, "longitude": -87.6298},
-            {"name": "PA", "population": 2103000, "latitude": 41.8781, "longitude": -87.6298},
-            {"name": "LON", "population": 8866000, "latitude": 41.8781, "longitude": -87.6298},
-            {"name": "MA", "population": 8866000, "latitude": 41.8781, "longitude": -87.6298}
+            {"name": "SF", "population": 808988, "latitude": 37.7749, "longitude": -122.4194},  # San Francisco
+            {"name": "NYC", "population": 8258000, "latitude": 40.7128, "longitude": -74.0060},  # New York
+            {"name": "WA", "population": 455924, "latitude": 38.9072, "longitude": -77.0369},    # Washington DC
+            {"name": "CHI", "population": 2664000, "latitude": 41.8781, "longitude": -87.6298},  # Chicago
+            {"name": "PA", "population": 2103000, "latitude": 39.9526, "longitude": -75.1652},   # Philadelphia
+            {"name": "LON", "population": 8866000, "latitude": 51.5074, "longitude": -0.1278},   # London
+            {"name": "MA", "population": 8866000, "latitude": 35.6762, "longitude": 139.6503}    # Tokyo (MA)
         ]
         
         self.virus = {
@@ -44,7 +43,7 @@ class SIR_Simulation_Parameters:
             "infection_rate": 0.9,
             "recovery_rate": 0.4,
             "lethality": 0.015,
-            "mutation_rate": 0.002,  # Chance of mutation per day per infected population
+            "mutation_rate": 0.002,  #chance of mutation per day per infected population
             "attributes": {
                 "transmission_mode": "droplet",
                 "incubation_period": 5,
@@ -57,15 +56,6 @@ books = SIR_Simulation_Parameters()
 state_dictionary = books.state
 city_array = books.cities
 virus_config = books.virus
-
-# print("\n=== INITIAL VIRUS CONFIGURATION ===")
-# print(f"Infection rate: {virus_config['infection_rate']}")
-# print(f"Recovery rate: {virus_config['recovery_rate']}")
-# print(f"Lethality: {virus_config['lethality']}")
-# print(f"Mutation rate: {virus_config['mutation_rate']}")
-# print(f"Transmission mode: {virus_config['attributes']['transmission_mode']}")
-# print(f"Incubation period: {virus_config['attributes']['incubation_period']} days")
-# print(f"Symptom severity: {virus_config['attributes']['symptom_severity']}/10")
 
 seed = "SF"
 print("\nStarting pandemic simulation...")
@@ -144,48 +134,3 @@ else:
 
 with open("pandemic_simulation.json", "w") as json_file:
     json.dump(preloaded, json_file, indent=4)
-
-# print("\nSimulation complete! Data saved to pandemic_simulation.json")
-
-# total_infected = 0
-# total_deaths = 0
-# total_population = 0
-
-# for city_name in [city["name"] for city in city_array]:
-#     city_data = preloaded[last_day][city_name]
-#     current_infected = city_data["sir_history"][1][-1]
-    
-#     if len(city_data["sir_history"]) > 3:
-#         current_deaths = city_data["sir_history"][3][-1]
-#         total_deaths += current_deaths
-    
-#     total_infected += current_infected
-#     total_population += sum(city_data["sir_history"][j][-1] for j in range(len(city_data["sir_history"])))
-
-# print(f"\nFinal statistics (Day 49):")
-# print(f"Total infected: {int(total_infected)} ({total_infected/total_population*100:.2f}%)")
-
-# if total_deaths > 0:
-#     print(f"Total deaths: {int(total_deaths)} ({total_deaths/total_population*100:.2f}%)")
-
-# if active_strains and len(active_strains) > 1:
-#     print("\n=== VIRUS MUTATION SUMMARY ===")
-#     current_strain = state_dictionary["virus"]["current_strain"]
-#     print(f"Final active strain: {current_strain}")
-    
-#     for strain in sorted(active_strains, key=lambda s: 0 if s == "original" else mutation_days.get(s, 999)):
-#         if strain == "original":
-#             strain_data = state_dictionary["virus"]["strains"]["original"]
-#             print(f"Day 0: original strain")
-#             print(f"  • Infection rate: {strain_data['infection_rate']:.3f}")
-#             print(f"  • Lethality: {strain_data['lethality']:.4f}")
-#             print(f"  • Transmission: {strain_data['attributes']['transmission_mode']}")
-#         else:
-#             day = mutation_days.get(strain, "unknown")
-#             strain_data = state_dictionary["virus"]["strains"][strain]
-#             print(f"Day {day}: {strain}")
-#             print(f"  • Infection rate: {strain_data['infection_rate']:.3f}")
-#             print(f"  • Lethality: {strain_data['lethality']:.4f}")
-#             print(f"  • Transmission: {strain_data['attributes']['transmission_mode']}")
-# else:
-#     print("\nNo virus mutations occurred during the simulation.")

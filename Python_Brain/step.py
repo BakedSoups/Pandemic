@@ -22,11 +22,6 @@ def sird_ode(t, y, a, b, lethality):
     I: Infected
     R: Recovered
     D: Deaths (new)
-    
-    Parameters:
-    - a: infection rate
-    - b: recovery rate
-    - lethality: death rate (probability of death when infected)
     """
     S, I, R, D = tuple(y)
     N = S + I + R + D  # Total population including deaths
@@ -41,41 +36,14 @@ def sird_ode(t, y, a, b, lethality):
 def get_travel_durations():
     """Define the travel durations between cities in days."""
     return {
-        "SF": {"NYC": 5, "WA": 6, "CHI": 4, "PA": 3, "LON": 10, "MA": 2},
-        "NYC": {"SF": 5, "WA": 3, "CHI": 2, "PA": 1, "LON": 7, "MA": 4},
-        "WA": {"SF": 6, "NYC": 3, "CHI": 3, "PA": 2, "LON": 9, "MA": 5},
-        "CHI": {"SF": 4, "NYC": 2, "WA": 3, "PA": 1, "LON": 8, "MA": 3},
-        "PA": {"SF": 3, "NYC": 1, "WA": 2, "CHI": 1, "LON": 6, "MA": 2},
-        "LON": {"SF": 10, "NYC": 7, "WA": 9, "CHI": 8, "PA": 6, "MA": 12},
-        "MA": {"SF": 2, "NYC": 4, "WA": 5, "CHI": 3, "PA": 2, "LON": 12}
+        "SF": {"NYC": 4, "WA": 5, "CHI": 3, "PA": 3, "LON": 9, "MA": 6},
+        "NYC": {"SF": 4, "WA": 3, "CHI": 2, "PA": 1, "LON": 7, "MA": 8},
+        "WA": {"SF": 5, "NYC": 3, "CHI": 3, "PA": 2, "LON": 8, "MA": 7},
+        "CHI": {"SF": 3, "NYC": 2, "WA": 3, "PA": 1, "LON": 7, "MA": 6},
+        "PA": {"SF": 3, "NYC": 1, "WA": 2, "CHI": 1, "LON": 6, "MA": 5},
+        "LON": {"SF": 9, "NYC": 7, "WA": 8, "CHI": 7, "PA": 6, "MA": 10},
+        "MA": {"SF": 6, "NYC": 8, "WA": 7, "CHI": 6, "PA": 5, "LON": 10}
     }
-
-def process_city_pair(args):
-    i, j, sir_matrix, markov_matrix, city_names = args
-    
-    from_city = city_names[i]
-    to_city = city_names[j]
-    
-    if i == j or markov_matrix[j][i] == 0:
-        return None
-    
-    s_source, i_source, r_source = sir_matrix[i][:3]  # Get first 3 elements for SIR
-    
-    transition_prob = markov_matrix[j][i]
-    s_moved = s_source * transition_prob
-    i_moved = i_source * transition_prob
-    r_moved = r_source * transition_prob
-    
-    if s_moved + i_moved + r_moved > 0.1:
-        return {
-            "from_city": from_city,
-            "to_city": to_city,
-            "s_count": int(s_moved),
-            "i_count": int(i_moved),
-            "r_count": int(r_moved),
-            "total": int(s_moved + i_moved + r_moved)
-        }
-    return None
 
 def hare_neimeyer(array):
     ints = np.floor(array).astype(int)
@@ -117,36 +85,9 @@ def global_sird_evo(sird_matrix, a, b, lethality):
         arr=sird_matrix
     )
 
-def track_movement(sir_matrix, markov_matrix, city_names, max_workers=None):
-    moved_matrix = markov_matrix @ sir_matrix
-    
-    args_list = [(i, j, sir_matrix, markov_matrix, city_names) 
-                 for i in range(len(sir_matrix)) 
-                 for j in range(len(sir_matrix))]
-    
-    movement_data = []
-    
-    with concurrent.futures.ThreadPoolExecutor(max_workers=max_workers) as executor:
-        results = executor.map(process_city_pair, args_list)
-        
-        for result in results:
-            if result is not None:
-                movement_data.append(result)
-    
-    return moved_matrix, movement_data
-
 def check_for_mutations(virus, total_infected, day):
     """
     Check if virus mutations occur and update virus properties if they do
-    
-    Parameters:
-    - virus: current virus properties
-    - total_infected: current total infected population
-    - day: current simulation day
-    
-    Returns:
-    - updated virus dictionary
-    - Boolean indicating if mutation occurred
     """
     mutation_chance = virus["mutation_rate"] * (total_infected / 10000)
     
@@ -197,88 +138,36 @@ def check_for_mutations(virus, total_infected, day):
     
     return virus, False
 
-def original_step_function(sir_matrix, markov_matrix, a, b, city_names=None):
-    if city_names is None:
-        return clean_2(global_sir_evo(clean_1(markov_matrix @ sir_matrix), a, b))
-    else:
-        moved_matrix, movement_data = track_movement(sir_matrix, markov_matrix, city_names)
-        new_sir_matrix = clean_2(global_sir_evo(clean_1(moved_matrix), a, b))
-        
-        city_exodus = {}
-        for city_name in city_names:
-            city_exodus[city_name] = {"left_for": {}}
-            
-        for move in movement_data:
-            from_city = move["from_city"]
-            to_city = move["to_city"]
-            
-            if to_city not in city_exodus[from_city]["left_for"]:
-                city_exodus[from_city]["left_for"][to_city] = {
-                    "total": 0,
-                    "susceptible": 0,
-                    "infected": 0,
-                    "recovered": 0
-                }
-                
-            city_exodus[from_city]["left_for"][to_city]["total"] += move["total"]
-            city_exodus[from_city]["left_for"][to_city]["susceptible"] += move["s_count"]
-            city_exodus[from_city]["left_for"][to_city]["infected"] += move["i_count"]
-            city_exodus[from_city]["left_for"][to_city]["recovered"] += move["r_count"]
-        
-        return new_sir_matrix, movement_data, city_exodus
-
 def step_function(sir_matrix, markov_matrix, a, b, city_names=None, current_day=0, in_transit=None, virus=None):
     """
-    Enhanced step function that supports:
-    - SIRD model (deaths)
-    - Virus mutations
-    - Virus attributes affecting transmission
+    simplified step function that forces balanced travel between all cities
     """
-    if virus is None:
-        virus = {
-            "current_strain": "original",
-            "strains": {
-                "original": {
-                    "parent": None,
-                    "emergence_day": 0,
-                    "infection_rate": a,
-                    "recovery_rate": b,
-                    "lethality": 0.01,  # 1% base lethality
-                    "attributes": {
-                        "transmission_mode": "droplet",
-                        "incubation_period": 5,
-                        "symptom_severity": 5
-                    }
-                }
-            },
-            "infection_rate": a,
-            "recovery_rate": b,
-            "lethality": 0.01,
-            "mutation_rate": 0.002,
-            "attributes": {
-                "transmission_mode": "droplet",
-                "incubation_period": 5,
-                "symptom_severity": 5
-            }
-        }
-    
+    # handle basic case with no city names
     if city_names is None:
         return clean_2(global_sir_evo(clean_1(markov_matrix @ sir_matrix), a, b))
     
-    if sir_matrix.shape[1] == 3:  # If using standard SIR [S,I,R]
-        death_column = np.zeros((sir_matrix.shape[0], 1))
-        sird_matrix = np.hstack((sir_matrix, death_column))
-    else:
-        sird_matrix = sir_matrix.copy()
+    # set up result structure
+    sird_matrix = sir_matrix.copy()
+    if sird_matrix.shape[1] == 3:  # SIR format
+        death_column = np.zeros((sird_matrix.shape[0], 1))
+        sird_matrix = np.hstack((sird_matrix, death_column))
     
     arrivals = {}
-    still_in_transit = []
+    city_exodus = {}
+    updated_in_transit = []
+    movement_data = []
     
+    # initialize city exodus structure
+    for city_name in city_names:
+        city_exodus[city_name] = {"left_for": {}}
+    
+    # first process in-transit travelers
     if in_transit is not None:
         for traveler in in_transit:
             traveler["days_left"] -= 1
             
             if traveler["days_left"] <= 0:
+                # travelers arrive at destination
                 to_city = traveler["to_city"]
                 from_city = traveler["from_city"]
                 dest_idx = city_names.index(to_city)
@@ -289,6 +178,7 @@ def step_function(sir_matrix, markov_matrix, a, b, city_names=None, current_day=
                 if len(sird_matrix[dest_idx]) > 3:
                     sird_matrix[dest_idx][3] += traveler.get("d_count", 0)
                 
+                # record arrivals
                 if to_city not in arrivals:
                     arrivals[to_city] = {}
                 
@@ -307,7 +197,8 @@ def step_function(sir_matrix, markov_matrix, a, b, city_names=None, current_day=
                 arrivals[to_city][from_city]["infected"] += traveler["i_count"]
                 arrivals[to_city][from_city]["recovered"] += traveler["r_count"]
             else:
-                if traveler["i_count"] > 0 and len(sird_matrix[0]) > 3:
+                # process deaths in transit
+                if traveler["i_count"] > 0 and virus is not None:
                     current_strain = virus["strains"][virus["current_strain"]]
                     lethality = current_strain["lethality"]
                     
@@ -320,78 +211,134 @@ def step_function(sir_matrix, markov_matrix, a, b, city_names=None, current_day=
                         traveler["d_count"] += deaths_in_transit
                         traveler["total"] -= deaths_in_transit
                 
-                still_in_transit.append(traveler)
+                updated_in_transit.append(traveler)
     
-    moved_matrix, movement_data = track_movement(sird_matrix, markov_matrix, city_names)
+    # handle virus mutations
+    if virus is not None:
+        total_infected = sum(sird_matrix[:, 1])
+        virus, mutation_occurred = check_for_mutations(virus, total_infected, current_day)
+        
+        current_strain = virus["strains"][virus["current_strain"]]
+        a = current_strain["infection_rate"]
+        b = current_strain["recovery_rate"]
+        lethality = current_strain["lethality"]
+    else:
+        lethality = 0.01  # default lethality
     
-    city_exodus = {}
-    new_travelers = []
+    # process disease dynamics
+    if sird_matrix.shape[1] == 3:
+        sird_matrix = clean_2(global_sir_evo(clean_1(sird_matrix), a, b))
+    else:
+        sird_matrix = clean_2(global_sird_evo(clean_1(sird_matrix), a, b, lethality))
     
-    for city_name in city_names:
-        city_exodus[city_name] = {"left_for": {}}
-    
+    # generate forced travel between ALL city pairs
     travel_durations = get_travel_durations()
     
-    total_infected = sum(sird_matrix[:, 1])
-    virus, mutation_occurred = check_for_mutations(virus, total_infected, current_day)
-    
-    current_strain = virus["strains"][virus["current_strain"]]
-    a = current_strain["infection_rate"]
-    b = current_strain["recovery_rate"]
-    lethality = current_strain["lethality"]
-    virus["infection_rate"] = a
-    virus["recovery_rate"] = b
-    virus["lethality"] = lethality
-    virus["attributes"] = current_strain["attributes"]
-    
-    transmission_mode = virus["attributes"]["transmission_mode"]
-    
-    for move in movement_data:
-        from_city = move["from_city"]
-        to_city = move["to_city"]
+    N = len(city_names)
+    for i in range(N):
+        from_city = city_names[i]
         
-        duration = 1
-        if from_city in travel_durations and to_city in travel_durations[from_city]:
-            duration = travel_durations[from_city][to_city]
+        # get population counts
+        s_source, i_source, r_source, d_source = sird_matrix[i]
+        total_alive = s_source + i_source + r_source  # exclude deaths
         
-        if to_city not in city_exodus[from_city]["left_for"]:
-            city_exodus[from_city]["left_for"][to_city] = {
-                "total": 0,
-                "susceptible": 0,
-                "infected": 0,
-                "recovered": 0,
-                "deaths": 0,
-                "duration": duration
-            }
+        if total_alive < 100:  # skip nearly empty cities
+            continue
         
-        city_exodus[from_city]["left_for"][to_city]["total"] += move["total"]
-        city_exodus[from_city]["left_for"][to_city]["susceptible"] += move["s_count"]
-        city_exodus[from_city]["left_for"][to_city]["infected"] += move["i_count"]
-        city_exodus[from_city]["left_for"][to_city]["recovered"] += move["r_count"]
+        # 2% of population will travel, distributed evenly among destinations
+        leave_percent = 0.02
+        total_leaving = int(total_alive * leave_percent)
         
-        if duration > 1:
-            new_travelers.append({
+        # calculate proportions of S/I/R
+        s_ratio = s_source / max(1, total_alive)
+        i_ratio = i_source / max(1, total_alive)
+        r_ratio = r_source / max(1, total_alive)
+        
+        # destinations are all cities except current city
+        destinations = [j for j in range(N) if j != i]
+        travelers_per_dest = max(10, total_leaving // len(destinations))
+        
+        for j in destinations:
+            to_city = city_names[j]
+            
+            # calculate travelers of each type
+            s_moved = int(travelers_per_dest * s_ratio)
+            i_moved = int(travelers_per_dest * i_ratio)
+            r_moved = int(travelers_per_dest * r_ratio)
+            total_moved = s_moved + i_moved + r_moved
+            
+            # skip if not enough people to move
+            if total_moved < 1:
+                continue
+            
+            # ensure we don't move more than available
+            s_moved = min(s_moved, int(s_source))
+            i_moved = min(i_moved, int(i_source))
+            r_moved = min(r_moved, int(r_source))
+            total_moved = s_moved + i_moved + r_moved
+            
+            # update sird matrix to reflect travelers leaving
+            sird_matrix[i][0] -= s_moved
+            sird_matrix[i][1] -= i_moved
+            sird_matrix[i][2] -= r_moved
+            
+            # set up travel duration
+            duration = 1
+            if from_city in travel_durations and to_city in travel_durations[from_city]:
+                duration = travel_durations[from_city][to_city]
+            
+            # add to exodus record
+            if to_city not in city_exodus[from_city]["left_for"]:
+                city_exodus[from_city]["left_for"][to_city] = {
+                    "total": 0,
+                    "susceptible": 0,
+                    "infected": 0,
+                    "recovered": 0,
+                    "deaths": 0,
+                    "duration": duration
+                }
+            
+            city_exodus[from_city]["left_for"][to_city]["total"] += total_moved
+            city_exodus[from_city]["left_for"][to_city]["susceptible"] += s_moved
+            city_exodus[from_city]["left_for"][to_city]["infected"] += i_moved
+            city_exodus[from_city]["left_for"][to_city]["recovered"] += r_moved
+            
+            # record movement
+            movement_data.append({
                 "from_city": from_city,
                 "to_city": to_city,
-                "s_count": move["s_count"],
-                "i_count": move["i_count"],
-                "r_count": move["r_count"],
-                "total": move["total"],
-                "days_left": duration,
-                "duration": duration,
-                "departure_day": current_day
+                "s_count": s_moved,
+                "i_count": i_moved,
+                "r_count": r_moved,
+                "total": total_moved
             })
             
-            from_idx = city_names.index(from_city)
-            sird_matrix[from_idx][0] -= move["s_count"]
-            sird_matrix[from_idx][1] -= move["i_count"]
-            sird_matrix[from_idx][2] -= move["r_count"]
-        
-    new_sird_matrix = clean_2(global_sird_evo(clean_1(moved_matrix), a, b, lethality))
+            # handle travel time
+            if duration > 1:
+                # add to in-transit if duration > 1
+                updated_in_transit.append({
+                    "from_city": from_city,
+                    "to_city": to_city,
+                    "s_count": s_moved,
+                    "i_count": i_moved,
+                    "r_count": r_moved,
+                    "total": total_moved,
+                    "days_left": duration,
+                    "duration": duration,
+                    "departure_day": current_day
+                })
+            else:
+                # add directly to destination city if duration = 1
+                dest_idx = j
+                sird_matrix[dest_idx][0] += s_moved
+                sird_matrix[dest_idx][1] += i_moved
+                sird_matrix[dest_idx][2] += r_moved
     
-    updated_in_transit = still_in_transit + new_travelers
-    
-    return new_sird_matrix, movement_data, city_exodus, updated_in_transit, arrivals, virus
+    # return the appropriate results
+    if virus is not None:
+        return sird_matrix, movement_data, city_exodus, updated_in_transit, arrivals, virus
+    else:
+        return sird_matrix, movement_data, city_exodus, updated_in_transit, arrivals
 
 def rich_step_function():
     return

@@ -209,7 +209,6 @@ def print_exodus_report(exodus_data):
             print(f"  • Days: {sorted(data['days'])}")
         print()
     
-    # Add section for in-transit travelers
     if "in_transit" in exodus_data and exodus_data["in_transit"]:
         print("\nCurrently in transit:")
         print("-" * 40)
@@ -226,7 +225,6 @@ def print_exodus_report(exodus_data):
             print(f"  • {data['infected']} infected")
             print(f"  • {data['recovered']} recovered")
             
-            # Add deaths if available
             if "deaths" in data and data["deaths"] > 0:
                 print(f"  • {data['deaths']} deaths")
                 
@@ -267,7 +265,6 @@ def get_city_stats(city_dictionary, city_name, day=None):
     else:
         stats["deaths"] = 0
     
-    # Calculate totals
     stats["total_population"] = stats["susceptible"] + stats["infected"] + stats["recovered"] + stats["deaths"]
     stats["percent_infected"] = (stats["infected"] / stats["total_population"]) * 100
     stats["percent_recovered"] = (stats["recovered"] / stats["total_population"]) * 100
@@ -276,7 +273,6 @@ def get_city_stats(city_dictionary, city_name, day=None):
         stats["percent_deaths"] = (stats["deaths"] / stats["total_population"]) * 100
         stats["case_fatality_rate"] = (stats["deaths"] / (stats["recovered"] + stats["deaths"])) * 100 if (stats["recovered"] + stats["deaths"]) > 0 else 0
     
-    # Get virus information if available - check both city-specific and global
     virus_data = None
     if "virus_history" in city_dictionary and day_key in city_dictionary["virus_history"]:
         virus_data = city_dictionary["virus_history"][day_key]
@@ -349,7 +345,6 @@ def get_mutation_history(city_dictionary):
     Returns:
         Dictionary with mutation history
     """
-    # Check both possible locations for virus history
     virus_history = None
     if "virus_history" in city_dictionary:
         virus_history = city_dictionary["virus_history"]
@@ -360,13 +355,10 @@ def get_mutation_history(city_dictionary):
     strains = {}
     timeline = []
     
-    # Process each day's virus history
     for day_key, virus_data in virus_history.items():
         day = int(day_key.split('_')[1])
         
-        # Check all strains in this day's record
         for strain_id, strain_data in virus_data["strains"].items():
-            # If we haven't seen this strain before, add it
             if strain_id not in strains:
                 strains[strain_id] = {
                     "emergence_day": strain_data.get("emergence_day", 0),
@@ -377,14 +369,12 @@ def get_mutation_history(city_dictionary):
                     "attributes": strain_data["attributes"]
                 }
                 
-                # Add to timeline
                 timeline.append({
                     "day": strain_data.get("emergence_day", 0),
                     "strain": strain_id,
                     "parent": strain_data.get("parent", None)
                 })
     
-    # Sort timeline by emergence day
     timeline.sort(key=lambda x: x["day"])
     
     return {
@@ -401,7 +391,6 @@ def print_mutation_history(mutation_data):
     print("=== VIRUS MUTATION HISTORY ===")
     print(f"Total strains: {mutation_data['total_strains']}")
     
-    # Print timeline
     print("\nMutation timeline:")
     print("-" * 40)
     
