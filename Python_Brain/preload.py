@@ -12,19 +12,20 @@ class SIR_Simulation_Parameters:
         self.state = {
             "vector": [[808987, 1, 0, 0], [8258000, 0, 0, 0], [455924, 0, 0, 0],
                       [2664000, 0, 0, 0], [2103000, 0, 0, 0], [8866000, 0, 0, 0],
-                      [8866000, 0, 0, 0]],
+                      [3971000, 0, 0, 0], [6747000, 0, 0, 0], [1744000, 0, 0, 0],
+                      [5601000, 0, 0, 0], [12678000, 0, 0, 0]],
             "infection_rate": 0.9,
             "recovery_rate": 0.4,
             "matrix": None
         }
         self.cities = [
             {"name": "SF", "population": 808988, "latitude": 37.7749, "longitude": -122.4194},  # San Francisco
-            {"name": "NYC", "population": 8258000, "latitude": 40.7128, "longitude": -74.0060},  # New York
-            {"name": "WA", "population": 455924, "latitude": 38.9072, "longitude": -77.0369},    # Washington DC
             {"name": "CHI", "population": 2664000, "latitude": 41.8781, "longitude": -87.6298},  # Chicago
-            {"name": "PA", "population": 2103000, "latitude": 39.9526, "longitude": -75.1652},   # Philadelphia
             {"name": "LON", "population": 8866000, "latitude": 51.5074, "longitude": -0.1278},   # London
-            {"name": "MA", "population": 8866000, "latitude": 35.6762, "longitude": 139.6503}    # Tokyo (MA)
+            {"name": "MA", "population": 3971000, "latitude": 42.3601, "longitude": -71.0589},   # Massachusetts
+            {"name": "WA", "population": 455924, "latitude": 38.9072, "longitude": -77.0369},    # Washington DC
+            {"name": "PA", "population": 2103000, "latitude": 48.8566, "longitude": 2.3522},     # Paris
+            {"name": "NYC", "population": 8258000, "latitude": 40.7128, "longitude": -74.0060},  # New York
         ]
        
         self.virus = {
