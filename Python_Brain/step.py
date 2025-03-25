@@ -48,8 +48,15 @@ def get_travel_durations():
 def hare_neimeyer(array):
     ints = np.floor(array).astype(int)
     remainder = array - ints
+    
+    # Special handling for infected population
+    if array[1] > 0 and ints[1] == 0:
+        ints[1] = 1
+        if ints[0] > 0:
+            ints[0] -= 1
+    
     deficit = int(round(sum(array))) - sum(ints)
-    indices = np.argsort(remainder)[::-1]  # Sort by largest remainder
+    indices = np.argsort(remainder)[::-1]
     for i in range(deficit):
         ints[indices[i]] += 1
     return ints
@@ -126,13 +133,13 @@ def check_for_mutations(virus, total_infected, day):
         virus["strains"][strain_name] = new_strain
         virus["current_strain"] = strain_name
         
-        print(f"Day {day}: New virus mutation ({strain_name}) emerged!")
-        print(f"  - Infection rate: {new_strain['infection_rate']:.3f} " + 
-              f"({(new_strain['infection_rate']/virus['infection_rate']-1)*100:.1f}% change)")
-        print(f"  - Lethality: {new_strain['lethality']:.4f} " +
-              f"({(new_strain['lethality']/virus['lethality']-1)*100:.1f}% change)")
-        if new_strain["attributes"]["transmission_mode"] != virus["attributes"]["transmission_mode"]:
-            print(f"  - New transmission mode: {new_strain['attributes']['transmission_mode']}")
+        # print(f"Day {day}: New virus mutation ({strain_name}) emerged!")
+        # print(f"  - Infection rate: {new_strain['infection_rate']:.3f} " + 
+        #       f"({(new_strain['infection_rate']/virus['infection_rate']-1)*100:.1f}% change)")
+        # print(f"  - Lethality: {new_strain['lethality']:.4f} " +
+        #       f"({(new_strain['lethality']/virus['lethality']-1)*100:.1f}% change)")
+        # if new_strain["attributes"]["transmission_mode"] != virus["attributes"]["transmission_mode"]:
+        #     print(f"  - New transmission mode: {new_strain['attributes']['transmission_mode']}")
         
         return virus, True
     
@@ -239,7 +246,7 @@ def step_function(sir_matrix, markov_matrix, a, b, city_names=None, current_day=
         from_city = city_names[i]
         
         # get population counts
-        s_source, i_source, r_source, d_source = sird_matrix[i]
+        s_source, i_source, r_source, _ = sird_matrix[i]
         total_alive = s_source + i_source + r_source  # exclude deaths
         
         if total_alive < 100:  # skip nearly empty cities
@@ -253,19 +260,28 @@ def step_function(sir_matrix, markov_matrix, a, b, city_names=None, current_day=
         s_ratio = s_source / max(1, total_alive)
         i_ratio = i_source / max(1, total_alive)
         r_ratio = r_source / max(1, total_alive)
+   
         
         # destinations are all cities except current city
         destinations = [j for j in range(N) if j != i]
         travelers_per_dest = max(10, total_leaving // len(destinations))
         
+    
         for j in destinations:
             to_city = city_names[j]
             
             # calculate travelers of each type
+            # print(f"S: {s_ratio}\nI: {i_ratio}\nR {r_ratio}\n")
+
             s_moved = int(travelers_per_dest * s_ratio)
             i_moved = int(travelers_per_dest * i_ratio)
             r_moved = int(travelers_per_dest * r_ratio)
             total_moved = s_moved + i_moved + r_moved
+            # VERY BANDAIshutdown
+            # D SOLUTION
+            if i_source > 0:
+                i_moved = max(1, int(travelers_per_dest * i_ratio)) if i_source >= 1 else 0
+                total_moved = s_moved + i_moved + r_moved 
             
             # skip if not enough people to move
             if total_moved < 1:

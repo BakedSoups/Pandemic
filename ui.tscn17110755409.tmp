@@ -1,0 +1,157 @@
+[gd_scene load_steps=7 format=3 uid="uid://dg167mqm4kshd"]
+
+[ext_resource type="PackedScene" uid="uid://ch35nc60niedd" path="res://scenes/Camera.tscn" id="1_fyqef"]
+[ext_resource type="Script" uid="uid://db3uhm458p526" path="res://scripts/main_controller.gd" id="2_27fn8"]
+[ext_resource type="Script" uid="uid://j4o6xmftw8jx" path="res://world_stats.gd" id="2_ibotj"]
+[ext_resource type="Script" uid="uid://d0c7txwu2iaif" path="res://city_name.gd" id="2_nltto"]
+[ext_resource type="Script" uid="uid://djeqtwi8b65cc" path="res://virus_info.gd" id="3_n5ude"]
+[ext_resource type="Script" uid="uid://of6iyhs87u5a" path="res://scenes/graph_main.gd" id="3_nltto"]
+
+[node name="UI" type="Node3D"]
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PanelContainer" type="SubViewportContainer" parent="Control"]
+layout_mode = 0
+offset_left = 555.0
+offset_top = 47.5
+offset_right = 1105.0
+offset_bottom = 597.5
+
+[node name="SubViewport" type="SubViewport" parent="Control/PanelContainer"]
+handle_input_locally = false
+snap_2d_transforms_to_pixel = true
+size = Vector2i(550, 550)
+render_target_update_mode = 4
+
+[node name="Main_Scene" parent="Control/PanelContainer/SubViewport" instance=ExtResource("1_fyqef")]
+
+[node name="PanelContainer2" type="PanelContainer" parent="Control"]
+layout_mode = 0
+offset_left = 572.0
+offset_top = 437.0
+offset_right = 772.0
+offset_bottom = 473.0
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Control/PanelContainer2"]
+layout_mode = 2
+text = "World stats 
+"
+
+[node name="PanelContainer3" type="PanelContainer" parent="Control"]
+layout_mode = 0
+offset_left = 569.0
+offset_top = 483.0
+offset_right = 769.0
+offset_bottom = 583.0
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Control/PanelContainer3"]
+layout_mode = 2
+text = "Population:  100m
+Susceptable:  200k 
+Infected: 100k 
+Recovered: 200k"
+script = ExtResource("2_ibotj")
+
+[node name="PanelContainer4" type="PanelContainer" parent="Control"]
+layout_mode = 0
+offset_left = 45.0
+offset_top = 47.5
+offset_right = 140.0
+offset_bottom = 77.5
+scale = Vector2(2, 2)
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Control/PanelContainer4"]
+layout_mode = 2
+text = "Maldemic"
+
+[node name="Virus_Info" type="PanelContainer" parent="Control"]
+layout_mode = 0
+offset_left = 55.0
+offset_top = 410.0
+offset_right = 505.0
+offset_bottom = 600.0
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Control/Virus_Info"]
+layout_mode = 2
+text = "Virus:
+Transmission Rate :
+Infection Rate: 
+Recovery Rate: 
+Lethality: 	
+Mutation Rate:"
+script = ExtResource("3_n5ude")
+
+[node name="PanelContainer5" type="PanelContainer" parent="Control"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="PanelContainer5" type="PanelContainer" parent="CanvasLayer"]
+offset_left = 314.0
+offset_top = 167.0
+offset_right = 439.0
+offset_bottom = 227.0
+scale = Vector2(0.8, 1)
+
+[node name="Day Back" type="Button" parent="CanvasLayer/PanelContainer5"]
+layout_mode = 2
+text = "Back
+"
+
+[node name="PanelContainer3" type="PanelContainer" parent="CanvasLayer"]
+offset_left = 434.0
+offset_top = 168.0
+offset_right = 559.0
+offset_bottom = 228.0
+scale = Vector2(0.8, 1)
+
+[node name="Day Add" type="Button" parent="CanvasLayer/PanelContainer3"]
+layout_mode = 2
+text = "Forward"
+
+[node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer"]
+texture_filter = 1
+offset_left = 459.0
+offset_top = 115.0
+offset_right = 499.0
+offset_bottom = 150.0
+scale = Vector2(1.5, 1.5)
+text = "SF"
+script = ExtResource("2_nltto")
+
+[node name="RichTextLabel2" type="RichTextLabel" parent="CanvasLayer"]
+texture_filter = 1
+offset_left = 399.0
+offset_top = 114.0
+offset_right = 439.0
+offset_bottom = 149.0
+scale = Vector2(1.5, 1.5)
+text = "City:"
+
+[node name="Day Counter" type="RichTextLabel" parent="CanvasLayer"]
+texture_filter = 2
+offset_left = 372.0
+offset_top = 52.0
+offset_right = 437.0
+offset_bottom = 82.0
+scale = Vector2(2.44222, 1.92638)
+text = "Day: 0"
+
+[node name="Main_Controller" type="Node2D" parent="CanvasLayer"]
+script = ExtResource("2_27fn8")
+
+[node name="Graph" type="Node2D" parent="CanvasLayer"]
+position = Vector2(49, 92)
+script = ExtResource("3_nltto")
+
+[connection signal="button_down" from="CanvasLayer/PanelContainer5/Day Back" to="CanvasLayer/Main_Controller" method="_on_day_back_button_down"]
+[connection signal="button_down" from="CanvasLayer/PanelContainer3/Day Add" to="CanvasLayer/Main_Controller" method="_on_day_add_button_down"]

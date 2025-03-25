@@ -54,8 +54,8 @@ var T = max(len(S), len(I), len(R), len(D))
 
 ## Graph Dimensions
 var l_margin = 50
-var top_margin = 25
-var dim = 350  # Fixed size for graph regardless of time range
+var top_margin = 1
+var dim = 265  # Fixed size for graph regardless of time range
 var width = max_value + 50
 var scale_factor_y = (dim - top_margin) / max_value
 var scale_factor_x = (dim - l_margin) / T
@@ -165,8 +165,6 @@ func plot_model(beta, gamma, delta):
 	plot_vector(R_sim, cgl, line_RA)
 	plot_vector(D_sim, cpl, line_DA)  # Plot death simulation
 
-
-## Axis Logic
 func draw_axis():
 	
 	axis_X = Line2D.new()
@@ -200,11 +198,16 @@ func draw_axis():
 		label.z_index = -1  # Place behind the bar
 		add_child(label)
 
-
-	var max_ticks = 10  # Maximum number of ticks to show
-	var step = max(1, int(T / max_ticks))  # Calculate step size based on data length
+	# Calculate the optimal number of ticks based on the available space
+	var min_space_between_ticks = 40  # Minimum pixels between ticks
+	var max_ticks = int(dim / min_space_between_ticks)
+	var optimal_tick_count = min(max_ticks, T)
 	
-	for i in range(0, T, step):
+	# Calculate tick interval dynamically - ensure it's a clean value like 1, 2, 5, 10, 20, etc.
+	var tick_interval = calculate_nice_tick_interval(T, optimal_tick_count)
+	
+	# Create the x-axis ticks
+	for i in range(0, T, tick_interval):
 		var tick_pos = l_margin + (i * scale_factor_x)
 		var tick = Line2D.new()
 		tick.width = 1
@@ -219,26 +222,50 @@ func draw_axis():
 		add_child(label)	
 
 	## Title and Graph Labels
-	var title = Label.new()
-	title.text = "SIRD Model"  # Updated title to reflect death variable
-	title.position = Vector2(l_margin, top_margin - 50)
-	add_child(title)
+	#var title = Label.new()
+	##title.text = "SIRD Model"  # Updated title to reflect death variable
+	#title.position = Vector2(l_margin, top_margin - 50)
+	#add_child(title)
 	
-	var x_label = Label.new()
-	x_label.text = "Time (Days)"
-	x_label.position = Vector2((l_margin + (T * scale_factor_x)) / 2, top_margin + dim + 40)
-	add_child(x_label)
+	#var x_label = Label.new()
+	#x_label.text = "Time (Days)"
+	#x_label.position = Vector2((l_margin + (T * scale_factor_x)) / 2, top_margin + dim + 40)
+	#add_child(x_label)
 
-	var y_label = Label.new()
-	y_label.rotation_degrees = -90
-	y_label.text = "Population"
-	y_label.position = Vector2(l_margin - 90, top_margin + dim / 2)
-	add_child(y_label)
+	#var y_label = Label.new()
+	#y_label.rotation_degrees = -90
+	#y_label.text = "Population"
+	#y_label.position = Vector2(l_margin - 90, top_margin + dim / 2)
+	#add_child(y_label)
 	
-	var og = Label.new()
-	og.text = "**Original Scaling:     "  + str(int(max_og))
-	og.position = Vector2(l_margin, top_margin + dim + 100)
-	add_child(og)
+	#var og = Label.new()
+	#og.text = "**Original Scaling:     "  + str(int(max_og))
+	#og.position = Vector2(l_margin, top_margin + dim + 100)
+	#add_child(og)
+
+# Calculate a "nice" tick interval (1, 2, 5, 10, 20, 25, 50, 100, etc.)
+func calculate_nice_tick_interval(total_days, desired_tick_count):
+	var raw_interval = float(total_days) / desired_tick_count
+	
+	# Find the magnitude (10^n) close to the raw interval
+	var magnitude = pow(10, floor(log(raw_interval) / log(10)))
+	
+	# Normalize the raw interval to a value between 1 and 10
+	var normalized = raw_interval / magnitude
+	
+	# Choose the closest nice number
+	var nice_number
+	if normalized < 1.5:
+		nice_number = 1
+	elif normalized < 3:
+		nice_number = 2
+	elif normalized < 7:
+		nice_number = 5
+	else:
+		nice_number = 10
+	
+	# Return the nice interval
+	return int(max(1, nice_number * magnitude))
 
 func plot_vector_points(vector : Array, vector2 : Array, color : Color, line : Line2D, name: String):
 
@@ -299,11 +326,9 @@ func plot_vector(vector : Array, color : Color, line : Line2D):
 
 
 func _on_show_graph_button_down() -> void:
-	# Initialize with fixed dimensions
 
 	set_process(true)
 		
-
 	# Recalculate scale factors based on fixed dimensions
 	scale_factor_y = (dim - top_margin) / max_value
 	scale_factor_x = (dim - l_margin) / T
@@ -311,5 +336,5 @@ func _on_show_graph_button_down() -> void:
 	draw_axis()
 	plot_actual()
 	plot_model(BETA, GAMMA, DELTA)
-	print("ACTIVATED", S,I,R,D)
+	#print("ACTIVATED", S,I,R,D)
 	

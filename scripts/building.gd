@@ -38,7 +38,6 @@ func _process(delta):
 		var current_day = "day_"+str(Data.day_count)
 		var city_day = Data.dict_names[current_day]
 		#
-		#if not city_da
 		var city_stats = city_day[building]["sir_history"]
 
 

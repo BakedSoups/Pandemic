@@ -421,6 +421,205 @@ def print_mutation_history(mutation_data):
         
         print()
 
+def get_total_population_stats(city_dictionary, day=None):
+    """
+    Get total SIRD statistics across all cities
+    
+    Args:
+        city_dictionary: The city dictionary containing health data
+        day: Specific day to check (None to check the latest day)
+        
+    Returns:
+        Dictionary with total population statistics
+    """
+    # Find city names
+    city_names = [name for name in city_dictionary.keys() 
+                  if isinstance(city_dictionary[name], dict) and "sir_history" in city_dictionary[name]]
+    
+    if not city_names:
+        return {"error": "No city data found"}
+    
+    # Determine the day
+    if day is None:
+        day = len(city_dictionary[city_names[0]]["sir_history"][0]) - 1
+    
+    day_key = f"day_{day}"
+    
+    # Initialize counters
+    total_stats = {
+        "susceptible": 0,
+        "infected": 0,
+        "recovered": 0,
+        "deaths": 0,
+        "total_population": 0
+    }
+    
+    # Sum up statistics from all cities
+    for city in city_names:
+        history = city_dictionary[city]["sir_history"]
+        
+        has_deaths = len(history) > 3
+        
+        if day >= len(history[0]):
+            continue  # Skip if day is out of range for this city
+        
+        total_stats["susceptible"] += history[0][day]
+        total_stats["infected"] += history[1][day]
+        total_stats["recovered"] += history[2][day]
+        
+        if has_deaths:
+            total_stats["deaths"] += history[3][day]
+    
+    # Calculate total population and percentages
+    total_stats["total_population"] = (
+        total_stats["susceptible"] + 
+        total_stats["infected"] + 
+        total_stats["recovered"] + 
+        total_stats["deaths"]
+    )
+    
+    if total_stats["total_population"] > 0:
+        total_stats["percent_susceptible"] = (total_stats["susceptible"] / total_stats["total_population"]) * 100
+        total_stats["percent_infected"] = (total_stats["infected"] / total_stats["total_population"]) * 100
+        total_stats["percent_recovered"] = (total_stats["recovered"] / total_stats["total_population"]) * 100
+        total_stats["percent_deaths"] = (total_stats["deaths"] / total_stats["total_population"]) * 100
+        
+        # Calculate case fatality rate
+        if total_stats["recovered"] + total_stats["deaths"] > 0:
+            total_stats["case_fatality_rate"] = (
+                total_stats["deaths"] / (total_stats["recovered"] + total_stats["deaths"])
+            ) * 100
+        else:
+            total_stats["case_fatality_rate"] = 0
+    
+    # Get virus information for the day
+    virus_data = None
+    if "virus_history" in city_dictionary and day_key in city_dictionary["virus_history"]:
+        virus_data = city_dictionary["virus_history"][day_key]
+    
+    if virus_data:
+        current_strain = virus_data["current_strain"]
+        strain_data = virus_data["strains"][current_strain]
+        
+        total_stats["virus"] = {
+            "current_strain": current_strain,
+            "strain_data": strain_data,
+            "mutation_rate": virus_data["mutation_rate"]
+        }
+    
+    return {
+        "day": day,
+        "stats": total_stats
+    }
+
+def print_total_population_stats(stats_data):
+    if "error" in stats_data:
+        print(f"Error: {stats_data['error']}")
+        return
+        
+    day = stats_data["day"]
+    stats = stats_data["stats"]
+    
+    print(f"=== TOTAL POPULATION STATISTICS (Day {day}) ===")
+    
+    print(f"Total population: {int(stats['total_population'])}")
+    print(f"  • Susceptible: {int(stats['susceptible'])} ({stats.get('percent_susceptible', 0):.2f}%)")
+    print(f"  • Infected: {int(stats['infected'])} ({stats.get('percent_infected', 0):.2f}%)")
+    print(f"  • Recovered: {int(stats['recovered'])} ({stats.get('percent_recovered', 0):.2f}%)")
+    print(f"  • Deaths: {int(stats['deaths'])} ({stats.get('percent_deaths', 0):.2f}%)")
+    
+    if "case_fatality_rate" in stats:
+        print(f"  • Case fatality rate: {stats['case_fatality_rate']:.2f}%")
+    
+    if "virus" in stats:
+        virus = stats["virus"]
+        strain = virus["strain_data"]
+        
+        print(f"\nActive virus strain: {virus['current_strain']}")
+        print(f"  • Transmission mode: {strain['attributes']['transmission_mode']}")
+        print(f"  • Infection rate: {strain['infection_rate']:.3f}")
+        print(f"  • Recovery rate: {strain['recovery_rate']:.3f}")
+        print(f"  • Lethality: {strain['lethality']:.4f} ({strain['lethality']*100:.2f}%)")
+        print(f"  • Mutation rate: {virus['mutation_rate']:.4f}")
+    else:
+        print("\nNo virus data available")
+    
+    print()
+
+def print_virus_mutations(city_dictionary, mutation_numbers=None):
+    """
+    Print details about specific mutations by their numbers
+    
+    Args:
+        city_dictionary: The city dictionary containing virus history
+        mutation_numbers: List of mutation numbers to print (e.g. [1, 2])
+    """
+    if mutation_numbers is None:
+        print("No mutation numbers specified.")
+        return
+    
+    # Get all mutations
+    mutations = get_mutation_history(city_dictionary)
+    
+    if "error" in mutations:
+        print(f"Error: {mutations['error']}")
+        return
+    
+    strains = mutations["strains"]
+    timeline = mutations["timeline"]
+    
+    if len(timeline) <= 1:  # Only original strain
+        print("No mutations have occurred in the simulation.")
+        return
+    
+    for mutation_num in mutation_numbers:
+        strain_name = f"strain_{mutation_num}"
+        
+        if strain_name not in strains:
+            print(f"Mutation {mutation_num} not found in simulation data.")
+            continue
+        
+        strain_data = strains[strain_name]
+        parent_name = strain_data["parent"]
+        parent_data = strains.get(parent_name)
+        
+        print(f"=== VIRUS MUTATION {mutation_num} ===")
+        print(f"Strain name: {strain_name}")
+        print(f"Emerged on day: {strain_data['emergence_day']}")
+        print(f"Parent strain: {parent_name}")
+        
+        if parent_data:
+            # Calculate changes from parent
+            inf_change = (strain_data["infection_rate"] / parent_data["infection_rate"] - 1) * 100
+            rec_change = (strain_data["recovery_rate"] / parent_data["recovery_rate"] - 1) * 100
+            leth_change = (strain_data["lethality"] / parent_data["lethality"] - 1) * 100
+            
+            print("\nChanges from parent strain:")
+            print(f"  • Infection rate: {strain_data['infection_rate']:.3f} ({inf_change:+.1f}%)")
+            print(f"  • Recovery rate: {strain_data['recovery_rate']:.3f} ({rec_change:+.1f}%)")
+            print(f"  • Lethality: {strain_data['lethality']:.4f} ({leth_change:+.1f}%)")
+            
+            if strain_data["attributes"]["transmission_mode"] != parent_data["attributes"]["transmission_mode"]:
+                print(f"  • Transmission changed: {parent_data['attributes']['transmission_mode']} → {strain_data['attributes']['transmission_mode']}")
+                
+            if strain_data["attributes"]["incubation_period"] != parent_data["attributes"]["incubation_period"]:
+                inc_change = strain_data["attributes"]["incubation_period"] - parent_data["attributes"]["incubation_period"]
+                print(f"  • Incubation period: {strain_data['attributes']['incubation_period']} days ({inc_change:+d} days)")
+                
+            if strain_data["attributes"]["symptom_severity"] != parent_data["attributes"]["symptom_severity"]:
+                sev_change = strain_data["attributes"]["symptom_severity"] - parent_data["attributes"]["symptom_severity"]
+                print(f"  • Symptom severity: {strain_data['attributes']['symptom_severity']}/10 ({sev_change:+d} points)")
+        else:
+            print("\nProperties:")
+            print(f"  • Infection rate: {strain_data['infection_rate']:.3f}")
+            print(f"  • Recovery rate: {strain_data['recovery_rate']:.3f}")
+            print(f"  • Lethality: {strain_data['lethality']:.4f}")
+            print(f"  • Transmission mode: {strain_data['attributes']['transmission_mode']}")
+            print(f"  • Incubation period: {strain_data['attributes']['incubation_period']} days")
+            print(f"  • Symptom severity: {strain_data['attributes']['symptom_severity']}/10")
+        
+        print()
+
 if __name__ == "__main__":
     with open("pandemic_simulation.json", "r") as json_file:
         simulation_data = json.load(json_file)
@@ -438,11 +637,20 @@ if __name__ == "__main__":
     if not found_history:
         print("No virus history found in the simulation data")
     
-    nyc_stats = get_city_stats(simulation_data[last_day_key], "NYC")
-    print_city_stats(nyc_stats)
+    # Print total population statistics
+    total_stats = get_total_population_stats(last_day_data,25)
+    print_total_population_stats(total_stats)
+    total_stats = get_total_population_stats(last_day_data,27)
+    print_total_population_stats(total_stats)
     
-    nyc_exodus = who_left_city(simulation_data["day_2"], "NYC", day=2)
-    print_exodus_report(nyc_exodus)
+    # Print virus mutations details 
+    print_virus_mutations(last_day_data, mutation_numbers=[1, 2])
+    
+    # nyc_stats = get_city_stats(simulation_data[last_day_key], "NYC")
+    # print_city_stats(nyc_stats)
+    
+    # nyc_exodus = who_left_city(simulation_data["day_2"], "NYC", day=2)
+    # print_exodus_report(nyc_exodus)
     
     mutations = get_mutation_history(simulation_data[last_day_key])
     print_mutation_history(mutations)

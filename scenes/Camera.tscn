@@ -1,14 +1,10 @@
-[gd_scene load_steps=17 format=3 uid="uid://ch35nc60niedd"]
+[gd_scene load_steps=11 format=3 uid="uid://ch35nc60niedd"]
 
 [ext_resource type="Script" uid="uid://ci8d57i3pqmxe" path="res://planet.gd" id="1_5udrv"]
 [ext_resource type="PackedScene" uid="uid://cpkbycrd7cu5v" path="res://city.tscn" id="3_6df8m"]
 [ext_resource type="Shader" uid="uid://crotx72i4ov5c" path="res://shaders/Space_shader.gdshader" id="4_w4phd"]
 [ext_resource type="PackedScene" uid="uid://d1mxbsjsvq7fa" path="res://Planet.tscn" id="5_kn7q7"]
-[ext_resource type="Shader" uid="uid://b0wpgmlg138o8" path="res://shaders/pixelated.gdshader" id="6_8stbe"]
-[ext_resource type="Script" uid="uid://of6iyhs87u5a" path="res://scenes/graph_main.gd" id="7_7j4ev"]
-[ext_resource type="Shader" uid="uid://c7di3qjou4icq" path="res://shaders/dream.gdshader" id="7_rbawg"]
 [ext_resource type="AudioStream" uid="uid://1i165q64u13s" path="res://scenes/demo.mp3" id="8_5udrv"]
-[ext_resource type="Script" uid="uid://db3uhm458p526" path="res://scripts/main_controller.gd" id="8_qx3gj"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_3yuvx"]
 
@@ -50,19 +46,6 @@ fog_light_energy = 0.17
 fog_density = 0.1474
 fog_sky_affect = 0.947
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_e5003"]
-shader = ExtResource("6_8stbe")
-shader_parameter/pixel_size = Vector2(4, 4)
-shader_parameter/pixel_factor = 0.5
-shader_parameter/enable_dithering = true
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_cxcom"]
-shader = ExtResource("7_rbawg")
-shader_parameter/scale = Vector2(1, 1)
-shader_parameter/speed = 0.5
-shader_parameter/pink = Color(1, 0.4, 0.7, 0.2)
-shader_parameter/blue = Color(0.4, 0.6, 1, 0.2)
-
 [node name="Main_Scene" type="Node3D"]
 script = ExtResource("1_5udrv")
 
@@ -97,80 +80,6 @@ light_size = 0.488
 omni_range = 80.0
 omni_attenuation = 0.596
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
-
-[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
-material = SubResource("ShaderMaterial_e5003")
-offset_left = -21631.0
-offset_top = -13865.0
-offset_right = 14031.0
-offset_bottom = 10749.0
-
-[node name="ColorRect2" type="ColorRect" parent="CanvasLayer"]
-material = SubResource("ShaderMaterial_cxcom")
-offset_left = -56831.0
-offset_top = -35343.0
-offset_right = 51804.0
-offset_bottom = 34537.0
-
-[node name="PanelContainer5" type="PanelContainer" parent="CanvasLayer"]
-offset_left = 897.0
-offset_top = 285.0
-offset_right = 1156.0
-offset_bottom = 372.0
-scale = Vector2(0.8, 1)
-
-[node name="Day Back" type="Button" parent="CanvasLayer/PanelContainer5"]
-layout_mode = 2
-text = "Day Back"
-
-[node name="PanelContainer3" type="PanelContainer" parent="CanvasLayer"]
-offset_left = 897.0
-offset_top = 399.0
-offset_right = 1156.0
-offset_bottom = 486.0
-scale = Vector2(0.8, 1)
-
-[node name="Day Add" type="Button" parent="CanvasLayer/PanelContainer3"]
-layout_mode = 2
-text = "Day Add"
-
-[node name="PanelContainer2" type="PanelContainer" parent="CanvasLayer"]
-offset_left = 897.0
-offset_top = 516.0
-offset_right = 1156.0
-offset_bottom = 603.0
-scale = Vector2(0.782882, 0.979131)
-
-[node name="Show Graph" type="Button" parent="CanvasLayer/PanelContainer2"]
-layout_mode = 2
-text = "Show Graph "
-
-[node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer"]
-texture_filter = 1
-offset_left = 21.0
-offset_top = 28.0
-offset_right = 61.0
-offset_bottom = 68.0
-scale = Vector2(2.83246, 2.25227)
-text = "nyc"
-
-[node name="Day Counter" type="RichTextLabel" parent="CanvasLayer"]
-texture_filter = 2
-offset_left = 890.0
-offset_top = 58.0
-offset_right = 960.0
-offset_bottom = 98.0
-scale = Vector2(2.60222, 1.92638)
-text = "Days"
-
-[node name="Main_Controller" type="Node2D" parent="CanvasLayer"]
-script = ExtResource("8_qx3gj")
-
-[node name="Graph" type="Node2D" parent="CanvasLayer"]
-position = Vector2(49, 230)
-script = ExtResource("7_7j4ev")
-
 [node name="City_Zones" type="Node3D" parent="."]
 
 [node name="PA" parent="City_Zones" instance=ExtResource("3_6df8m")]
@@ -196,8 +105,3 @@ transform = Transform3D(-5.33604, 1.08345, -3.58641, -0.0382641, 6.10316, 12.719
 
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
 stream = ExtResource("8_5udrv")
-
-[connection signal="button_down" from="CanvasLayer/PanelContainer5/Day Back" to="CanvasLayer/Main_Controller" method="_on_day_back_button_down"]
-[connection signal="button_down" from="CanvasLayer/PanelContainer3/Day Add" to="CanvasLayer/Main_Controller" method="_on_day_add_button_down"]
-[connection signal="button_down" from="CanvasLayer/PanelContainer2/Show Graph" to="CanvasLayer/Main_Controller" method="_on_show_graph_button_down"]
-[connection signal="button_down" from="CanvasLayer/PanelContainer2/Show Graph" to="CanvasLayer/Graph" method="_on_show_graph_button_down"]

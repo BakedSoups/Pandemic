@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="a epic demic"
-run/main_scene="res://scenes/Camera.tscn"
+run/main_scene="uid://dg167mqm4kshd"
 config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="res://icon.svg"
 
@@ -98,7 +98,7 @@ left_click={
 
 [rendering]
 
-environment/defaults/default_clear_color=Color(0.00383496, 0.081956, 0.15306, 1)
+environment/defaults/default_clear_color=Color(0.00628853, 0.0582428, 0.125218, 1)
 
 [shader_globals]
 

@@ -51,7 +51,6 @@ script = null
 script = ExtResource("9_ado32")
 path_width = 0.01
 path_color = Color(2.02149e-06, 0.778685, 0.518997, 1)
-plane_model_path = NodePath("plane")
 
 [node name="Area3D" type="Area3D" parent="Airport_Terminal"]
 
