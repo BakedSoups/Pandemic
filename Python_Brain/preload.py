@@ -59,14 +59,11 @@ state_dictionary = books.state
 city_array = books.cities
 virus_config = books.virus
 
-# Check if this is a custom virus initialization
 if len(sys.argv) > 1 and sys.argv[1] == "CustomVirus":
     try:
         strain_name = sys.argv[2]
         
-        # Read from JSON file instead of command line argument
         json_file_path = sys.argv[3]
-        # Convert from Godot path to system path
         if json_file_path.startswith("res://"):
             json_file_path = json_file_path.replace("res://", os.path.dirname(os.path.abspath(__file__)) + "/../")
         
@@ -75,14 +72,12 @@ if len(sys.argv) > 1 and sys.argv[1] == "CustomVirus":
         with open(json_file_path, 'r') as f:
             virus_data = json.load(f)
         
-        # Create a custom virus configuration
         custom_virus = copy.deepcopy(virus_config)
         custom_virus["current_strain"] = strain_name
         custom_virus["infection_rate"] = virus_data["infection_rate"]
         custom_virus["recovery_rate"] = virus_data["recovery_rate"]
         custom_virus["lethality"] = virus_data["lethality"]
         
-        # Update the strain data
         custom_virus["strains"] = {
             strain_name: {
                 "parent": None,
@@ -98,7 +93,6 @@ if len(sys.argv) > 1 and sys.argv[1] == "CustomVirus":
             }
         }
         
-        # Use the custom virus configuration
         virus_config = custom_virus
         seed = virus_data["seed_city"]
         
@@ -112,41 +106,30 @@ if len(sys.argv) > 1 and sys.argv[1] == "CustomVirus":
         print(f"Error setting up custom virus: {str(e)}")
         import traceback
         traceback.print_exc()
-        # Use defaults if there's an error
         seed = "SF"
         print("\nUsing default virus configuration due to error.")
 else:
-    # Use default settings
     seed = "SF"
     print("\nStarting pandemic simulation with default virus...")
 
 state_dictionary, city_dictionary = start_pandemic(seed, state_dictionary, city_array, virus_config)
 state_dictionary, city_dictionary = start_pandemic(seed, state_dictionary, city_array, virus_config)
 
-# Add this code right after that line:
-# Force the strain name to be your custom name if using custom virus
 if len(sys.argv) > 1 and sys.argv[1] == "CustomVirus":
     strain_name = sys.argv[2]  # Get the custom name
     
-    # Update the virus in state_dictionary
     if "virus" in state_dictionary:
-        # Replace "original" with your custom strain name
         original_strain_data = state_dictionary["virus"]["strains"].pop("original", None)
         if original_strain_data:
-            # Copy the strain data to your custom name
             state_dictionary["virus"]["strains"][strain_name] = original_strain_data
-            # Update the current strain
             state_dictionary["virus"]["current_strain"] = strain_name
     
-    # Update the virus history in city_dictionary
     if "virus_history" in city_dictionary:
         for day_key in city_dictionary["virus_history"]:
             if day_key in city_dictionary["virus_history"] and "strains" in city_dictionary["virus_history"][day_key] and "original" in city_dictionary["virus_history"][day_key]["strains"]:
-                # Copy the strain data to your custom name
                 original_strain_data = city_dictionary["virus_history"][day_key]["strains"].pop("original", None)
                 if original_strain_data:
                     city_dictionary["virus_history"][day_key]["strains"][strain_name] = original_strain_data
-                    # Update the current strain
                     city_dictionary["virus_history"][day_key]["current_strain"] = strain_name
 
 if "virus_history" not in city_dictionary:
@@ -166,7 +149,7 @@ pandemic_status = city_dictionary
 active_strains = {virus_config["current_strain"]}
 mutation_days = {}
 
-for i in range(1, 50):
+for i in range(1,50):
     pandemic_status = add_day(state_dictionary, pandemic_status, city_array)
     preloaded[f"day_{i}"] = copy.deepcopy(pandemic_status)
    
@@ -204,9 +187,6 @@ for i in range(1, 50):
                     print(f"Transmission changed: {parent_data['attributes']['transmission_mode']} → {strain_data['attributes']['transmission_mode']}")
    
     print(f"Simulated day {i}/50")
-
-# Save the result to a JSON file
-# Add this after completing the simulation, just before saving the JSON file
 print("\nVirus information structure check:")
 sample_day_key = "day_1"
 if sample_day_key in preloaded:
